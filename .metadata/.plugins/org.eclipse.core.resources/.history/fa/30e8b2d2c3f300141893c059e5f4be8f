@@ -42,6 +42,8 @@ public class Videotheque {
 	}
 
 	public void creer(String fichier){
+		File file = new File(fichier);
+		file.exists();
 		Analyse.charger(this, fichier);
 	}
 	

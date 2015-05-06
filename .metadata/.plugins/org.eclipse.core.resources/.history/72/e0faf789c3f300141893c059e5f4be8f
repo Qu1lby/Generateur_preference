@@ -13,10 +13,11 @@ import java.io.*;
 public abstract class Analyse {
 	
 	public static int charger(Videotheque v, String fichier){
-		try {
-			BufferedReader fr = new BufferedReader(new FileReader(fichier));
-			String fin = "";
+try {
 			
+			BufferedReader fr = new BufferedReader(new FileReader(
+					"C:/Users/Kilian/IUT/Objet/TP2/Ecrire.txt"));
+			String fin = "";
 			while (fin != null) {
 				fin = fr.readLine();
 				if (fin != null) {
