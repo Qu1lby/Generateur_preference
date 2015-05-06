@@ -14,7 +14,7 @@ public abstract class Analyse {
 	
 	public static int charger(Videotheque v, String fichier){
 		try {
-			BufferedReader fr = new BufferedReader(new FileReader("films.txt"));
+			BufferedReader fr = new BufferedReader(new FileReader(fichier));
 			String fin = "";
 			
 			do{
