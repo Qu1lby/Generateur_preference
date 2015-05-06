@@ -33,7 +33,9 @@ public class main {
        
        switch (selection){
              
-           case 1:System.out.println("Bilbliothèque créée");
+           case 1:
+        	   	Videotheque v1 = new Videotheque();
+        	   	v1.creer("fichier");
                 break;
              
         
