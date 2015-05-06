@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <session version="1.0">
-<refactoring comment="Delete resource &apos;Generateur&apos;" deleteContents="false" description="Delete resource &apos;Generateur&apos;" element1="/Generateur" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1430892831101"/>
+<refactoring comment="Delete resource &apos;Generateur&apos;" deleteContents="false" description="Delete resource &apos;Generateur&apos;" element1="/Generateur" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1430893006533"/>
 </session>
