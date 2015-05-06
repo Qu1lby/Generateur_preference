@@ -18,39 +18,21 @@ public abstract class Analyse {
 			String ligne = "";
 			
 			do{
-				// 1ère ligne
 				ligne = fr.readLine();
 				
 				boolean serie = ligne.contains("Series");
-	
-				String[] decoupage = ligne.split(" ", 2);
-				decoupage = decoupage[1].split("\\(", 2);
 				
-				String titre = decoupage[0].substring(1, decoupage[0].length());
-				int annee = Integer.parseInt(decoupage[1].substring(decoupage[1].length()-5,
-						decoupage[1].length()-1));
+				String[] decoupage = ligne.split("\\.");
+				System.out.println(decoupage[0]);
+				decoupage = decoupage[1].split("\\(");
 				
-				System.out.println(titre);
-				System.out.println(annee);
-				
-				// Ligne vide
-				ligne = fr.readLine();
-				
-				
-				// Synopsis
-				String synopsis = "";
-				ligne = fr.readLine();
-				
-				while (ligne.substring(0, 8).compareTo("Director")!= 0 |
-						ligne.substring(0, 5).compareTo("With")!= 0){
-					synopsis+= ligne;
-					ligne = fr.readLine();
-				}
+				System.out.println(decoupage[0]);
+				System.out.println(decoupage[1]+"\n");
 				
 				
 				
 				
-			}while (ligne != null);
+			}while (ligne == null);
 			fr.close();
 		} catch (IOException e) {
 			System.out.println("Erreur");

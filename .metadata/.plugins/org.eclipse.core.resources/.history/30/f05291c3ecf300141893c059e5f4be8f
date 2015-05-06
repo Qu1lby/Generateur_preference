@@ -36,16 +36,8 @@ public abstract class Analyse {
 				// Ligne vide
 				ligne = fr.readLine();
 				
-				
-				// Synopsis
-				String synopsis = "";
+				// 3ème ligne
 				ligne = fr.readLine();
-				
-				while (ligne.substring(0, 8).compareTo("Director")!= 0 |
-						ligne.substring(0, 5).compareTo("With")!= 0){
-					synopsis+= ligne;
-					ligne = fr.readLine();
-				}
 				
 				
 				

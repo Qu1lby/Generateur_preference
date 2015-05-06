@@ -35,7 +35,7 @@ public class main {
              
            case 1:
         	   	Videotheque v1 = new Videotheque();
-        	   	v1.creer("films.txt");
+        	   	v1.creer("fichier");
                 break;
              
         
