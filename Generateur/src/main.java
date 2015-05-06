@@ -12,7 +12,7 @@ public class main {
 
 		/* --------------------- Menu --------------------- */
 
-		Scanner scan1 = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 
 		System.out.println("Choisissez une opération a effectuer:");
 		System.out.println("[1] Créer une Bibliothèque");
@@ -20,7 +20,7 @@ public class main {
 		System.out.println("[3] Quitter");
 		System.out.print("Selection: ");
 
-		int choix = scan1.nextInt();
+		int choix = scan.nextInt();
 
 		boolean fin = false;
 		do {
@@ -31,9 +31,9 @@ public class main {
 
 			case 2:
 				// L'utilisateur renseigne le nom du fichier .bi existant
-				Scanner scan2 = new Scanner(System.in);
 				System.out.print("Nom du fichier .bi : ");
-				String fichier = scan2.nextLine();
+				scan.nextLine();
+				String fichier = scan.nextLine();
 
 				// On associe l'entrée de l'utilisateur à un nouvel objet de
 				// type File
@@ -52,7 +52,39 @@ public class main {
 					 * (ClassNotFoundException | IOException e) {
 					 * e.printStackTrace(); }
 					 */
-					fin = true;
+					
+					/* ----------------- Sous Menu ----------------- */
+
+					System.out.println("\nChoisissez une opération a effectuer:");
+					System.out.println("[1] Afficher les films");
+					System.out.println("[2] Afficher les séries");
+					System.out.println("[3] Rechercher un film");
+					System.out.println("[4] Retour");
+					System.out.println("[5] Quitter");
+					System.out.print("Selection: ");
+
+					choix = scan.nextInt();
+					boolean fin2 = false;
+					do {
+						switch (choix) {
+						case 1:
+							System.out.println("Choix 1");
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						case 4:
+							break;
+						case 5:
+							System.out.println("Sorti");
+							System.exit(0);
+
+						default:
+							System.out.println("Entrez une sélection valide");
+						};
+					} while (!fin);
+					//fin = true;
 				}
 				break;
 
