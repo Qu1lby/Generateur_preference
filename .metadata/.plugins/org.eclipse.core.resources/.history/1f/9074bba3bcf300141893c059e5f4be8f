@@ -1,0 +1,70 @@
+/**
+ * Classe Vidéothèque, représente un ensemble de ressources
+ * @author Kilian Cuny
+ * @author Guillaume Haben
+ * 
+ * @version 1.0
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class Videotheque {
+
+	// Table des films
+	HashMap<Integer, ArrayList<Ressource>> tab_film;
+	
+	// Table des séries
+	HashMap<Integer, ArrayList<Ressource>> tab_serie;
+	
+	/**
+	 * Constructeur initialisant les deux Tables
+	 */
+	public Videotheque(){
+		tab_film = new HashMap<Integer, ArrayList<Ressource>>();
+		tab_serie = new HashMap<Integer, ArrayList<Ressource>>();
+	}
+	
+	
+	/**
+	 * 
+	 * Sauvegarde la Vidéothèque courante dans un fichier binaire
+	 * 
+	 * @param fichier : Nom du fichier
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public void sauvegarder(String fichier) throws FileNotFoundException, IOException {
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier));
+			oos.writeObject(this);
+			oos.close();
+			
+		} catch (IOException e) {
+			System.out.println("Erreur lors de la sauvegarde !");
+		}
+	}
+
+	/**
+	 * 
+	 * Charge la Vidéothèque courante à partir d'un fichier de sauvegarde
+	 * 
+	 * @param fichier : Nom du fichier
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public void charger(String fichier) throws FileNotFoundException, IOException,
+			ClassNotFoundException {
+		try{
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
+			Videotheque v = (Videotheque) ois.readObject();
+			ois.close();
+			this.tab_film = v.tab_film;
+			this.tab_serie = v.tab_serie;
+
+		} catch (IOException e) {
+			System.out.println("Erreur lors du chargement !");
+		}
+	}
+}

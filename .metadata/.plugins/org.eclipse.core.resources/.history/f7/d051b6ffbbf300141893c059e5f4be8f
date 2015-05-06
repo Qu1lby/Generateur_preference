@@ -1,0 +1,56 @@
+/**
+ * Classe Vidéothèque, représente un ensemble de ressources
+ * @author Kilian Cuny
+ * @author Guillaume Haben
+ * 
+ * @version 1.0
+ */
+
+import java.io.IOException;
+import java.util.*;
+
+public class Videotheque {
+
+	// Table des films
+	HashMap<Integer, ArrayList<Ressource>> tab_film;
+	
+	// Table des séries
+	HashMap<Integer, ArrayList<Ressource>> tab_serie;
+	
+	/**
+	 * Constructeur initialisant les deux Tables
+	 */
+	public Videotheque(){
+		tab_film = new HashMap<Integer, ArrayList<Ressource>>();
+		tab_serie = new HashMap<Integer, ArrayList<Ressource>>();
+	}
+	
+	
+	
+	public void sauvegarder(String fichier) throws FileNotFoundException, IOException {
+
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(
+				fich));
+		oos.writeObject(this);
+		oos.close();
+		this.nblivre = 0;
+		this.Li = null;
+	}
+
+	public void charger(String fich) throws FileNotFoundException, IOException,
+			ClassNotFoundException {
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
+					fich));
+			Bibliothèque b = (Bibliothèque) ois.readObject();
+			ois.close();
+			this.Li = b.Li;
+			this.nblivre = b.nblivre;
+
+		} catch (IOException e1) {
+			System.out.println("Error");
+		}
+	}
+	
+	
+}

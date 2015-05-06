@@ -1,0 +1,11 @@
+
+public class Videotheque {
+
+	
+public int methode(boolean b, int a){
+	return a;
+	
+}
+	
+	
+}

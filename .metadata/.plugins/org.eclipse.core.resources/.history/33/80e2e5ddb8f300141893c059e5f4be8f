@@ -1,0 +1,11 @@
+/**
+ * Classe Vidéothèque, représente un ensemble de ressources
+ */
+
+import java.util.*;
+
+public class Videotheque {
+
+	
+	
+}
