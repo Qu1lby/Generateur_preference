@@ -47,13 +47,7 @@ public class Videotheque {
 	 */
 	public void creer(String fichier){
 		Analyse.charger(this, fichier);
-		try {
-			this.sauvegarder("myBibli.bi");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.sauvegarder("myBibli.bi");
 	}
 	
 	/**
@@ -112,16 +106,18 @@ public class Videotheque {
 		try{
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
 			Videotheque v;
-			v = (Videotheque) ois.readObject();
+			try {
+				v = (Videotheque) ois.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			ois.close();
 			this.tab_film = v.tab_film;
 			this.tab_serie = v.tab_serie;
 
 		} catch (IOException e) {
 			System.out.println("Erreur lors du chargement !");
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 }

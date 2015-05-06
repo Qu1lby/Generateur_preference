@@ -47,13 +47,7 @@ public class Videotheque {
 	 */
 	public void creer(String fichier){
 		Analyse.charger(this, fichier);
-		try {
-			this.sauvegarder("myBibli.bi");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.sauvegarder("myBibli.bi");
 	}
 	
 	/**
@@ -121,6 +115,7 @@ public class Videotheque {
 			System.out.println("Erreur lors du chargement !");
 		}
 		catch (ClassNotFoundException e) {
+		
 			e.printStackTrace();
 		}
 	}
