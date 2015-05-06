@@ -1,0 +1,20 @@
+
+public class Analyse {
+
+	
+	
+	/**
+	 * 
+	 * Fonction de Hashage
+	 * 
+	 * @param c : Caractère
+	 * @return place dans l'alphabet de c
+	 */
+	public int Hashage(char c){
+		int temp = (int)c;
+		if(temp<=122 & temp>=97)
+			return (temp-96);
+		}return 27;
+	}
+	
+}
