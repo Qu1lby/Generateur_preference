@@ -9,7 +9,6 @@
  */
 
 import java.io.*;
-import java.util.ArrayList;
 
 public abstract class Analyse {
 	
@@ -31,19 +30,25 @@ public abstract class Analyse {
 				int annee = Integer.parseInt(decoupage[1].substring(decoupage[1].length()-5,
 						decoupage[1].length()-1));
 				
+				System.out.println(titre);
+				System.out.println(annee);
+				
 				// Ligne vide
 				ligne = fr.readLine();
 				
 				// Synopsis
 				String synopsis = "";
-				String director = "";
 				ligne = fr.readLine();
+				
+				String director = "";
 
 				if(!serie){
 					while (ligne.substring(0, 8).compareTo("Director")!= 0){
 						synopsis+= ligne;
 						ligne = fr.readLine();
 					}
+					
+					System.out.println(synopsis);
 					
 					decoupage = ligne.split(":");
 					director = decoupage[1].substring(1);
@@ -53,42 +58,12 @@ public abstract class Analyse {
 					while (ligne.substring(0, 5).compareTo("With")!= 0){
 						synopsis+= ligne;
 						ligne = fr.readLine();
+						System.out.println(ligne.substring(0, 8));
+					}
 					}
 				}
+				System.out.println(director);
 				
-				// Acteurs
-				decoupage = ligne.split(":");
-				decoupage = decoupage[1].split(",");
-				
-				ArrayList<String> acteurs = new ArrayList<String>();
-				for(String nom : decoupage){
-					nom = nom.substring(1);
-					acteurs.add(nom);
-				}
-				
-				// Genre
-				ligne = fr.readLine();
-				decoupage = ligne.split(" ");
-				ArrayList<String> genres = new ArrayList<String>();
-				int duree = 0;
-				
-				if(decoupage[decoupage.length-1].compareTo("mins.") == 0){
-					for(int i = 0; i< decoupage.length-2; i+=2){
-						genres.add(decoupage[i]);
-					}
-					duree = Integer.parseInt(decoupage[decoupage.length-2]);
-				}else{
-					for(int i = 0; i< decoupage.length; i+=2){
-						genres.add(decoupage[i].substring(1));
-					}
-				}
-				
-				String type = "Film";
-				if(serie) type = "Serie";
-				Ressource r = new Ressource(titre, annee, synopsis, acteurs, genres, type, director, -1, false);
-				
-				int cle = Analyse.Hashage(titre.charAt(0));
-				v.ajouter(cle, r, type);
 				
 			}while (ligne != null);
 			fr.close();
