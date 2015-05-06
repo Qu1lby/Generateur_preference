@@ -21,7 +21,8 @@ public class Videotheque {
 	 * Constructeur initialisant les deux Tables
 	 */
 	public Videotheque(){
-		this.reintialiser();
+		tab_film = new HashMap<Integer, ArrayList<Ressource>>(27);
+		tab_serie = new HashMap<Integer, ArrayList<Ressource>>(27);
 	}
 	
 	/**
@@ -55,24 +56,6 @@ public class Videotheque {
 	public void reintialiser(){
 		tab_film = new HashMap<Integer, ArrayList<Ressource>>(27);
 		tab_serie = new HashMap<Integer, ArrayList<Ressource>>(27);
-		for(int i=0; i<27; i++){
-			tab_film.put(i, new ArrayList<Ressource>());
-			tab_serie.put(i, new ArrayList<Ressource>());
-		}
-		
-	}
-	
-	/**
-	 * Ajoute une Ressource
-	 * 
-	 * @param cle : clé de la Hashmap
-	 * @param r : ressource
-	 * @param type : type (film ou serie)
-	 */
-	public void ajouter(int cle, Ressource r, String type) {
-		if(type.compareTo("Film")==0){
-			tab_film.get(cle).add(r);
-		}else tab_serie.get(cle).add(r);	
 	}
 	
 	/**
