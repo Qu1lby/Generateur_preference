@@ -1,45 +1,45 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class main {
 
 	public static void main(String[] args) {
-		String titre = "Harry Potter";
-		int annee = 2007;
-		String synopsis = "Un gentil sorcier et un méchant sorcier";
-		ArrayList<String> acteurs = new ArrayList<String>();
-		acteurs.add("Daniel");
-		acteurs.add("Rupert");
-		acteurs.add("Emma");
-		ArrayList<String> genres = new ArrayList<String>();
-		genres.add("Fantastique");
-		String type = "Film";
-		String realisateur = "David Yates";
-		int note = 10;
-		boolean vu = true;
+
+		/* ---------- Création de la vidéothèque ---------- */
 		
-		Ressource HP = new Ressource(titre, annee, synopsis, acteurs, genres, type, realisateur, note, vu);
-		System.out.println(HP.toString());
+		Videotheque ma_videotheque = new Videotheque();
 		
-		/* ---------- Menu ---------- */
+		/* --------------------- Menu --------------------- */
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner scan1 = new Scanner(System.in);
+		
 		System.out.println("Choisissez une opération a effectuer:"); 
         System.out.println("[1] Créer une Bibliothèque (format .txt)"); 
         System.out.println("[2] Charger une Bibliothèque déjà existante (format .bi)"); 
         System.out.println("[3] Quitter"); 
+        System.out.print("Selection: "); 
         
-        System.out.println("Selection: "); 
-        int selection = sc.nextInt();     
+        int choix = scan1.nextInt();     
        
-       switch (selection){
+       switch (choix){
        		case 1:
-       			Videotheque v1 = new Videotheque();
-       			v1.creer("films.txt");
+       			ma_videotheque.creer("films.txt");
        			break;
              
        		case 2:
-       			
+       			Scanner scan2 = new Scanner(System.in);
+       	        System.out.print("Nom du fichier .bi : "); 
+       	        String fichier = scan2.nextLine();     
+       	        
+				try {
+					ma_videotheque.charger(fichier);
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
        			break;
              
        		case 3:System.out.println("Sorti");
