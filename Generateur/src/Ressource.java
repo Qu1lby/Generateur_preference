@@ -6,9 +6,10 @@
  * @verion 1.0
  */
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Ressource {
+public class Ressource implements Serializable {
 	private static int id = 0;
 	private String titre;
 	private int annee;

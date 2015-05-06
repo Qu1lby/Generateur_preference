@@ -27,6 +27,7 @@ public class main {
 			switch (choix) {
 			case 1:
 				ma_videotheque.creer("films.txt");
+				fin = true;
 				break;
 
 			case 2:
@@ -47,48 +48,44 @@ public class main {
 				else if (!filename.exists()) {
 					System.out.println("Le fichier renseigné n'existe pas");
 				} else {
-					/*
-					 * try { ma_videotheque.charger(fichier); } catch
-					 * (ClassNotFoundException | IOException e) {
-					 * e.printStackTrace(); }
-					 */
-					
-					/* ----------------- Sous Menu ----------------- */
-
-					System.out.println("\nChoisissez une opération a effectuer:");
-					System.out.println("[1] Afficher les films");
-					System.out.println("[2] Afficher les séries");
-					System.out.println("[3] Rechercher un film");
-					System.out.println("[4] Retour");
-					System.out.println("[5] Quitter");
-					System.out.print("Selection: ");
-
-					choix = scan.nextInt();
-					boolean fin2 = false;
-					do {
-						switch (choix) {
-						case 1:
-							System.out.println("Choix 1");
-							break;
-						case 2:
-							break;
-						case 3:
-							break;
-						case 4:
-							break;
-						case 5:
-							System.out.println("Sorti");
-							System.exit(0);
-
-						default:
-							System.out.println("Entrez une sélection valide");
-						};
-					} while (!fin);
-					//fin = true;
+					ma_videotheque.charger(fichier);
+					fin = true;
 				}
 				break;
 
 			case 3:
+				System.out.println("Sorti");
+				System.exit(0);
+
+			default:
+				System.out.println("Entrez une sélection valide");
+			};
+		} while (!fin);
+		
+		/* ----------------- Sous Menu ----------------- */
+
+		System.out.println("\nChoisissez une opération a effectuer:");
+		System.out.println("[1] Afficher les films");
+		System.out.println("[2] Afficher les séries");
+		System.out.println("[3] Rechercher un film");
+		System.out.println("[4] Réinitialiser");
+		System.out.println("[5] Quitter");
+		System.out.print("Selection: ");
+
+		choix = scan.nextInt();
+		boolean fin2 = false;
+		do {
+			switch (choix) {
+			case 1:
+				System.out.println("Choix 1");
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
 				System.out.println("Sorti");
 				System.exit(0);
 

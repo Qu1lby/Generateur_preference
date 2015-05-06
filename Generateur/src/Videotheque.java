@@ -9,7 +9,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Videotheque {
+public class Videotheque implements Serializable{
 
 	// Table des films
 	HashMap<Integer, ArrayList<Ressource>> tab_film;
@@ -96,7 +96,7 @@ public class Videotheque {
 			oos.close();
 			
 		} catch (IOException e) {
-			System.out.println("Erreur lors de la sauvegarde !");
+			e.printStackTrace();
 		}
 	}
 
@@ -118,7 +118,7 @@ public class Videotheque {
 			this.tab_serie = v.tab_serie;
 
 		} catch (IOException e) {
-			System.out.println("Erreur lors du chargement !");
+			e.printStackTrace();
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
