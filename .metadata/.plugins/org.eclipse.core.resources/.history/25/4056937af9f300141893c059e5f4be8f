@@ -54,7 +54,7 @@ public abstract class Analyse {
 					ligne = fr.readLine();
 					
 				}else{
-					while (ligne.substring(0, 4).compareTo("With")!= 0){
+					while (ligne.substring(0, 5).compareTo("With")!= 0){
 						synopsis+= ligne;
 						ligne = fr.readLine();
 					}

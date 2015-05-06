@@ -28,11 +28,7 @@ public abstract class Analyse {
 				decoupage = decoupage[1].split("\\(", 2);
 				
 				String titre = decoupage[0].substring(1);
-				
-				int annee = 0;
-				if(serie) annee = Integer.parseInt(decoupage[1].substring(decoupage[1].length()-15,
-						decoupage[1].length()-11));
-				else annee = Integer.parseInt(decoupage[1].substring(decoupage[1].length()-5,
+				int annee = Integer.parseInt(decoupage[1].substring(decoupage[1].length()-5,
 						decoupage[1].length()-1));
 				
 				// Ligne vide
@@ -54,7 +50,7 @@ public abstract class Analyse {
 					ligne = fr.readLine();
 					
 				}else{
-					while (ligne.substring(0, 4).compareTo("With")!= 0){
+					while (ligne.substring(0, 5).compareTo("With")!= 0){
 						synopsis+= ligne;
 						ligne = fr.readLine();
 					}
@@ -93,9 +89,6 @@ public abstract class Analyse {
 				
 				int cle = Analyse.Hashage(titre.charAt(0));
 				v.ajouter(cle, r, type);
-				
-				ligne = fr.readLine();
-				ligne = fr.readLine();
 				
 			}while (ligne != null);
 			fr.close();
