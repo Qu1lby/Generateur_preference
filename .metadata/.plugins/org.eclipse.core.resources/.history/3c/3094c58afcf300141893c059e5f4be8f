@@ -17,22 +17,27 @@ public abstract class Analyse {
 		try {
 			BufferedReader fr = new BufferedReader(new FileReader(fichier));
 			String ligne = "";
+			int j = 0;
 			ligne = fr.readLine();
 			
 			do{
-				// 1ère ligne				
+				// 1ère ligne
+				j++;
+				
 				boolean serie = ligne.contains("Series");
 	
 				String[] decoupage = ligne.split(" ", 2);
 				decoupage = decoupage[1].split("\\(", 2);
 				
 				String titre = decoupage[0].substring(1);
-				decoupage = decoupage[1].split("\\)", 2);
 				
 				int annee = 0;
-				if(serie) annee = Integer.parseInt(decoupage[0].substring(0,4));
+				if(serie) annee = Integer.parseInt(decoupage[1].substring(decoupage[1].length()-15,
+						decoupage[1].length()-11));
 				else{
-					annee = Integer.parseInt(decoupage[0]);
+					String a = decoupage[1].substring(0,
+							decoupage[1].length()-1);
+					annee = Integer.parseInt(decoupage[1].substring(0, decoupage[1].length()-1));
 				}
 				
 				// Ligne vide
@@ -94,10 +99,8 @@ public abstract class Analyse {
 				int cle = Analyse.Hashage(titre.charAt(0));
 				v.ajouter(cle, r, type);
 				
-				ligne = fr.readLine();
-				
-				while(ligne != null && (ligne.compareTo("")==0)){
-					ligne = fr.readLine();
+				while(fr.readLine()==""){
+					
 				}
 				
 			}while (ligne != null);

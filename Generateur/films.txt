@@ -254,6 +254,7 @@ A chemistry teacher diagnosed with a terminal lung cancer, teams up with his for
 With : Bryan Cranston, Aaron Paul, Anna Gunn 
 Crime | Drama | Thriller 45 mins.
 
+
 35.  iZombie (2015 TV Series)
 
 A medical resident finds that being a zombie has its perks, which she uses to assist the police. 
@@ -291,7 +292,7 @@ With : Chris Pratt, Vin Diesel, Bradley Cooper
 Action | Adventure | Sci-Fi 121 mins.
 
 
-40.  Fast & Furious 6 (2013) 
+40.  Fast & Furious 6 (2013)
 
 Hobbs has Dominic and Brian reassemble their crew to take down a team of mercenaries: Dominic unexpectedly gets convoluted also facing his presumed deceased girlfriend, Letty. 
 Director : Justin Lin 
@@ -314,7 +315,7 @@ With : Eliza Taylor, Eli Goree, Thomas McDonell
 Drama | Sci-Fi 43 mins.
 
 
-43.  Marvel: Les agents du S.H.I.E.L.D. (2013 TV Series) Marvel: Les agents du S.H.I.E.L.D. (2013 TV Series)
+43.  Marvel: Les agents du S.H.I.E.L.D. (2013 TV Series)
 
 The missions of the Strategic Homeland Intervention, Enforcement and Logistics Division. 
 With : Clark Gregg, Ming-Na Wen, Brett Dalton 
@@ -440,6 +441,7 @@ After a near-fatal plane crash in WWII, Olympian Louis Zamperini spends a harrow
 Director : Angelina Jolie 
 With : Jack O'Connell, Takamasa Ishihara, Domhnall Gleeson 
 Biography | Drama | Sport | War 137 mins.
+
 
 60.  Ex Machina (2015)
 
@@ -595,7 +597,7 @@ With : Sam Rockwell, Rosemarie DeWitt, Jane Adams
 Horror | Thriller
 
 
-80.  Une merveilleuse histoire du temps (2014) 
+80.  Une merveilleuse histoire du temps (2014)
 
 A look at the relationship between the famous physicist Stephen Hawking and his wife. 
 Director : James Marsh 
@@ -737,5 +739,3 @@ Crime | Drama | Mystery 90 mins.
 Old-school U.S. Marshal Raylan Givens is reassigned from Miami to his childhood home in the poor, rural coal-mining towns in Eastern Kentucky. 
 With : Timothy Olyphant, Nick Searcy, Joelle Carter 
 Action | Crime | Drama | Thriller 44 mins.
-
-

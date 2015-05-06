@@ -17,10 +17,13 @@ public abstract class Analyse {
 		try {
 			BufferedReader fr = new BufferedReader(new FileReader(fichier));
 			String ligne = "";
+			int j = 0;
 			ligne = fr.readLine();
 			
 			do{
-				// 1ère ligne				
+				// 1ère ligne
+				j++;
+				
 				boolean serie = ligne.contains("Series");
 	
 				String[] decoupage = ligne.split(" ", 2);
@@ -96,7 +99,7 @@ public abstract class Analyse {
 				
 				ligne = fr.readLine();
 				
-				while(ligne != null && (ligne.compareTo("")==0)){
+				while((ligne.compareTo("")==0) && ligne != null){
 					ligne = fr.readLine();
 				}
 				
