@@ -14,13 +14,15 @@ public abstract class Analyse {
 	
 	public static int charger(Videotheque v, String fichier){
 		try {
-			BufferedReader fr = new BufferedReader(new FileReader("films.txt"));
+			BufferedReader fr = new BufferedReader(new FileReader(fichier));
 			String fin = "";
 			
-			do{
+			do {
 				fin = fr.readLine();
-				System.out.println(fin);
-			}while (fin != null);
+				if (fin != null) {
+					System.out.println(fin);
+				}while (fin != null)
+			}
 			fr.close();
 		} catch (IOException e) {
 			System.out.println("Erreur");

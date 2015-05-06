@@ -42,9 +42,8 @@ public class Videotheque {
 	}
 
 	/**
-	 * Créer une nouvelle Vidéothèque
 	 * 
-	 * @param fichier : nom du fichier
+	 * @param fichier
 	 */
 	public void creer(String fichier){
 		Analyse.charger(this, fichier);
