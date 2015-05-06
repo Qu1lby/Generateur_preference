@@ -1,6 +1,5 @@
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class main {
@@ -16,7 +15,7 @@ public class main {
 		Scanner scan1 = new Scanner(System.in);
 		
 		System.out.println("Choisissez une opération a effectuer:"); 
-        System.out.println("[1] Créer une Bibliothèque (format .txt)"); 
+        System.out.println("[1] Créer une Bibliothèque"); 
         System.out.println("[2] Charger une Bibliothèque déjà existante (format .bi)"); 
         System.out.println("[3] Quitter"); 
         System.out.print("Selection: "); 
@@ -31,14 +30,24 @@ public class main {
        		case 2:
        			Scanner scan2 = new Scanner(System.in);
        	        System.out.print("Nom du fichier .bi : "); 
-       	        String fichier = scan2.nextLine();     
+       	        String fichier = scan2.nextLine();
        	        
-				try {
-					ma_videotheque.charger(fichier);
-				} catch (ClassNotFoundException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+       	        String extension = fichier.substring(0, fichier.lastIndexOf('.'));
+       	        File filename = new File(fichier);
+       	        
+       	        if (extension.compareTo("bi") != 0) {
+       	        	System.out.println("Le fichier renseigné n'est pas valide");
+       	        }
+       	        else if (!filename.exists()) {
+       	        	System.out.println("Le fichier renseigné n'existe pas");
+       	        }
+       	        else {
+    				try {
+    					ma_videotheque.charger(fichier);
+    				} catch (ClassNotFoundException | IOException e) {
+    					e.printStackTrace();
+    				}
+       	        }
 
        			break;
              
@@ -48,7 +57,5 @@ public class main {
        		default:System.out.println("Entrez une sélection valide");
            
        };
-		
 	}
-	
 }
