@@ -16,7 +16,6 @@ public abstract class Analyse {
 		try {
 			BufferedReader fr = new BufferedReader(new FileReader(fichier));
 			String fin = "";
-			
 			while (fin != null) {
 				fin = fr.readLine();
 				if (fin != null) {

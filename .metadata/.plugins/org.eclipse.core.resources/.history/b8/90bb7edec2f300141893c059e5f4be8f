@@ -42,7 +42,7 @@ public class Videotheque {
 	}
 
 	public void creer(String fichier){
-		Analyse.charger(this, fichier);
+		
 	}
 	
 	/**

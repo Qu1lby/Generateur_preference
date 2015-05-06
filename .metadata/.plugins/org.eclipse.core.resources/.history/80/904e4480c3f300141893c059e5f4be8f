@@ -1,6 +1,6 @@
 /**
  * Classe Analyse, contient les méthodes pour le traitement des flux
- * et des Tables de films/séries
+ * et des tables
  * 
  * @author Kilian Cuny
  * @author Guillaume Haben
@@ -13,10 +13,11 @@ import java.io.*;
 public abstract class Analyse {
 	
 	public static int charger(Videotheque v, String fichier){
-		try {
-			BufferedReader fr = new BufferedReader(new FileReader(fichier));
-			String fin = "";
+try {
 			
+			BufferedReader fr = new BufferedReader(new FileReader(
+					"C:/Users/Kilian/IUT/Objet/TP2/Ecrire.txt"));
+			String fin = "";
 			while (fin != null) {
 				fin = fr.readLine();
 				if (fin != null) {

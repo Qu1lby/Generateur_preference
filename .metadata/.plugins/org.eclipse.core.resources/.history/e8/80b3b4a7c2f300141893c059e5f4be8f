@@ -41,10 +41,6 @@ public class Videotheque {
 		this.tab_serie = tab_serie;
 	}
 
-	public void creer(String fichier){
-		Analyse.charger(this, fichier);
-	}
-	
 	/**
 	 * Réinitialise la Bibliothèque
 	 */
