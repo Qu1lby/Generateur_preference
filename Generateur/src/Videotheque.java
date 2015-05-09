@@ -9,7 +9,6 @@
 import java.io.*;
 import java.util.*;
 
-@SuppressWarnings("serial")
 public class Videotheque implements Serializable{
 
 	// Table des films
@@ -43,33 +42,39 @@ public class Videotheque implements Serializable{
 
 	/**
 	 * Créer une nouvelle Vidéothèque
+	 * 
 	 * @param fichier : nom du fichier
 	 */
 	public void creer(String fichier){
 		Analyse.charger(this, fichier);
-		
-		// Sauvegarde automatique de la Vidéothèque
-		this.sauvegarder("myBibli.bi");
-	}
-	
-	/**
-	 * Réinitialise la Vidéothèque
-	 */
-	public void reintialiser(){
-		tab_film = new HashMap<Integer, ArrayList<Ressource>>(27);
-		tab_serie = new HashMap<Integer, ArrayList<Ressource>>(27);
-		
-		for(int i=0; i<27; i++){
-			tab_film.put(i, new ArrayList<Ressource>());
-			tab_serie.put(i, new ArrayList<Ressource>());
+		try {
+			this.sauvegarder("myBibli.bi");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
 	/**
+	 * Réinitialise la Bibliothèque
+	 */
+	public void reintialiser(){
+		tab_film = new HashMap<Integer, ArrayList<Ressource>>(27);
+		tab_serie = new HashMap<Integer, ArrayList<Ressource>>(27);
+		for(int i=0; i<27; i++){
+			tab_film.put(i, new ArrayList<Ressource>());
+			tab_serie.put(i, new ArrayList<Ressource>());
+		}
+		
+	}
+	
+	/**
 	 * Ajoute une Ressource
+	 * 
 	 * @param cle : clé de la Hashmap
-	 * @param r : Ressource
-	 * @param type : type de Ressource
+	 * @param r : ressource
+	 * @param type : type (film ou serie)
 	 */
 	public void ajouter(int cle, Ressource r, String type) {
 		if(type.compareTo("Film")==0){
@@ -79,11 +84,12 @@ public class Videotheque implements Serializable{
 	
 	/**
 	 * Sauvegarde la Vidéothèque courante dans un fichier binaire
+	 * 
 	 * @param fichier : Nom du fichier
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public void sauvegarder(String fichier) {
+	public void sauvegarder(String fichier) throws FileNotFoundException, IOException {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier));
 			oos.writeObject(this);
@@ -96,7 +102,11 @@ public class Videotheque implements Serializable{
 
 	/**
 	 * Charge la Vidéothèque courante à partir d'un fichier de sauvegarde
+	 * 
 	 * @param fichier : Nom du fichier
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 */
 	public void charger(String fichier) {
 		try{
@@ -104,7 +114,6 @@ public class Videotheque implements Serializable{
 			Videotheque v;
 			v = (Videotheque) ois.readObject();
 			ois.close();
-			
 			this.tab_film = v.tab_film;
 			this.tab_serie = v.tab_serie;
 

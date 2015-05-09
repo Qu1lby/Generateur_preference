@@ -1,5 +1,5 @@
 /**
- * Classe Ressource, représente un film ou une série
+ * Classe Ressource, représente une ressource (un film ou une série)
  * @author Guillaume Haben
  * @author Kilian Cuny
  *
@@ -9,11 +9,8 @@
 import java.io.Serializable;
 import java.util.*;
 
-@SuppressWarnings("serial")
 public class Ressource implements Serializable {
 	private static int id = 0;
-	
-	//private int identifiant;
 	private String titre;
 	private int annee;
 	private String synopsis;
@@ -25,13 +22,20 @@ public class Ressource implements Serializable {
 	private boolean vu;
 	
 	/**
-	 * Constructeur
+	 * @param titre
+	 * @param annee
+	 * @param synopsis
+	 * @param acteurs
+	 * @param genres
+	 * @param type
+	 * @param realisateur
+	 * @param note
+	 * @param vu
 	 */
 	public Ressource(String titre, int annee, String synopsis,
 			ArrayList<String> acteurs, ArrayList<String> genres, String type,
 			String realisateur, int note, boolean vu) {
-		
-		//this.identifiant = id;
+		id++;
 		this.titre = titre;
 		this.annee = annee;
 		this.synopsis = synopsis;
@@ -41,51 +45,61 @@ public class Ressource implements Serializable {
 		this.realisateur = realisateur;
 		this.note = note;
 		this.vu = vu;
-		id++;
 	}
 	
 	/**
-	 * Getter
-	 * @return note
+	 * Getter note
+	 * @return the note
 	 */
 	public int getNote() {
 		return note;
 	}
 
+
+
 	/**
-	 * Setter
-	 * @param note : the note to set
+	 * Setter note
+	 * @param note the note to set
 	 */
 	public void setNote(int note) {
 		this.note = note;
 	}
 
+
+
 	/**
-	 * Getter
-	 * @return vu
+	 * Getter vu
+	 * @return the vu
 	 */
 	public boolean isVu() {
 		return vu;
 	}
 
+
+
 	/**
-	 * Setter
-	 * @param vu : the vu to set
+	 * Setter vu
+	 * @param vu the vu to set
 	 */
 	public void setVu(boolean vu) {
 		this.vu = vu;
 	}
 
+
+
 	/**
-	 * Getter
+	 * Getter type
 	 * @return the type
 	 */
 	public String getType() {
 		return type;
 	}
 
+
+
 	/**
-	 * Affiche la ressource à l'écran
+	 * Fonction toString
+	 * Affiche la ressource à l'écran	 * 
 	 */
 	public String toString() {
 		if (this.type == "Serie") {
@@ -100,4 +114,5 @@ public class Ressource implements Serializable {
 					+ note + "\n Vu = " + vu;
 		}
 	}
+	
 }
