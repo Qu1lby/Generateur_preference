@@ -1,12 +1,11 @@
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
-public class main {
+public class Principale {
 
 	public static void main(String[] args) {
 
-		/* ---------- Création de la vidéothèque ---------- */
+		/* ---------- Création de la Vidéothèque ---------- */
 
 		Videotheque ma_videotheque = new Videotheque();
 
@@ -93,5 +92,8 @@ public class main {
 				System.out.println("Entrez une sélection valide");
 			};
 		} while (!fin);
+		
+		
+		scan.close();
 	}
 }
