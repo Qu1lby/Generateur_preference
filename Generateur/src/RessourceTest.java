@@ -39,6 +39,7 @@ public class RessourceTest {
 	
 		r_test.setNote(0); // note=0
 		assertEquals(0, r_test.getNote());
+
 	}
 
 	@Test

@@ -21,11 +21,11 @@ public class Principale {
 
 		int choix = scan.nextInt();
 		boolean fin = false;
-		
+		int code_retour;
 		do {
 			switch (choix) {
 			case 1:
-				int code_retour = ma_videotheque.creer("films.txt");
+				code_retour = ma_videotheque.creer("films.txt");
 				if(code_retour != -1){	
 				// Sauvegarde automatique de la Vidéothèque
 					ma_videotheque.sauvegarder("myBibli.bi");
@@ -54,8 +54,14 @@ public class Principale {
 				else if (!filename.exists()) {
 					System.out.println("Le fichier renseigné n'existe pas");
 				}else {
-					ma_videotheque.charger(fichier);
-					fin = true;
+					code_retour = ma_videotheque.charger(fichier);
+					if(code_retour == 0){
+						fin = true;
+					}else {
+						System.out.println("Impossible de charger la Vidéothèque\n"
+								+ "Le fichier est corrompu ou inexistant");
+						System.exit(0);
+					}
 				}
 				break;
 

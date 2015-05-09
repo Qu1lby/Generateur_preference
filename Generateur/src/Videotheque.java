@@ -13,10 +13,10 @@ import java.util.*;
 public class Videotheque implements Serializable{
 
 	// Table des films
-	HashMap<Integer, ArrayList<Ressource>> tab_film;
+	public HashMap<Integer, ArrayList<Ressource>> tab_film;
 	
 	// Table des séries
-	HashMap<Integer, ArrayList<Ressource>> tab_serie;
+	public HashMap<Integer, ArrayList<Ressource>> tab_serie;
 	
 	/**
 	 * Constructeur initialisant les deux Tables
@@ -119,8 +119,9 @@ public class Videotheque implements Serializable{
 	/**
 	 * Charge la Vidéothèque courante à partir d'un fichier de sauvegarde
 	 * @param fichier : Nom du fichier
+	 * @return code de retour
 	 */
-	public void charger(String fichier) {
+	public int charger(String fichier) {
 		try{
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
 			Videotheque v;
@@ -129,15 +130,17 @@ public class Videotheque implements Serializable{
 			
 			this.tab_film = v.tab_film;
 			this.tab_serie = v.tab_serie;
+			
+			return 0;
 
 		} catch (IOException e) {
 			System.out.print("Chargement corrompu : ");
 			e.printStackTrace();
-			System.exit(0);
+			return -1;
 		} catch (ClassNotFoundException e) {
 			System.out.print("Chargement corrompu : ");
 			e.printStackTrace();
-			System.exit(0);
+			return -1;
 		}
 	}
 }
