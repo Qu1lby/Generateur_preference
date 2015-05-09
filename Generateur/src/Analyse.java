@@ -16,10 +16,14 @@ public abstract class Analyse {
 	public static int charger(Videotheque v, String fichier){
 		try {
 			BufferedReader fr = new BufferedReader(new FileReader(fichier));
-			String ligne = "";
-			ligne = fr.readLine();
+			String ligne = fr.readLine();
 			
 			do{
+				// Echappe d'eventuelles lignes vides en début de fichier
+				while(ligne != null && (ligne.compareTo("")==0)){
+					ligne = fr.readLine();
+				}
+				
 				// 1ère ligne				
 				boolean serie = ligne.contains("Series");
 	
@@ -103,10 +107,12 @@ public abstract class Analyse {
 			}while (ligne != null);
 			fr.close();
 		} catch (IOException e) {
-			System.out.println("Erreur");
+			System.out.print("Please, report this message : ");
+			e.printStackTrace();
+			return -1;
 		}
 		
-		return 1;
+		return 0;
 		
 	}
 	

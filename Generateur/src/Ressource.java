@@ -1,5 +1,5 @@
 /**
- * Classe Ressource, représente une ressource (un film ou une série)
+ * Classe Ressource, représente une Ressource
  * @author Guillaume Haben
  * @author Kilian Cuny
  *
@@ -9,8 +9,10 @@
 import java.io.Serializable;
 import java.util.*;
 
+@SuppressWarnings("serial")
 public class Ressource implements Serializable {
 	private static int id = 0;
+	
 	private String titre;
 	private int annee;
 	private String synopsis;
@@ -22,20 +24,12 @@ public class Ressource implements Serializable {
 	private boolean vu;
 	
 	/**
-	 * @param titre
-	 * @param annee
-	 * @param synopsis
-	 * @param acteurs
-	 * @param genres
-	 * @param type
-	 * @param realisateur
-	 * @param note
-	 * @param vu
+	 * Constructeur de Ressource
 	 */
 	public Ressource(String titre, int annee, String synopsis,
 			ArrayList<String> acteurs, ArrayList<String> genres, String type,
 			String realisateur, int note, boolean vu) {
-		id++;
+		
 		this.titre = titre;
 		this.annee = annee;
 		this.synopsis = synopsis;
@@ -45,6 +39,7 @@ public class Ressource implements Serializable {
 		this.realisateur = realisateur;
 		this.note = note;
 		this.vu = vu;
+		id++;
 	}
 	
 	/**
@@ -55,17 +50,13 @@ public class Ressource implements Serializable {
 		return note;
 	}
 
-
-
 	/**
 	 * Setter note
-	 * @param note the note to set
+	 * @param note : the note to set
 	 */
 	public void setNote(int note) {
 		this.note = note;
 	}
-
-
 
 	/**
 	 * Getter vu
@@ -75,17 +66,13 @@ public class Ressource implements Serializable {
 		return vu;
 	}
 
-
-
 	/**
 	 * Setter vu
-	 * @param vu the vu to set
+	 * @param vu : the vu to set
 	 */
 	public void setVu(boolean vu) {
 		this.vu = vu;
 	}
-
-
 
 	/**
 	 * Getter type
@@ -95,11 +82,8 @@ public class Ressource implements Serializable {
 		return type;
 	}
 
-
-
 	/**
-	 * Fonction toString
-	 * Affiche la ressource à l'écran	 * 
+	 * Affiche la ressource à l'écran
 	 */
 	public String toString() {
 		if (this.type == "Serie") {
@@ -114,5 +98,4 @@ public class Ressource implements Serializable {
 					+ note + "\n Vu = " + vu;
 		}
 	}
-	
 }

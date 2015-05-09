@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class main {
+public class Principale {
 
 	public static void main(String[] args) {
 
@@ -21,18 +21,25 @@ public class main {
 		System.out.print("Selection: ");
 
 		int choix = scan.nextInt();
-
 		boolean fin = false;
+		
 		do {
 			switch (choix) {
 			case 1:
-				ma_videotheque.creer("films.txt");
-				fin = true;
-				break;
+				int code_retour = ma_videotheque.creer("films.txt");
+				if(code_retour != -1){	
+				// Sauvegarde automatique de la Vidéothèque
+					ma_videotheque.sauvegarder("myBibli.bi");
+					fin = true;
+					break;
+				}else{
+					System.out.println("Impossible de charger le fichier d'initialisation");
+					System.exit(0);
+				}break;
 
 			case 2:
 				// L'utilisateur renseigne le nom du fichier .bi existant
-				System.out.print("Nom du fichier .bi : ");
+				System.out.print("Nom du fichier [*.bi] : ");
 				scan.nextLine();
 				String fichier = scan.nextLine();
 
@@ -93,5 +100,7 @@ public class main {
 				System.out.println("Entrez une sélection valide");
 			};
 		} while (!fin);
+		
+		scan.close();
 	}
 }
