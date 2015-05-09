@@ -30,7 +30,7 @@ public abstract class Analyse {
 				String[] decoupage = ligne.split(" ", 2);
 				decoupage = decoupage[1].split("\\(", 2);
 				
-				String titre = decoupage[0].substring(1);
+				String titre = decoupage[0].substring(1, decoupage[0].length()-1);
 				decoupage = decoupage[1].split("\\)", 2);
 				
 				int annee = -1;
@@ -39,20 +39,19 @@ public abstract class Analyse {
 					annee = Integer.parseInt(decoupage[0]);
 				}
 				
-				// Echappe d'eventuelles lignes vides
 				ligne = fr.readLine();
-				while(ligne != null && (ligne.compareTo("")==0)){
-					ligne = fr.readLine();
-				}
 				
 				// Synopsis
 				String synopsis = "", director = "";
-				ligne = fr.readLine();
 
 				if(!serie){
-					while (ligne.substring(0, 8).compareTo("Director")!= 0){
-						synopsis+= ligne;
-						ligne = fr.readLine();
+					while (true){
+						if(ligne.length()>=8){
+							if(ligne.substring(0, 8).compareTo("Director")!= 0){
+								synopsis+= ligne;
+								ligne = fr.readLine();
+							}else break;
+						}else ligne = fr.readLine();
 					}
 					
 					decoupage = ligne.split(":");
@@ -60,9 +59,13 @@ public abstract class Analyse {
 					ligne = fr.readLine();
 					
 				}else{
-					while (ligne.substring(0, 4).compareTo("With")!= 0){
-						synopsis+= ligne;
-						ligne = fr.readLine();
+					while (true){
+						if(ligne.length()>=8){
+							if(ligne.substring(0, 4).compareTo("With")!= 0){
+								synopsis+= ligne;
+								ligne = fr.readLine();
+							}else break;
+						}else ligne = fr.readLine();
 					}
 				}
 				
@@ -95,7 +98,7 @@ public abstract class Analyse {
 				
 				String type = "Film";
 				if(serie) type = "Serie";
-				Ressource r = new Ressource(titre, annee, synopsis, acteurs, genres, duree, type, director, -1, false);
+				Ressource r = new Ressource(titre, annee, synopsis, acteurs, genres, duree, type, director);
 				
 				// Obtention de la clé de Hashage
 				int cle = Analyse.Hashage(titre.charAt(0));

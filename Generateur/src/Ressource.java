@@ -1,5 +1,5 @@
 /**
- * Classe Ressource, représente une Ressource
+ * Classe Ressource, représente un film ou une série
  * @author Guillaume Haben
  * @author Kilian Cuny
  *
@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @SuppressWarnings("serial")
-public class Ressource implements Serializable {
+public class Ressource implements Serializable, Comparable<Ressource> {
 	@SuppressWarnings("unused")
 	private static int id = 0;
 	
@@ -30,7 +30,7 @@ public class Ressource implements Serializable {
 	 */
 	public Ressource(String titre, int annee, String synopsis,
 			ArrayList<String> acteurs, ArrayList<String> genres, int duree,
-			String type, String realisateur, int note, boolean vu) {
+			String type, String realisateur) {
 		
 		this.titre = titre;
 		this.annee = annee;
@@ -39,8 +39,8 @@ public class Ressource implements Serializable {
 		this.genres = genres;
 		this.type = type;
 		this.realisateur = realisateur;
-		this.note = note;
-		this.vu = vu;
+		this.note = -1;
+		this.vu = false;
 		
 		if(duree == -1){
 			this.duree = "Inconnue";
@@ -58,11 +58,16 @@ public class Ressource implements Serializable {
 	}
 
 	/**
-	 * Setter note
+	 * Setter note (compris entre 0 et 10)
 	 * @param note : the note to set
 	 */
 	public void setNote(int note) {
-		this.note = note;
+		if(note>=0 && note<=10){
+			this.note = note;
+		}else {
+			if(note>10) this.note = 10;
+			if(note<0) this.note = -1;
+		}
 	}
 
 	/**
@@ -113,15 +118,25 @@ public class Ressource implements Serializable {
 					"\n Realisateur = " + realisateur + "\n Note = " + note + "\n Vu = " + vu;
 		}
 		
-		/**
+		/*
 		 * 
-		 * Eh eh mon petit Gui je t'aime beaucoup mais si tu veux afficher acteur ou genre 
-		 * tu vas te retrouver avec une magnifique reference du style @121462132 :)
-		 * C'est une liste il faut la parcourir
+		 * Eh eh mon petit Gui par exemple si le film n'as pas de
+		 * note plutot que d'afficher -1 tu peux mettre non renseigné
 		 * 
-		 * Le plus simple c'est que tu crée un string et tu concatène variable par variable
-		 * c'est moins joli mais c'est plus propre et plus clair :)
+		 * Le plus simple c'est que tu crée un string et tu concatène après un test
+		 * c'est moins joli mais c'est pas grave
+		 * 
+		 * Désolé pour le important de Fb en fait je pensais que l'affichage d'une Arraylist 
+		 * planterait et qu'il faudrait la parcourir mais non ca marche chatteux ! :)
 		 * 
 		 */
+	}
+
+	/**
+	 * Permet de comparer des ressources
+	 * @param arg: Ressource
+	 */
+	public int compareTo(Ressource arg) {
+		return this.titre.compareTo(arg.getTitre());
 	}
 }

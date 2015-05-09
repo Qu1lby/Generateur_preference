@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Principale {
@@ -61,26 +60,27 @@ public class Principale {
 				break;
 
 			case 3:
-				System.out.println("Sorti");
 				System.exit(0);
 
 			default:
-				System.out.println("Entrez une sélection valide");
+				System.out.print("Entrez une sélection valide : ");
+				choix = scan.nextInt();
+				break;
 			};
 		} while (!fin);
 		
 		/* ----------------- Sous Menu ----------------- */
 
 		System.out.println("\nChoisissez une opération a effectuer:");
-		System.out.println("[1] Afficher les films");
-		System.out.println("[2] Afficher les séries");
-		System.out.println("[3] Rechercher un film");
-		System.out.println("[4] Réinitialiser");
+		System.out.println("[1] Afficher la Vidéothèque");
+		System.out.println("[2] Recherche");
+		System.out.println("[3] Recommandation");
+		System.out.println("[4] Options"); // Réintialiser préferences / Vidéothèques
 		System.out.println("[5] Quitter");
 		System.out.print("Selection: ");
 
 		choix = scan.nextInt();
-		boolean fin2 = false;
+		fin = false;
 		do {
 			switch (choix) {
 			case 1:
@@ -88,12 +88,17 @@ public class Principale {
 				break;
 				/**
 				 * Pour l'affichage des films ne lance pas la toString 
-				 * get le Titre simplement et affiche tous les titres des films
+				 * get le Titre simplement et affiche tous les titres des films puis Serie
 				 * T'embête pas a trier on se garde ça pour plus tard si on a le temps
 				 * de tout maniere avec l'IG pas mal de choses changeront
 				 */
 			case 2:
+				System.out.print("Rentrez le titre du film a rechercher : ");
+				scan.nextLine();
+				String nom = scan.nextLine();
+				System.out.println(ma_videotheque.recherche(nom));
 				break;
+				
 			case 3:
 				break;
 			case 4:

@@ -63,7 +63,7 @@ public class Videotheque implements Serializable{
 	}
 	
 	/**
-	 * Ajoute une Ressource
+	 * Ajoute une Ressource et trie alphabétiquement la liste
 	 * @param cle : clé de la Hashmap
 	 * @param r : Ressource
 	 * @param type : type de la Ressource
@@ -71,7 +71,34 @@ public class Videotheque implements Serializable{
 	public void ajouter(int cle, Ressource r, String type) {
 		if(type.compareTo("Film")==0){
 			tab_film.get(cle).add(r);
-		}else tab_serie.get(cle).add(r);	
+			Collections.sort(tab_film.get(cle));
+		}else {
+			tab_serie.get(cle).add(r);	
+			Collections.sort(tab_serie.get(cle));
+		}
+	}
+
+	/**
+	 * Recherche une ressource dans la Vidéothèque
+	 * @param titre : titre recherché
+	 */
+	public String recherche(String titre){
+		int cle = Analyse.Hashage(titre.charAt(0));
+		ArrayList<Ressource> liste_film = tab_film.get(cle);
+		ArrayList<Ressource> liste_serie = tab_serie.get(cle);
+		
+		for(Ressource f : liste_film){
+			if (f.getTitre().compareTo(titre)==0){
+				return f.toString();
+			}
+		}
+		
+		for(Ressource s : liste_serie){
+			if (s.getTitre().compareTo(titre)==0){
+				return s.toString();
+			}
+		}
+		return "Film inconnu";
 	}
 	
 	/**
