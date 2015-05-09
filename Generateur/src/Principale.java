@@ -33,18 +33,18 @@ public class Principale {
 					fin = true;
 					break;
 				}else{
-					System.out.println("Impossible de charger le fichier d'initialisation");
+					System.out.println("Impossible de charger le fichier d'initialisation\n"
+							+ "Le fichier est corrompu ou inexistant");
 					System.exit(0);
 				}break;
 
 			case 2:
 				// L'utilisateur renseigne le nom du fichier .bi existant
-				System.out.print("Nom du fichier [*.bi] : ");
+				System.out.print("Nom du fichier .bi : ");
 				scan.nextLine();
 				String fichier = scan.nextLine();
 
-				// On associe l'entrée de l'utilisateur à un nouvel objet de
-				// type File
+				// On associe l'entrée à un nouvel objet de type File
 				File filename = new File(fichier);
 
 				// On vérifie qu'il a la bonne extension
@@ -54,7 +54,7 @@ public class Principale {
 				// On vérifie que le fichier existe réellement
 				else if (!filename.exists()) {
 					System.out.println("Le fichier renseigné n'existe pas");
-				} else {
+				}else {
 					ma_videotheque.charger(fichier);
 					fin = true;
 				}
@@ -86,6 +86,12 @@ public class Principale {
 			case 1:
 				System.out.println("Choix 1");
 				break;
+				/**
+				 * Pour l'affichage des films ne lance pas la toString 
+				 * get le Titre simplement et affiche tous les titres des films
+				 * T'embête pas a trier on se garde ça pour plus tard si on a le temps
+				 * de tout maniere avec l'IG pas mal de choses changeront
+				 */
 			case 2:
 				break;
 			case 3:

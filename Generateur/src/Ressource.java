@@ -11,6 +11,7 @@ import java.util.*;
 
 @SuppressWarnings("serial")
 public class Ressource implements Serializable {
+	@SuppressWarnings("unused")
 	private static int id = 0;
 	
 	private String titre;
@@ -18,6 +19,7 @@ public class Ressource implements Serializable {
 	private String synopsis;
 	private ArrayList<String> acteurs;
 	private ArrayList<String> genres;
+	private String duree;
 	private String type;
 	private String realisateur;
 	private int note;
@@ -27,8 +29,8 @@ public class Ressource implements Serializable {
 	 * Constructeur de Ressource
 	 */
 	public Ressource(String titre, int annee, String synopsis,
-			ArrayList<String> acteurs, ArrayList<String> genres, String type,
-			String realisateur, int note, boolean vu) {
+			ArrayList<String> acteurs, ArrayList<String> genres, int duree,
+			String type, String realisateur, int note, boolean vu) {
 		
 		this.titre = titre;
 		this.annee = annee;
@@ -39,6 +41,11 @@ public class Ressource implements Serializable {
 		this.realisateur = realisateur;
 		this.note = note;
 		this.vu = vu;
+		
+		if(duree == -1){
+			this.duree = "Inconnue";
+		}else this.duree = duree + " mins";
+		
 		id++;
 	}
 	
@@ -81,21 +88,40 @@ public class Ressource implements Serializable {
 	public String getType() {
 		return type;
 	}
+	
+	/**
+	 * Getter titre
+	 * @return the titre
+	 */
+	public String getTitre() {
+		return titre;
+	}
 
 	/**
 	 * Affiche la ressource à l'écran
 	 */
 	public String toString() {
 		if (this.type == "Serie") {
-			return "Série \n Titre = " + titre + "\n Année de sortie = " + annee + "\n Synopsis = "
-				+ synopsis + "\n Acteurs = " + acteurs + "\n Genres = " + genres
-				+ "\n Type = " + type + "\n Note = " + note + "\n Vu = " + vu;
+			return "Série \n Titre = " + titre + "\n Année de sortie = " + annee + 
+					"\n Synopsis = "+ synopsis + "\n Acteurs = " + acteurs +
+					"\n Genres = " + genres + "\n Duree : " + duree + "\n Type = " + type +
+					"\n Note = " + note + "\n Vu = " + vu;
+		}else {
+			return "Film \n Titre = " + titre + "\n Année de sortie = " + annee + 
+					"\n Synopsis = " + synopsis + "\n Acteurs = " + acteurs + 
+					"\n Genres = " + genres + "\n Duree : " + duree + "\n Type = " + type +
+					"\n Realisateur = " + realisateur + "\n Note = " + note + "\n Vu = " + vu;
 		}
-		else {
-			return "Film \n Titre = " + titre + "\n Année de sortie = " + annee + "\n Synopsis = "
-					+ synopsis + "\n Acteurs = " + acteurs + "\n Genres = " + genres
-					+ "\n Type = " + type + "\n Realisateur = " + realisateur + "\n Note = "
-					+ note + "\n Vu = " + vu;
-		}
+		
+		/**
+		 * 
+		 * Eh eh mon petit Gui je t'aime beaucoup mais si tu veux afficher acteur ou genre 
+		 * tu vas te retrouver avec une magnifique reference du style @121462132 :)
+		 * C'est une liste il faut la parcourir
+		 * 
+		 * Le plus simple c'est que tu crée un string et tu concatène variable par variable
+		 * c'est moins joli mais c'est plus propre et plus clair :)
+		 * 
+		 */
 	}
 }

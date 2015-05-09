@@ -104,9 +104,13 @@ public class Videotheque implements Serializable{
 			this.tab_serie = v.tab_serie;
 
 		} catch (IOException e) {
+			System.out.print("Chargement corrompu : ");
 			e.printStackTrace();
+			System.exit(0);
 		} catch (ClassNotFoundException e) {
+			System.out.print("Chargement corrompu : ");
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 }
