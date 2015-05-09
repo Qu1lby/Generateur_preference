@@ -88,13 +88,13 @@ public class Videotheque implements Serializable{
 		ArrayList<Ressource> liste_serie = tab_serie.get(cle);
 		
 		for(Ressource f : liste_film){
-			if (f.getTitre().compareTo(titre)==0){
+			if (f.getTitre().toUpperCase().compareTo(titre.toUpperCase())==0){
 				return f.toString();
 			}
 		}
 		
 		for(Ressource s : liste_serie){
-			if (s.getTitre().compareTo(titre)==0){
+			if (s.getTitre().toUpperCase().compareTo(titre.toUpperCase())==0){
 				return s.toString();
 			}
 		}

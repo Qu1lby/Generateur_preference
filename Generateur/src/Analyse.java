@@ -9,6 +9,7 @@
  */
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public abstract class Analyse {
@@ -31,6 +32,7 @@ public abstract class Analyse {
 				decoupage = decoupage[1].split("\\(", 2);
 				
 				String titre = decoupage[0].substring(1, decoupage[0].length()-1);
+				titre = new String(titre.getBytes(),Charset.forName("UTF-8"));
 				decoupage = decoupage[1].split("\\)", 2);
 				
 				int annee = -1;
@@ -55,7 +57,7 @@ public abstract class Analyse {
 					}
 					
 					decoupage = ligne.split(":");
-					director = decoupage[1].substring(1);
+					director = decoupage[1].substring(1, decoupage[1].length()-1);
 					ligne = fr.readLine();
 					
 				}else{
@@ -72,6 +74,10 @@ public abstract class Analyse {
 				// Acteurs
 				decoupage = ligne.split(":");
 				decoupage = decoupage[1].split(",");
+				
+				// Dernier nom contient un espace
+				decoupage[decoupage.length-1] = decoupage[decoupage.length-1].substring(0,
+						decoupage[decoupage.length-1].length()-1);
 				
 				ArrayList<String> acteurs = new ArrayList<String>();
 				for(String nom : decoupage){
