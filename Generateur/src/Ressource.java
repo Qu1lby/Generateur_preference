@@ -52,7 +52,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			this.genres = new ArrayList<String>();
 		}else this.genres = genres;
 		
-		if(realisateur == null){
+		if(realisateur == null || realisateur == ""){
 			this.realisateur = "Inconnu";  // Par defaut
 		}else this.realisateur = realisateur;
 		

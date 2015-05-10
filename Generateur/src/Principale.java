@@ -102,7 +102,7 @@ public class Principale {
 					System.out.print("Rentrez le titre du film a rechercher : ");
 					scan.nextLine();
 					String nom = scan.nextLine();
-					System.out.println(ma_videotheque.recherche(nom));
+					System.out.println("\n"+ma_videotheque.recherche(nom));
 					
 					do{
 						System.out.println("\n[1] Effectuer une autre recherche ");
@@ -128,6 +128,9 @@ public class Principale {
 					System.out.println("[2] Annuler ");
 					System.out.print("Selection: ");
 					ss_choix = scan.nextInt();
+					
+					if(ss_choix == 1)
+					if(ss_choix == 2) fin = true;
 					
 					break;
 					
