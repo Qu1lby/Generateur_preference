@@ -81,7 +81,7 @@ public class Principale {
 			System.out.println("\nChoisissez une opération a effectuer:");
 			System.out.println("[1] Afficher la Vidéothèque");
 			System.out.println("[2] Recherche");
-			System.out.println("[3] Recommandation"); // Globale / Rapport à un film
+			System.out.println("[3] Recommandation");
 			System.out.println("[4] Reinitialiser");
 			System.out.println("[5] Quitter");
 			System.out.print("Selection: ");
@@ -97,8 +97,6 @@ public class Principale {
 					/**
 					 * Pour l'affichage des films ne lance pas la toString 
 					 * get le Titre simplement et affiche tous les titres des films puis Serie
-					 * T'embête pas a trier on se garde ça pour plus tard si on a le temps
-					 * de tout maniere avec l'IG pas mal de choses changeront
 					 */
 				case 2:
 					System.out.print("Rentrez le titre du film a rechercher : ");
@@ -108,12 +106,16 @@ public class Principale {
 					
 					do{
 						System.out.println("\n[1] Effectuer une autre recherche ");
-						System.out.println("[2] Retour ");
+						System.out.println("[2] Film et Série similaires ");
+						System.out.println("[3] Retour ");
 						System.out.print("Selection: ");
 						ss_choix = scan.nextInt();
 					
-						if(ss_choix == 2) fin = true;
-					}while(ss_choix>2 || ss_choix<1);
+						if(ss_choix == 3) fin = true;
+						if(ss_choix == 2){
+							// RECOMMANDATION
+						}
+					}while(ss_choix>3 || ss_choix<1);
 					
 					break;
 					

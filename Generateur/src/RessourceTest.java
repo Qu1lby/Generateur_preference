@@ -1,5 +1,10 @@
 /**
  * Cette classe Junit teste la classe Ressource 
+ * 
+ * @author Guillaume Haben
+ * @author Kilian Cuny
+ * 
+ * @version 1.0
  */
 
 import static org.junit.Assert.*;
