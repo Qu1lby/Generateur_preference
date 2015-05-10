@@ -1,4 +1,7 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class Principale {
@@ -79,11 +82,12 @@ public class Principale {
 
 		while(true){
 			System.out.println("\nChoisissez une opération a effectuer:");
-			System.out.println("[1] Afficher la Vidéothèque");
-			System.out.println("[2] Recherche");
-			System.out.println("[3] Recommandation");
-			System.out.println("[4] Reinitialiser");
-			System.out.println("[5] Quitter");
+			System.out.println("[1] Afficher les films de la Vidéothèques");
+			System.out.println("[2] Afficher les séries de la Vidéothèques");
+			System.out.println("[3] Recherche");
+			System.out.println("[4] Recommandation");
+			System.out.println("[5] Reinitialiser");
+			System.out.println("[6] Quitter");
 			System.out.print("Selection: ");
 	
 			choix = scan.nextInt();
@@ -92,13 +96,36 @@ public class Principale {
 			do {
 				switch (choix) {
 				case 1:
-					System.out.println("Choix 1");
+					//Pour chaque entrée du HashMap
+					for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.tab_film.entrySet()) {
+						//Si la valeur de l'entrée n'est pas nulle (si des films existent pour la lettre actuelle)
+						if (!entry.getValue().isEmpty()) {
+							//On affiche la lettre correspondante au HashMap
+							System.out.println("\n--------- " + String.valueOf((char)(entry.getKey() + 65)) + " ---------");
+							//On affiche les entrées (films) correspondant à la lettre
+							for (Ressource R : ma_videotheque.tab_film.get(entry.getKey())) {
+								System.out.println(R.getTitre());
+							}
+						}
+					}
+					fin = true;
 					break;
-					/**
-					 * Pour l'affichage des films ne lance pas la toString 
-					 * get le Titre simplement et affiche tous les titres des films puis Serie
-					 */
 				case 2:
+					//Pour chaque entrée du HashMap
+					for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.tab_serie.entrySet()) {
+						//Si la valeur de l'entrée n'est pas nulle (si des séries existent pour la lettre actuelle)
+						if (!entry.getValue().isEmpty()) {
+							//On affiche la lettre correspondante au HashMap
+							System.out.println("\n--------- " + String.valueOf((char)(entry.getKey() + 65)) + " ---------");
+							//On affiche les entrées (séries) correspondant à la lettre
+							for (Ressource R : ma_videotheque.tab_serie.get(entry.getKey())) {
+								System.out.println(R.getTitre());
+							}
+						}
+					}
+					fin = true;
+					break;
+				case 3:
 					System.out.print("Rentrez le titre du film a rechercher : ");
 					scan.nextLine();
 					String nom = scan.nextLine();
@@ -119,10 +146,10 @@ public class Principale {
 					
 					break;
 					
-				case 3:
+				case 4:
 					break;
 					
-				case 4:
+				case 5:
 					System.out.println("\nEtes vous sur ?");
 					System.out.println("[1] Confirmer la réinitialisation ");
 					System.out.println("[2] Annuler ");
@@ -134,7 +161,7 @@ public class Principale {
 					
 					break;
 					
-				case 5:
+				case 6:
 					scan.close();
 					System.exit(0);
 					break;
