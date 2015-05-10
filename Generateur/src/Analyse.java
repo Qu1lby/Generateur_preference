@@ -16,6 +16,8 @@ public abstract class Analyse {
 	
 	public static int charger(Videotheque v, String fichier){
 		try {
+			if(fichier == null) return -1;
+			
 			BufferedReader fr = new BufferedReader(new FileReader(fichier));
 			String ligne = fr.readLine();
 			
@@ -121,6 +123,10 @@ public abstract class Analyse {
 			fr.close();
 			
 		} catch (IOException e) {
+			System.out.print("Please, report this message : ");
+			e.printStackTrace();
+			return -1;
+		} catch (Exception e) {
 			System.out.print("Please, report this message : ");
 			e.printStackTrace();
 			return -1;
