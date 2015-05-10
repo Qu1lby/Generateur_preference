@@ -22,43 +22,54 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	
 	
 	/**
-	 * Constructeur de Ressource
+	 * Constructeur de Ressource :
+	 * Effectue les vérifications et changements adéquats
+	 * Il est necessaire que le titre du film ne soit pas null
+	 * 
+	 * @param : Toutes les données nécessaires
 	 */
 	public Ressource(String titre, int annee, String synopsis,
 			ArrayList<String> acteurs, ArrayList<String> genres, int duree,
 			String type, String realisateur) {
 		
 		this.titre = titre;
-		this.synopsis = synopsis;
-		this.type = type;
 		this.note = -1;
 		this.vu = false;
 		
+		if(synopsis == null){
+			this.synopsis = ""; // Par défaut
+		}else this.synopsis = synopsis;
+		
+		if(type == null){
+			this.type = "Film"; // Par defaut
+		}else this.type = type;
+		
 		if(acteurs == null){
 			this.acteurs = new ArrayList<String>();
-		}this.acteurs = acteurs;
+		}else this.acteurs = acteurs;
 		
 		if(genres == null){
 			this.genres = new ArrayList<String>();
-		}this.genres = genres;
+		}else this.genres = genres;
 		
 		if(realisateur == null){
-			realisateur = "Inconnu";
+			this.realisateur = "Inconnu";  // Par defaut
 		}else this.realisateur = realisateur;
 		
 		if(annee > 1900 && annee < 2050){
 			this.annee = annee;
 		}else this.annee = 0;
 		
-		if(duree == -1){
+		if(duree == -1 || duree>240){
 			this.duree = 0;
 		}else this.duree = duree;
 		
 		id++;
 	}
 	
+	
 	/**
-	 * Affiche la ressource à l'écran
+	 * Affiche une Ressource
 	 */
 	public String toString() {
 		if(this.type == "Serie") {
@@ -95,11 +106,8 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		return this.titre.compareTo(arg.getTitre());
 	}
 	
-	//******* GETTER ET SETTER *******//
 	
-	public int getNote() {
-		return note;
-	}
+	//******* GETTER ET SETTER *******//
 
 	/**
 	 * Setter note (compris entre 0 et 10)
@@ -112,10 +120,6 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			if(note>10) this.note = 10;
 			if(note<0) this.note = -1;
 		}
-	}
-
-	public boolean isVu() {
-		return vu;
 	}
 
 	/**
@@ -139,12 +143,24 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		return annee;
 	}
 	
+	public int getDuree(){
+		return duree;
+	}
+	
 	public ArrayList<String> getGenre() {
 		return genres;
 	}
 	
+	public int getNote() {
+		return note;
+	}
+	
 	public String getRealisateur() {
 		return realisateur;
+	}
+	
+	public String getSynopsis() {
+		return synopsis;
 	}
 	
 	public String getTitre() {
@@ -153,5 +169,9 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	
 	public String getType() {
 		return type;
+	}
+	
+	public boolean isVu() {
+		return vu;
 	}
 }

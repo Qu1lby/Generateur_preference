@@ -9,6 +9,8 @@
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 
@@ -21,11 +23,36 @@ public class RessourceTest {
 	}
 	
 	@Test
-	// Différent test de constructeur dans la même methode de Test
-	public void testRessource() {
-		fail("Not yet implemented");
+	// Test constructeur
+	public void testRessource1() {
+		r_test = new Ressource("titre", 1000, "synopsis", null, null, 1000, "Film", "realisateur");
+
+		assertEquals("titre", r_test.getTitre());
+		assertEquals(0, r_test.getAnnee());
+		assertEquals("synopsis", r_test.getSynopsis());
+		assertNotEquals(null, r_test.getActeur());
+		assertNotEquals(null, r_test.getGenre());
+		assertEquals(0, r_test.getDuree());
+		assertEquals("Film", r_test.getType());
+		assertEquals("realisateur", r_test.getRealisateur());
 	}
 
+	@Test
+	// Test constructeur 2
+	public void testRessource2() {
+		ArrayList<String> arr_test = new ArrayList<String>();
+		r_test = new Ressource("titre", 2015, null, arr_test, arr_test, 125, null, null);
+		
+		assertEquals("titre", r_test.getTitre());
+		assertEquals(2015, r_test.getAnnee());
+		assertEquals("", r_test.getSynopsis());
+		assertEquals(arr_test, r_test.getActeur());
+		assertEquals(arr_test, r_test.getGenre());
+		assertEquals(125, r_test.getDuree());
+		assertEquals("Film", r_test.getType());
+		assertEquals("Inconnu", r_test.getRealisateur());
+	}
+	
 	@Test
 	public void testSetNote() {
 		assertEquals(-1, r_test.getNote());
