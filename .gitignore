@@ -1,4 +1,7 @@
+.metadata
 /.metadata
+.metadata/.plugins/org.eclipse.core.resources/.history/
+.metadata\.plugins\org.eclipse.core.resources\.history\
 
 # Windows image file caches
 Thumbs.db
