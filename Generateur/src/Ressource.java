@@ -72,30 +72,69 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	 * Affiche une Ressource
 	 */
 	public String toString() {
-		if(this.type == "Serie") {
-			return "Série \n Titre = " + titre + "\n Année de sortie = " + annee + 
-					"\n Synopsis = "+ synopsis + "\n Acteurs = " + acteurs +
-					"\n Genres = " + genres + "\n Duree : " + duree + "\n Type = " + type +
-					"\n Note = " + note + "\n Vu = " + vu;
+		if(this.type == "Serie") { //Bug : type = film lors d'un chargement de .bi (pas de bug lors de la création)
+			String Serie = "Série \n Titre = " + titre;
+			if(synopsis != null){
+				Serie = Serie + "\n Synopsis = "+ synopsis; 
+			}
+			if(acteurs != null){
+				Serie = Serie + "\n Acteurs = " + acteurs;
+			}
+			if(genres != null){
+				Serie = Serie + "\n Genres = " + genres;
+			}
+			if(annee > 1900 && annee < 2050){
+				Serie = Serie + "\n Année de sortie = " + annee;
+			}
+			if(duree != -1 && duree<240){
+				int heures = duree/60;
+		        int minutes = duree%60;
+		        String time = heures + "h" + minutes;
+				Serie = Serie + "\n Durée = " + time;
+			}if(note != -1 && note <= 10 && note >= 0){
+				Serie = Serie + "\n Note = " + note;
+			}
+			if (vu == false) {
+				Serie = Serie + "\n Visionné = Non";
+			}
+			if (vu == true) {
+				Serie = Serie + "\n Visionné = Oui";
+			}
+			return Serie;
 		}else {
-			return "Film \n Titre = " + titre + "\n Année de sortie = " + annee + 
-					"\n Synopsis = " + synopsis + "\n Acteurs = " + acteurs + 
-					"\n Genres = " + genres + "\n Duree : " + duree + "mins\n Type = " + type +
-					"\n Realisateur = " + realisateur + "\n Note = " + note + "\n Vu = " + vu;
+			String Film = "Film \n Titre = " + titre;
+			if(synopsis != null){
+				Film = Film + "\n Synopsis = "+ synopsis; 
+			}
+			if(acteurs != null){
+				Film = Film + "\n Acteurs = " + acteurs;
+			}
+			if(genres != null){
+				Film = Film + "\n Genres = " + genres;
+			}
+			if(realisateur != null || realisateur != ""){
+				Film = Film + "\n Réalisateur = " + realisateur;
+			}
+			if(annee > 1900 && annee < 2050){
+				Film = Film + "\n Année de sortie = " + annee;
+			}
+			if(duree != -1 && duree<240){
+				int heures = duree/60;
+		        int minutes = duree%60;
+		        String time = heures + "h" + minutes;
+				Film = Film + "\n Durée = " + time;
+			}
+			if(note != -1 && note <= 10 && note >= 0){
+				Film = Film + "\n Note = " + note;
+			}
+			if (vu == false) {
+				Film = Film + "\n Visionné = Non";
+			}
+			if (vu == true) {
+				Film = Film + "\n Visionné = Oui";
+			}
+			return Film;
 		}
-		
-		/*
-		 * Eh eh mon petit Gui par exemple si le film n'as pas de
-		 * note plutot que d'afficher -1 tu peux mettre non renseigné
-		 * pareil date et duree
-		 * 
-		 * Le plus simple c'est que tu crée un string et tu concatène après un test
-		 * c'est moins joli mais c'est pas grave
-		 * 
-		 * Désolé pour le important de Fb en fait je pensais que l'affichage d'une Arraylist 
-		 * planterait et qu'il faudrait la parcourir mais non ca marche chatteux ! :)
-		 * 
-		 */
 	}
 	
 	/**
