@@ -11,19 +11,15 @@ import java.util.*;
 
 @SuppressWarnings("serial")
 public class Ressource implements Serializable, Comparable<Ressource> {
-	@SuppressWarnings("unused")
-	private static int id = 0;
+	private static int id = 1;
 	
-	private String titre;
-	private int annee;
-	private String synopsis;
-	private ArrayList<String> acteurs;
-	private ArrayList<String> genres;
-	private int duree;
-	private String type;
-	private String realisateur;
-	private int note;
+	@SuppressWarnings("unused")
+	private int id_ressource = id;
+	private int annee, duree, note;
+	private String titre, synopsis, type, realisateur;
+	private ArrayList<String> acteurs, genres;
 	private boolean vu;
+	
 	
 	/**
 	 * Constructeur de Ressource
@@ -34,12 +30,21 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		
 		this.titre = titre;
 		this.synopsis = synopsis;
-		this.acteurs = acteurs;
-		this.genres = genres;
 		this.type = type;
-		this.realisateur = realisateur;
 		this.note = -1;
 		this.vu = false;
+		
+		if(acteurs == null){
+			this.acteurs = new ArrayList<String>();
+		}this.acteurs = acteurs;
+		
+		if(genres == null){
+			this.genres = new ArrayList<String>();
+		}this.genres = genres;
+		
+		if(realisateur == null){
+			realisateur = "Inconnu";
+		}else this.realisateur = realisateur;
 		
 		if(annee > 1900 && annee < 2050){
 			this.annee = annee;
@@ -56,7 +61,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	 * Affiche la ressource à l'écran
 	 */
 	public String toString() {
-		if (this.type == "Serie") {
+		if(this.type == "Serie") {
 			return "Série \n Titre = " + titre + "\n Année de sortie = " + annee + 
 					"\n Synopsis = "+ synopsis + "\n Acteurs = " + acteurs +
 					"\n Genres = " + genres + "\n Duree : " + duree + "\n Type = " + type +
@@ -69,7 +74,6 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		}
 		
 		/*
-		 * 
 		 * Eh eh mon petit Gui par exemple si le film n'as pas de
 		 * note plutot que d'afficher -1 tu peux mettre non renseigné
 		 * pareil date et duree
@@ -93,10 +97,6 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	
 	//******* GETTER ET SETTER *******//
 	
-	/**
-	 * Getter note
-	 * @return the note
-	 */
 	public int getNote() {
 		return note;
 	}
@@ -114,10 +114,6 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		}
 	}
 
-	/**
-	 * Getter vu
-	 * @return the vu
-	 */
 	public boolean isVu() {
 		return vu;
 	}
@@ -127,57 +123,35 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	 * @param vu : the vu to set
 	 */
 	public void setVu(boolean vu) {
+		if(vu){
+			// Ajouter film PREFERENCE
+		}else{
+			// Oter film PREFERENCES
+		}
 		this.vu = vu;
 	}
 
-	/**
-	 * Getter type
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-	
-	/**
-	 * Getter titre
-	 * @return the titre
-	 */
-	public String getTitre() {
-		return titre;
-	}
-
-	/**
-	 * Getter annee
-	 * @return the annee
-	 */
-	public int getAnnee() {
-		return annee;
-	}
-	
-	/**
-	 * Getter acteurs
-	 * @return the acteurs
-	 */
 	public ArrayList<String> getActeur() {
 		return acteurs;
 	}
 	
-	/**
-	 * Getter genres
-	 * @return the genres
-	 */
+	public int getAnnee() {
+		return annee;
+	}
 	
 	public ArrayList<String> getGenre() {
 		return genres;
 	}
 	
-	/**
-	 * Getter realisateur
-	 * @return the realisateur
-	 */
-	
 	public String getRealisateur() {
-		if(realisateur != null) return realisateur;
-		return "Inconnu";
+		return realisateur;
+	}
+	
+	public String getTitre() {
+		return titre;
+	}
+	
+	public String getType() {
+		return type;
 	}
 }

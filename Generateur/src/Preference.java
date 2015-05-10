@@ -77,7 +77,5 @@ public class Preference {
 			if(done == 3) break;
 		}
 		return note;
-	}
-	
-	
+	}	
 }
