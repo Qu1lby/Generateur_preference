@@ -19,7 +19,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	private String synopsis;
 	private ArrayList<String> acteurs;
 	private ArrayList<String> genres;
-	private String duree;
+	private int duree;
 	private String type;
 	private String realisateur;
 	private int note;
@@ -33,7 +33,6 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			String type, String realisateur) {
 		
 		this.titre = titre;
-		this.annee = annee;
 		this.synopsis = synopsis;
 		this.acteurs = acteurs;
 		this.genres = genres;
@@ -42,12 +41,57 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		this.note = -1;
 		this.vu = false;
 		
+		if(annee > 1900 && annee < 2050){
+			this.annee = annee;
+		}else this.annee = 0;
+		
 		if(duree == -1){
-			this.duree = "Inconnue";
-		}else this.duree = duree + " mins";
+			this.duree = 0;
+		}else this.duree = duree;
 		
 		id++;
 	}
+	
+	/**
+	 * Affiche la ressource à l'écran
+	 */
+	public String toString() {
+		if (this.type == "Serie") {
+			return "Série \n Titre = " + titre + "\n Année de sortie = " + annee + 
+					"\n Synopsis = "+ synopsis + "\n Acteurs = " + acteurs +
+					"\n Genres = " + genres + "\n Duree : " + duree + "\n Type = " + type +
+					"\n Note = " + note + "\n Vu = " + vu;
+		}else {
+			return "Film \n Titre = " + titre + "\n Année de sortie = " + annee + 
+					"\n Synopsis = " + synopsis + "\n Acteurs = " + acteurs + 
+					"\n Genres = " + genres + "\n Duree : " + duree + "mins\n Type = " + type +
+					"\n Realisateur = " + realisateur + "\n Note = " + note + "\n Vu = " + vu;
+		}
+		
+		/*
+		 * 
+		 * Eh eh mon petit Gui par exemple si le film n'as pas de
+		 * note plutot que d'afficher -1 tu peux mettre non renseigné
+		 * pareil date et duree
+		 * 
+		 * Le plus simple c'est que tu crée un string et tu concatène après un test
+		 * c'est moins joli mais c'est pas grave
+		 * 
+		 * Désolé pour le important de Fb en fait je pensais que l'affichage d'une Arraylist 
+		 * planterait et qu'il faudrait la parcourir mais non ca marche chatteux ! :)
+		 * 
+		 */
+	}
+	
+	/**
+	 * Permet de comparer des ressources
+	 * @param arg: Ressource
+	 */
+	public int compareTo(Ressource arg) {
+		return this.titre.compareTo(arg.getTitre());
+	}
+	
+	//******* GETTER ET SETTER *******//
 	
 	/**
 	 * Getter note
@@ -103,40 +147,37 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	}
 
 	/**
-	 * Affiche la ressource à l'écran
+	 * Getter annee
+	 * @return the annee
 	 */
-	public String toString() {
-		if (this.type == "Serie") {
-			return "Série \n Titre = " + titre + "\n Année de sortie = " + annee + 
-					"\n Synopsis = "+ synopsis + "\n Acteurs = " + acteurs +
-					"\n Genres = " + genres + "\n Duree : " + duree + "\n Type = " + type +
-					"\n Note = " + note + "\n Vu = " + vu;
-		}else {
-			return "Film \n Titre = " + titre + "\n Année de sortie = " + annee + 
-					"\n Synopsis = " + synopsis + "\n Acteurs = " + acteurs + 
-					"\n Genres = " + genres + "\n Duree : " + duree + "\n Type = " + type +
-					"\n Realisateur = " + realisateur + "\n Note = " + note + "\n Vu = " + vu;
-		}
-		
-		/*
-		 * 
-		 * Eh eh mon petit Gui par exemple si le film n'as pas de
-		 * note plutot que d'afficher -1 tu peux mettre non renseigné
-		 * 
-		 * Le plus simple c'est que tu crée un string et tu concatène après un test
-		 * c'est moins joli mais c'est pas grave
-		 * 
-		 * Désolé pour le important de Fb en fait je pensais que l'affichage d'une Arraylist 
-		 * planterait et qu'il faudrait la parcourir mais non ca marche chatteux ! :)
-		 * 
-		 */
+	public int getAnnee() {
+		return annee;
 	}
-
+	
 	/**
-	 * Permet de comparer des ressources
-	 * @param arg: Ressource
+	 * Getter acteurs
+	 * @return the acteurs
 	 */
-	public int compareTo(Ressource arg) {
-		return this.titre.compareTo(arg.getTitre());
+	public ArrayList<String> getActeur() {
+		return acteurs;
+	}
+	
+	/**
+	 * Getter genres
+	 * @return the genres
+	 */
+	
+	public ArrayList<String> getGenre() {
+		return genres;
+	}
+	
+	/**
+	 * Getter realisateur
+	 * @return the realisateur
+	 */
+	
+	public String getRealisateur() {
+		if(realisateur != null) return realisateur;
+		return "Inconnu";
 	}
 }
