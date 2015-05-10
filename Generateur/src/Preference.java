@@ -44,7 +44,6 @@ public class Preference {
 		// GENRES
 		ArrayList<String> r1_ge = r1.getGenre();
 		ArrayList<String> r2_ge = r2.getGenre();
-		
 		note += givePointArray(r1_ge, r2_ge);
 		
 		// TYPE
@@ -59,6 +58,7 @@ public class Preference {
 	
 	/**
 	 * Retourne une note de ressemblance entre deux array
+	 * + 0.5 par similarité, up to 1.5
 	 * @param r1_ac : array 1
 	 * @param r2_ac : array 2
 	 * @return 0 < x < 1.5

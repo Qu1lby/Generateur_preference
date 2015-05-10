@@ -134,11 +134,11 @@ public class Videotheque implements Serializable{
 			return 0;
 
 		} catch (IOException e) {
-			System.out.print("Chargement corrompu : ");
+			System.out.println("Chargement corrompu : ");
 			e.printStackTrace();
 			return -1;
 		} catch (ClassNotFoundException e) {
-			System.out.print("Chargement corrompu : ");
+			System.out.println("Chargement corrompu : ");
 			e.printStackTrace();
 			return -1;
 		}
