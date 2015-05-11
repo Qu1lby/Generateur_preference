@@ -54,16 +54,18 @@ public class Principale {
 					System.out.println("Le fichier renseigné n'est pas valide");
 				}
 				// On vérifie que le fichier existe réellement
-				else if (!filename.exists()) {
-					System.out.println("Le fichier renseigné n'existe pas");
-				}else {
-					code_retour = ma_videotheque.charger(fichier);
-					if(code_retour == 0){
-						fin = true;
+				else {
+					if (!filename.exists()) {
+						System.out.println("Le fichier renseigné n'existe pas");
 					}else {
-						System.out.println("Impossible de charger la Vidéothèque\n"
-								+ "Le fichier est corrompu ou inexistant");
-						System.exit(0);
+						code_retour = ma_videotheque.charger(fichier);
+						if(code_retour == 0){
+							fin = true;
+						}else {
+							System.out.println("Impossible de charger la Vidéothèque\n"
+									+ "Le fichier est corrompu ou inexistant");
+							System.exit(0);
+						}
 					}
 				}
 				break;
@@ -126,7 +128,7 @@ public class Principale {
 					fin = true;
 					break;
 				case 3:
-					System.out.print("Rentrez le titre du film a rechercher : ");
+					System.out.print("Rentrez le titre de la Ressource à rechercher : ");
 					scan.nextLine();
 					String nom = scan.nextLine();
 					System.out.println("\n"+ma_videotheque.recherche(nom));

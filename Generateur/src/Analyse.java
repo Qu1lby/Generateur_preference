@@ -68,6 +68,9 @@ public abstract class Analyse {
 						director = decoupage[1].substring(1, decoupage[1].length()-1);
 						ligne = fr.readLine();
 						
+						synopsis = new String(synopsis.getBytes(),Charset.forName("UTF-8"));
+						director = new String(director.getBytes(),Charset.forName("UTF-8"));
+						
 					}else {
 						while(true) {
 							if(ligne.length()>=8) {
@@ -116,7 +119,7 @@ public abstract class Analyse {
 					Ressource r = new Ressource(titre, annee, synopsis, acteurs, genres, duree, type, director);
 					
 					// Obtention de la clé de Hashage
-					int cle = Analyse.Hashage(titre.charAt(0));
+					int cle = Analyse.Hashage(titre.toUpperCase().charAt(0));
 					v.ajouter(cle, r, type);
 				}
 				
