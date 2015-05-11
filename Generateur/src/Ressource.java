@@ -72,7 +72,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	 * Affiche une Ressource
 	 */
 	public String toString() {
-		if(this.type == "Serie") { //Bug : type = film lors d'un chargement de .bi (pas de bug lors de la création)
+		if(this.type.compareTo("Serie") == 0) { //Bug : type = film lors d'un chargement de .bi (pas de bug lors de la création)
 			String Serie = "Série \n Titre = " + titre;
 			if(synopsis != null){
 				Serie = Serie + "\n Synopsis = "+ synopsis; 
