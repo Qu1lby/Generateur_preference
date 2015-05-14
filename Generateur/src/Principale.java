@@ -135,13 +135,18 @@ public class Principale {
 					do{
 						System.out.println("\n[1] Effectuer une autre recherche ");
 						System.out.println("[2] Film et Série similaires ");
-						System.out.println("[3] Retour ");
+						System.out.println("[3] Changer la valeur 'A vu' ");
+						System.out.println("[4] Retour ");
 						System.out.print("Selection: ");
 						ss_choix = scan.nextInt();
 					
-						if(ss_choix == 3) fin = true;
+						if(ss_choix == 4) fin = true;
 						if(ss_choix == 2){
 							// RECOMMANDATION
+						}
+						if(ss_choix == 3) {
+							ma_videotheque.recherche(nom).setVu(!ma_videotheque.recherche(nom).getVu());
+							fin = true;
 						}
 					}while(ss_choix>3 || ss_choix<1);
 					
