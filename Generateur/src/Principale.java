@@ -127,10 +127,12 @@ public class Principale {
 					fin = true;
 					break;
 				case 3:
-					System.out.print("Rentrez le titre de la Ressource à rechercher : ");
+					System.out.print("\nRentrez le titre de la Ressource à rechercher : ");
 					scan.nextLine();
 					String nom = scan.nextLine();
-					System.out.println("\n"+ma_videotheque.recherche(nom).toString());
+					Ressource r = ma_videotheque.recherche(nom);
+					if(r!=null) System.out.println("\n"+r.toString());
+					else System.out.println("\nRessource introuvable");
 					
 					do{
 						System.out.println("\n[1] Effectuer une autre recherche ");
@@ -141,7 +143,13 @@ public class Principale {
 					
 						if(ss_choix == 3) fin = true;
 						if(ss_choix == 2){
-							// RECOMMANDATION
+							ArrayList<Association> asso = ma_videotheque.getSimilarite(nom);
+							if(asso != null){
+								for(Association a : asso){
+									System.out.println(a);
+								}
+							}
+							else System.out.println("Aucune association possible");
 						}
 					}while(ss_choix>3 || ss_choix<1);
 					

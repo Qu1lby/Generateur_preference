@@ -19,7 +19,6 @@ public abstract class Similarite {
 	 * @return Liste des films
 	 */
 	public static ArrayList<Association> init(Videotheque v, Ressource source){
-		ArrayList<Association> liste = new ArrayList<Association>();
 		
 		for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_film.entrySet()) {
 			if (!entry.getValue().isEmpty()) {
@@ -39,7 +38,7 @@ public abstract class Similarite {
 			}
 		}
 		
-		return liste;
+		return source.getSimilaire();
 	}
 	
 	/**
@@ -49,13 +48,15 @@ public abstract class Similarite {
 	 * @param r : Ressource 
 	 */
 	public static void addSimilarite(ArrayList<Association> liste, Association a){
+		if(a.getNote()==0)return;
 		if(liste.size()<5) liste.add(a);
-		
-		for( Association r_tmp : liste){
-			if(r_tmp.getNote()<a.getNote()){
-				liste.remove(r_tmp);
-				liste.add(a);
-				break;
+		else{
+			for( Association r_tmp : liste){
+				if(r_tmp.getNote()<a.getNote()){
+					liste.remove(r_tmp);
+					liste.add(a);
+					break;
+				}
 			}
 		}
 				
@@ -70,8 +71,8 @@ public abstract class Similarite {
 	 * @param r2 : Ressource 2
 	 * @return : 0 < x < 5
 	 */
-	public static int note(Ressource r1, Ressource r2){
-		int note = 0;
+	public static double note(Ressource r1, Ressource r2){
+		double note = 0;
 		if(r1.getTitre().compareTo(r2.getTitre())!=0){
 						
 			// ANNEE DES RESSOURCES
@@ -112,9 +113,9 @@ public abstract class Similarite {
 	 * @param r2_ac : array 2
 	 * @return 0 < x < 1.5
 	 */
-	public static int givePointArray(ArrayList<String> r1, ArrayList<String> r2) {
+	public static double givePointArray(ArrayList<String> r1, ArrayList<String> r2) {
 		int done = 0;
-		int note = 0;
+		double note = 0;
 		for(String nom_1 : r1){
 			for(String nom_2 : r2){
 				if(nom_1.compareTo(nom_2)==0){

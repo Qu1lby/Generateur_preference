@@ -90,18 +90,31 @@ public class Videotheque implements Serializable{
 		
 		for(Ressource f : liste_film){
 			if (f.getTitre().toUpperCase().compareTo(titre.toUpperCase())==0){
-				Similarite.init(this, f);
 				return f;
 			}
 		}
 		
 		for(Ressource s : liste_serie){
 			if (s.getTitre().toUpperCase().compareTo(titre.toUpperCase())==0){
-				Similarite.init(this, s);
 				return s;
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Initialise les similarités d'un film
+	 * @param titre
+	 * @return
+	 */
+	public ArrayList<Association> getSimilarite(String titre){
+		Ressource r = this.recherche(titre);
+		if(r!=null && r.getSimilaire().size()==0){
+			return Similarite.init(this, r);
+		}else{
+			if(r == null) return null;
+			return r.getSimilaire();
+		}
 	}
 	
 	/**
