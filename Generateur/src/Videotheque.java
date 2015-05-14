@@ -84,7 +84,7 @@ public class Videotheque implements Serializable{
 	 * @param titre : titre recherché
 	 */
 	public String recherche(String titre){
-		int cle = Analyse.Hashage(titre.charAt(0));
+		int cle = Analyse.Hashage(titre.toUpperCase().charAt(0));
 		ArrayList<Ressource> liste_film = tab_film.get(cle);
 		ArrayList<Ressource> liste_serie = tab_serie.get(cle);
 		
