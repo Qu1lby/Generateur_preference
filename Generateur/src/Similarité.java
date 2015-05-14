@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * Classe Preference, gère les préférences utilisateurs
  * @author Kilian Cuny
@@ -8,6 +5,9 @@ import java.util.Collections;
  *
  * @verion 1.0
  */
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public abstract class Similarité {
 
@@ -18,17 +18,19 @@ public abstract class Similarité {
 	 * @param liste : ressources associées
 	 * @param r : Ressource 
 	 */
-	public static void addSimilarite(ArrayList<Ressource> liste, Ressource r, int note){
+	public static void addSimilarite(ArrayList<Association> liste, Association a){
 		if(liste.size()<5){
-			liste.add(r);
+			liste.add(a);
 		}
 		
-		for( Ressource r_tmp : liste){
-			
+		for( Association r_tmp : liste){
+			if(r_tmp.getNote()<a.getNote()){
+				liste.remove(r_tmp);
+				liste.add(a);
+				break;
+			}
 		}
-		
-		
-		
+				
 		Collections.sort(liste);
 	}
 	
