@@ -20,6 +20,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	private ArrayList<String> acteurs, genres;
 	private ArrayList<Association> similaire;
 	private boolean vu;
+	private Date date;
 	
 	
 	/**
@@ -103,6 +104,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			}
 			if (vu == true) {
 				Serie = Serie + "\n Visionné = Oui";
+				Serie = Serie + "\n Date de visionnage = " + date;
 			}
 			return Serie;
 		}else {
@@ -174,7 +176,15 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		if(vu) //similaire = Similarite.find(this);
 		this.vu = vu;
 	}
-
+	
+	public void setDate(Date d){
+		this.date = d;
+	}
+	
+	public Date getDate() {
+		return this.date;
+	}
+	
 	public ArrayList<String> getActeur() {
 		return acteurs;
 	}

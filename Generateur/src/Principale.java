@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
@@ -151,6 +152,7 @@ public class Principale {
 							}
 							else {
 								ma_videotheque.recherche(nom).setVu(true);
+								ma_videotheque.recherche(nom).setDate(new Date());
 								ma_videotheque.sauvegarder("myBibli.bi");
 								System.out.print("Ajouter une note [0-10]: ");
 								int note = scan.nextInt();
