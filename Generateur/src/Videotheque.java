@@ -8,6 +8,7 @@
 
 import java.io.*;
 import java.util.*;
+import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
 public class Videotheque implements Serializable{
@@ -99,6 +100,32 @@ public class Videotheque implements Serializable{
 			}
 		}
 		return "Film inconnu";
+	}
+	
+	/**
+	 * Liste les films vu par l'utilisateur
+	 * @return ArrayList : Film vu
+	 */
+	public ArrayList<Ressource> list_vu(){
+		ArrayList<Ressource> list = new ArrayList<Ressource>();
+		
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : this.tab_film.get(entry.getKey())) {
+					if(r.isVu()) list.add(r);
+				}
+			}
+		}
+		
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : this.tab_serie.get(entry.getKey())) {
+					if(r.isVu()) list.add(r);
+				}
+			}
+		}
+
+		return list;
 	}
 	
 	/**

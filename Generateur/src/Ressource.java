@@ -18,6 +18,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	private int annee, duree, note;
 	private String titre, synopsis, type, realisateur;
 	private ArrayList<String> acteurs, genres;
+	private ArrayList<Ressource> similaire;
 	private boolean vu;
 	
 	
@@ -34,13 +35,14 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		
 		this.titre = titre;
 		this.note = -1;
+		this.similaire = new ArrayList<Ressource>();
 		this.vu = false;
 		
-		if(synopsis == null){
-			this.synopsis = ""; // Par défaut
+		if(synopsis == null || synopsis == ""){
+			this.synopsis = "Inconnu"; // Par défaut
 		}else this.synopsis = synopsis;
 		
-		if(type == null){
+		if(type == null || type == ""){
 			this.type = "Film"; // Par defaut
 		}else this.type = type;
 		
@@ -56,17 +58,19 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			this.realisateur = "Inconnu";  // Par defaut
 		}else this.realisateur = realisateur;
 		
-		if(annee > 1900 && annee < 2050){
-			this.annee = annee;
-		}else this.annee = 0;
+		if(annee < 1900 && annee > 2050){
+			this.annee = 0; // Par defaut
+		}else this.annee = annee;
 		
 		if(duree == -1 || duree>240){
-			this.duree = 0;
+			this.duree = 0; // Par defaut
 		}else this.duree = duree;
 		
 		id++;
 	}
 	
+	
+	/* REVOIR LES TESTS PAR RAPPORT AU CONSTRUCTEUR ET INITIALISATION SI ATTRIBUT EST NULL*/
 	
 	/**
 	 * Affiche une Ressource
@@ -159,6 +163,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			if(note>10) this.note = 10;
 			if(note<0) this.note = -1;
 		}
+		this.vu = true;
 	}
 
 	/**
@@ -166,11 +171,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	 * @param vu : the vu to set
 	 */
 	public void setVu(boolean vu) {
-		if(vu){
-			// Ajouter film PREFERENCE
-		}else{
-			// Oter film PREFERENCES
-		}
+		if(vu) //similaire = Similarite.find(this);
 		this.vu = vu;
 	}
 
@@ -213,4 +214,9 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	public boolean isVu() {
 		return vu;
 	}
+
+	public ArrayList<Ressource> getSimilaire() {
+		return similaire;
+	}
+	
 }
