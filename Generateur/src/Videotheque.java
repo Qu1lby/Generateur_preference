@@ -83,23 +83,25 @@ public class Videotheque implements Serializable{
 	 * Recherche une ressource dans la Vidéothèque
 	 * @param titre : titre recherché
 	 */
-	public String recherche(String titre){
+	public Ressource recherche(String titre){
 		int cle = Analyse.Hashage(titre.toUpperCase().charAt(0));
 		ArrayList<Ressource> liste_film = tab_film.get(cle);
 		ArrayList<Ressource> liste_serie = tab_serie.get(cle);
 		
 		for(Ressource f : liste_film){
 			if (f.getTitre().toUpperCase().compareTo(titre.toUpperCase())==0){
-				return f.toString();
+				Similarite.init(this, f);
+				return f;
 			}
 		}
 		
 		for(Ressource s : liste_serie){
 			if (s.getTitre().toUpperCase().compareTo(titre.toUpperCase())==0){
-				return s.toString();
+				Similarite.init(this, s);
+				return s;
 			}
 		}
-		return "Film inconnu";
+		return null;
 	}
 	
 	/**

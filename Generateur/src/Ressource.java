@@ -18,7 +18,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	private int annee, duree, note;
 	private String titre, synopsis, type, realisateur;
 	private ArrayList<String> acteurs, genres;
-	private ArrayList<Ressource> similaire;
+	private ArrayList<Association> similaire;
 	private boolean vu;
 	
 	
@@ -35,7 +35,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		
 		this.titre = titre;
 		this.note = -1;
-		this.similaire = new ArrayList<Ressource>();
+		this.similaire = new ArrayList<Association>();
 		this.vu = false;
 		
 		if(synopsis == null || synopsis == ""){
@@ -215,8 +215,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		return vu;
 	}
 
-	public ArrayList<Ressource> getSimilaire() {
+	public ArrayList<Association> getSimilaire() {
 		return similaire;
 	}
-	
 }

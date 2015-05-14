@@ -8,9 +8,39 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map.Entry;
 
 public abstract class Similarite {
 
+	/**
+	 * Permet d'initialiser la liste des films similaires d'une ressource
+	 * @param v : Vidéothèque
+	 * @param r : Ressource
+	 * @return Liste des films
+	 */
+	public static ArrayList<Association> init(Videotheque v, Ressource source){
+		ArrayList<Association> liste = new ArrayList<Association>();
+		
+		for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_film.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : v.tab_film.get(entry.getKey())) {
+					Association a = new Association(source, r, Similarite.note(source, r));
+					Similarite.addSimilarite(source.getSimilaire(), a);
+				}
+			}
+		}
+		
+		for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_serie.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : v.tab_serie.get(entry.getKey())) {
+					Association a = new Association(source, r, Similarite.note(source, r));
+					Similarite.addSimilarite(source.getSimilaire(), a);
+				}
+			}
+		}
+		
+		return liste;
+	}
 	
 	/**
 	 * Ajoute (ou non) une ressource à la liste des films/series similaires
@@ -19,9 +49,7 @@ public abstract class Similarite {
 	 * @param r : Ressource 
 	 */
 	public static void addSimilarite(ArrayList<Association> liste, Association a){
-		if(liste.size()<5){
-			liste.add(a);
-		}
+		if(liste.size()<5) liste.add(a);
 		
 		for( Association r_tmp : liste){
 			if(r_tmp.getNote()<a.getNote()){

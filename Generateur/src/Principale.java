@@ -130,7 +130,7 @@ public class Principale {
 					System.out.print("Rentrez le titre de la Ressource à rechercher : ");
 					scan.nextLine();
 					String nom = scan.nextLine();
-					System.out.println("\n"+ma_videotheque.recherche(nom));
+					System.out.println("\n"+ma_videotheque.recherche(nom).toString());
 					
 					do{
 						System.out.println("\n[1] Effectuer une autre recherche ");
