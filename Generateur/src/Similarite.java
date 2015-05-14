@@ -9,7 +9,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public abstract class Similarité {
+public abstract class Similarite {
 
 	
 	/**
