@@ -11,12 +11,12 @@ import java.io.Serializable;
 public class Association implements Serializable, Comparable<Association>{
 
 	private Ressource source, ressemblance;
-	private int note;
+	private double note;
 	
 	/**
 	 * Constructeur
 	 */
-	public Association(Ressource source, Ressource ressemblance, int note) {
+	public Association(Ressource source, Ressource ressemblance, double note) {
 		this.source = source;
 		this.ressemblance = ressemblance;
 		this.note = note;
@@ -28,8 +28,8 @@ public class Association implements Serializable, Comparable<Association>{
 	 */
 	public int compareTo(Association arg) {
 		if(note == arg.getNote()) return 0;
-		if(note > arg.getNote()) return 1;
-		return -1;
+		if(note > arg.getNote()) return -1;
+		return 1;
 	}
 	
 	public Ressource getSource() {
@@ -40,7 +40,11 @@ public class Association implements Serializable, Comparable<Association>{
 		return ressemblance;
 	}
 
-	public int getNote() {
+	public double getNote() {
 		return note;
 	}	
+	
+	public String toString(){
+		return "\n"+ressemblance.getTitre()+" : "+note;
+	}
 }
