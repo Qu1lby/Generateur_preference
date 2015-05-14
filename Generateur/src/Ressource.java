@@ -195,6 +195,10 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		return note;
 	}
 	
+	public boolean getVu() {
+		return vu;
+	}
+	
 	public String getRealisateur() {
 		return realisateur;
 	}

@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * Classe Association, associe une note à deux ressources
  * @author Kilian Cuny
@@ -6,7 +8,7 @@
  * @verion 1.0
  */
 
-public class Association implements Comparable<Association>{
+public class Association implements Serializable, Comparable<Association>{
 
 	private Ressource source, ressemblance;
 	private double note;

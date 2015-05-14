@@ -137,11 +137,13 @@ public class Principale {
 					do{
 						System.out.println("\n[1] Effectuer une autre recherche ");
 						System.out.println("[2] Film et Série similaires ");
-						System.out.println("[3] Retour ");
+						System.out.println("[3] J'ai visionné ce film/cette série ");
+						System.out.println("[4] Modifier la note de ce film/cette série ");
+						System.out.println("[5] Retour ");
 						System.out.print("Selection: ");
 						ss_choix = scan.nextInt();
 					
-						if(ss_choix == 3) fin = true;
+						if(ss_choix == 5) fin = true;
 						if(ss_choix == 2){
 							ArrayList<Association> asso = ma_videotheque.getSimilarite(nom);
 							if(asso != null){
@@ -151,7 +153,37 @@ public class Principale {
 							}
 							else System.out.println("Aucune association possible");
 						}
-					}while(ss_choix>3 || ss_choix<1);
+						if(ss_choix == 3) { //while à faire :(
+							if(ma_videotheque.recherche(nom).getVu()) {
+								System.out.print("Vous avez déjà vu ce film");								
+							}
+							else {
+								ma_videotheque.recherche(nom).setVu(true);
+								ma_videotheque.sauvegarder("myBibli.bi");
+								System.out.print("Ajouter une note [0-10]: ");
+								int note = scan.nextInt();
+								if (note < 0 || note > 10) {
+									System.out.print("Note invalide");					
+								}
+								else {
+									ma_videotheque.recherche(nom).setNote(note);
+									ma_videotheque.sauvegarder("myBibli.bi");
+								}
+							}
+							fin = true;
+						}
+						if(ss_choix == 4) { //Pareil, while à faire
+							System.out.print("Ajouter une note [0-10]: ");
+							int note = scan.nextInt();
+							if (note < 0 || note > 10) {
+								System.out.print("Note invalide");					
+							}
+							else {
+								ma_videotheque.recherche(nom).setNote(note);
+								ma_videotheque.sauvegarder("myBibli.bi");
+							}
+						}
+					}while(ss_choix>5 || ss_choix<1);
 					
 					break;
 					
