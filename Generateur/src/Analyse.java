@@ -1,10 +1,9 @@
 /**
  * Classe Analyse, contient les méthodes pour le traitement des flux
- * et des Tables de films/séries
+ * et des tables de Films/Séries
  * 
  * @author Kilian Cuny
  * @author Guillaume Haben
- * 
  * @version 1.0
  */
 
@@ -152,9 +151,11 @@ public abstract class Analyse {
 	 */
 	public static int Hashage(char c) {
 		int place = (int)c;
-		if(place<=90 & place>=65) {
-			return (place-65);
-		}
+		// Majuscule
+		if(place<=90 & place>=65) return (place-65);
+		// Minuscule
+		if(place<=122 & place>=97) return (place-97);
+		// Défaut
 		return 26;
 	}
 }

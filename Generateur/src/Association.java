@@ -1,13 +1,13 @@
-import java.io.Serializable;
-
 /**
  * Classe Association, associe une note à deux ressources
  * @author Kilian Cuny
  * @author Guillaume Haben
- *
  * @verion 1.0
  */
 
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
 public class Association implements Serializable, Comparable<Association>{
 
 	private Ressource source, ressemblance;
@@ -31,6 +31,8 @@ public class Association implements Serializable, Comparable<Association>{
 		if(note > arg.getNote()) return -1;
 		return 1;
 	}
+	
+	/* GETTER */
 	
 	public Ressource getSource() {
 		return source;

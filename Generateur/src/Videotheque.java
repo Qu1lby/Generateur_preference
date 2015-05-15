@@ -1,8 +1,7 @@
 /**
- * Classe Vidéothèque, représente un ensemble de ressources
+ * Classe Vidéothèque, représente un ensemble de Ressource
  * @author Kilian Cuny
  * @author Guillaume Haben
- * 
  * @version 1.0
  */
 
@@ -45,6 +44,7 @@ public class Videotheque implements Serializable{
 	/**
 	 * Créer une nouvelle Vidéothèque
 	 * @param fichier : nom du fichier
+	 * @return code_retour
 	 */
 	public int creer(String fichier){
 		return Analyse.charger(this, fichier);
@@ -82,9 +82,10 @@ public class Videotheque implements Serializable{
 	/**
 	 * Recherche une ressource dans la Vidéothèque
 	 * @param titre : titre recherché
+	 * @return Ressource ou null
 	 */
 	public Ressource recherche(String titre){
-		int cle = Analyse.Hashage(titre.toUpperCase().charAt(0));
+		int cle = Analyse.Hashage(titre.charAt(0));
 		ArrayList<Ressource> liste_film = tab_film.get(cle);
 		ArrayList<Ressource> liste_serie = tab_serie.get(cle);
 		
@@ -103,18 +104,20 @@ public class Videotheque implements Serializable{
 	}
 	
 	/**
-	 * Initialise les similarités d'un film
+	 * Récupère ou Initialise les Similarités d'une Ressource
 	 * @param titre
-	 * @return
+	 * @return Liste des Similarites
 	 */
 	public ArrayList<Association> getSimilarite(String titre){
 		Ressource r = this.recherche(titre);
 		if(r!=null && r.getSimilaire().size()==0){
-			return Similarite.init(this, r);
+			ArrayList<Ressource> list = new ArrayList<Ressource>();
+			list.add(r);
+			Similarite.init(this, list);
 		}else{
 			if(r == null) return null;
-			return r.getSimilaire();
 		}
+		return r.getSimilaire();
 	}
 	
 	/**

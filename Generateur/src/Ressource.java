@@ -2,7 +2,6 @@
  * Classe Ressource, représente un film ou une série
  * @author Guillaume Haben
  * @author Kilian Cuny
- *
  * @verion 1.0
  */
 
@@ -24,7 +23,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	
 	
 	/**
-	 * Constructeur de Ressource :
+	 * Constructeur de Ressource
 	 * Effectue les vérifications et changements adéquats
 	 * Il est necessaire que le titre du film ne soit pas null
 	 * 
@@ -35,9 +34,11 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			String type, String realisateur) {
 		
 		this.titre = titre;
+		
 		this.note = -1;
 		this.similaire = new ArrayList<Association>();
 		this.vu = false;
+		this.date = null;
 		
 		if(synopsis == null || synopsis == ""){
 			this.synopsis = "Inconnu"; // Par défaut
@@ -173,8 +174,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	 * @param vu : the vu to set
 	 */
 	public void setVu(boolean vu) {
-		if(vu) //similaire = Similarite.find(this);
-		this.vu = vu;
+		if(vu) this.vu = vu;
 	}
 	
 	public void setDate(Date d){

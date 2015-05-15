@@ -1,8 +1,7 @@
 /**
- * Classe Preference, gère les préférences utilisateurs
+ * Classe Similarite, gère les similarites entre films
  * @author Kilian Cuny
  * @author Guillaume Haben
- *
  * @verion 1.0
  */
 
@@ -11,41 +10,46 @@ import java.util.Collections;
 import java.util.Map.Entry;
 
 public abstract class Similarite {
-
+	
 	/**
-	 * Permet d'initialiser la liste des films similaires d'une ressource
+	 * Permet d'initialiser la liste des films similaires d'une liste de ressource
 	 * @param v : Vidéothèque
-	 * @param r : Ressource
-	 * @return Liste des films
+	 * @param source : Liste de Ressources
+	 * @return code retour
 	 */
-	public static ArrayList<Association> init(Videotheque v, Ressource source){
-		
-		for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_film.entrySet()) {
-			if (!entry.getValue().isEmpty()) {
-				for (Ressource r : v.tab_film.get(entry.getKey())) {
-					Association a = new Association(source, r, Similarite.note(source, r));
-					Similarite.addSimilarite(source.getSimilaire(), a);
+	public static int init(Videotheque v, ArrayList<Ressource> sources){
+		if(sources.size() != 0 && v != null){
+			for(Ressource source : sources){
+				// Table Film
+				for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_film.entrySet()) {
+					if (!entry.getValue().isEmpty()) {
+						for (Ressource r : v.tab_film.get(entry.getKey())) {
+							Association a = new Association(source, r, Similarite.note(source, r));
+							Similarite.addSimilarite(source.getSimilaire(), a);
+						}
+					}
+				}
+				// Table Série
+				for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_serie.entrySet()) {
+					if (!entry.getValue().isEmpty()) {
+						for (Ressource r : v.tab_serie.get(entry.getKey())) {
+							Association a = new Association(source, r, Similarite.note(source, r));
+							Similarite.addSimilarite(source.getSimilaire(), a);
+						}
+					}
 				}
 			}
 		}
 		
-		for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_serie.entrySet()) {
-			if (!entry.getValue().isEmpty()) {
-				for (Ressource r : v.tab_serie.get(entry.getKey())) {
-					Association a = new Association(source, r, Similarite.note(source, r));
-					Similarite.addSimilarite(source.getSimilaire(), a);
-				}
-			}
-		}
-		
-		return source.getSimilaire();
+		return 0;
 	}
 	
 	/**
 	 * Ajoute (ou non) une ressource à la liste des films/series similaires
-	 * d'une autre si la note est > a min(note) de la liste
+	 * d'une autre si la note est > min(note) de la liste
 	 * @param liste : ressources associées
 	 * @param r : Ressource 
+	 * @return code_retour
 	 */
 	public static void addSimilarite(ArrayList<Association> liste, Association a){
 		if(a.getNote()==0)return;
@@ -59,14 +63,11 @@ public abstract class Similarite {
 				}
 			}
 		}
-				
 		Collections.sort(liste);
 	}
-	
-	
+
 	/**
-	 * Système de notation sur la ressemblance entre
-	 * deux Ressources
+	 * Système de notation sur la ressemblance entre deux Ressources
 	 * @param r1 : Ressource 1
 	 * @param r2 : Ressource 2
 	 * @return : 0 < x < 5
@@ -104,7 +105,6 @@ public abstract class Similarite {
 		}
 		return note;
 	}
-	
 	
 	/**
 	 * Retourne une note de ressemblance entre deux array
