@@ -150,14 +150,16 @@ public class Videotheque implements Serializable{
 	 * Sauvegarde la Vidéothèque courante dans un fichier binaire
 	 * @param fichier : Nom du fichier
 	 */
-	public void sauvegarder(String fichier){
+	public int sauvegarder(String fichier){
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier));
 			oos.writeObject(this);
 			oos.close();
+			return 0;
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+			return -1;
 		}
 	}
 
