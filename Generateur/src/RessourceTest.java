@@ -3,7 +3,6 @@
  * 
  * @author Guillaume Haben
  * @author Kilian Cuny
- * 
  * @version 1.0
  */
 
@@ -75,9 +74,15 @@ public class RessourceTest {
 
 	@Test
 	public void testSetVu() {
-		fail("Not yet implemented");
+		assertEquals(false, r_test.getVu());
+		r_test.setVu(true);
+		assertEquals(true, r_test.getVu());
+		r_test.setVu(false);
+		assertEquals(false, r_test.getVu());
 	}
-
+	
+	/* A faire */
+	
 	@Test
 	// Avec un Film
 	public void testToString1() {

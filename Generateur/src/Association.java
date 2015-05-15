@@ -2,7 +2,7 @@
  * Classe Association, associe une note à deux ressources
  * @author Kilian Cuny
  * @author Guillaume Haben
- * @verion 1.0
+ * @version 1.0
  */
 
 import java.io.Serializable;
@@ -32,7 +32,7 @@ public class Association implements Serializable, Comparable<Association>{
 		return 1;
 	}
 	
-	/* GETTER */
+	//******* GETTER *******//
 	
 	public Ressource getSource() {
 		return source;

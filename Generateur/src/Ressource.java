@@ -2,7 +2,7 @@
  * Classe Ressource, représente un film ou une série
  * @author Guillaume Haben
  * @author Kilian Cuny
- * @verion 1.0
+ * @version 1.0
  */
 
 import java.io.Serializable;
@@ -169,12 +169,8 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		this.vu = true;
 	}
 
-	/**
-	 * Setter vu
-	 * @param vu : the vu to set
-	 */
 	public void setVu(boolean vu) {
-		if(vu) this.vu = vu;
+		this.vu = vu;
 	}
 	
 	public void setDate(Date d){
@@ -213,6 +209,10 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		return realisateur;
 	}
 	
+	public ArrayList<Association> getSimilaire() {
+		return similaire;
+	}
+	
 	public String getSynopsis() {
 		return synopsis;
 	}
@@ -227,9 +227,5 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	
 	public boolean isVu() {
 		return vu;
-	}
-
-	public ArrayList<Association> getSimilaire() {
-		return similaire;
 	}
 }

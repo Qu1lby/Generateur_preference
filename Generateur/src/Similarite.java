@@ -2,7 +2,7 @@
  * Classe Similarite, gère les similarites entre films
  * @author Kilian Cuny
  * @author Guillaume Haben
- * @verion 1.0
+ * @version 1.0
  */
 
 import java.util.ArrayList;

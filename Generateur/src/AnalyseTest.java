@@ -26,4 +26,6 @@ public class AnalyseTest {
 		assertEquals(26, Analyse.Hashage(','));
 	}
 
+	// Test pour charger -> Dur à faire
+	
 }
