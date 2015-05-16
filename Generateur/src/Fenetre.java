@@ -11,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
@@ -19,6 +21,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	
 	public Videotheque ma_videotheque;
 	public String menu;
+	public String ig_recherche;
 
 	/**
 	 * Constructeur -> Handle fermeture et configuration par défaut
@@ -26,6 +29,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	public Fenetre() {
 		 ma_videotheque = new Videotheque();
 		 menu = "Chargement";
+		 ig_recherche = "";
 		 
 		// Fermeture de la Fenêtre avec la croix
 		addWindowListener(new WindowAdapter() {
@@ -175,6 +179,36 @@ public class Fenetre extends JFrame implements ActionListener{
 	public void Menu_principal(){
 		final JPanel Centre = new JPanel();
 		Centre.setLayout(new BorderLayout());
+		
+		Font font = new Font("Arial", Font.CENTER_BASELINE, 20);
+		Font font2 = new Font("Arial", Font.CENTER_BASELINE,15);
+		
+		JTextField recherche = new JTextField(30);
+		recherche.setFont(font2);
+		recherche.setText(ig_recherche);
+		
+		JLabel lab_recherche = new JLabel("Recherche : ");
+		lab_recherche.setFont(font2);
+		
+		JButton valider = new JButton("Lancer");
+		valider.setFocusPainted(false);
+		
+		// Panneau haut du Centre
+		JPanel haut = new JPanel(new BorderLayout());
+		JPanel haut_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		haut_centre.add(lab_recherche);
+		haut_centre.add(recherche);
+		haut_centre.add(valider);
+		
+		haut.add(new JLabel(" "), BorderLayout.NORTH);
+		haut.add(haut_centre,BorderLayout.CENTER);
+		
+		// Panneau bas du Centre
+		JPanel bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		
+		Centre.add(haut, BorderLayout.NORTH);
+		Centre.add(bas, BorderLayout.CENTER);
+		
 		
 		this.setContentPane(Centre);
 	}
