@@ -175,6 +175,22 @@ public class Videotheque implements Serializable{
 		return note;
 	}
 	
+	/**
+	 * Liste dont la note est supérieure à la moyenne
+	 * @return ArrayList : Film note > note_moyenne
+	 */
+	public ArrayList<Ressource> list_films_sup_moy(){
+		ArrayList<Ressource> nouvelle_liste = new ArrayList<Ressource>();
+		
+		for(int i=0; i<this.list_vu().size(); i++) {
+			if(this.list_vu().get(i).getNote() >= this.note_moyenne()) {
+				nouvelle_liste.add(this.list_vu().get(i));
+			}
+		}
+		
+		return nouvelle_liste;
+	}
+	
 	
 	/**
 	 * Sauvegarde la Vidéothèque courante dans un fichier binaire

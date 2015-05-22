@@ -9,7 +9,15 @@ public abstract class Recommandation {
 	 */
 	
 	public static void init(Videotheque v) {
-		ArrayList<Ressource> liste_films_vus = v.list_vu();
+		ArrayList<Ressource> liste_films_vus = v.list_films_sup_moy();
+		ArrayList<Ressource> liste_des_similaires = new ArrayList<Ressource>();
+		
+		for(int i=0; i<liste_films_vus.size(); i++) {
+			//liste_des_similaires.add(liste_films_vus.get(i).getSimilaire());
+		}
 		
 	}
+	
+	
 }
+
