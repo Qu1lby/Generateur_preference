@@ -147,6 +147,36 @@ public class Videotheque implements Serializable{
 	}
 	
 	/**
+	 * Note moyenne de la vidéothèque
+	 * @return int : Note moyenne
+	 */
+	public int note_moyenne() {
+		int note = 0;
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : this.tab_film.get(entry.getKey())) {
+					if(r.getNote() <= 10 && r.getNote() >= 0) {
+						note += r.getNote();
+					}
+				}
+			}
+		}
+		
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : this.tab_serie.get(entry.getKey())) {
+					if(r.getNote() <= 10 && r.getNote() >= 0) {
+						note += r.getNote();
+					}
+				}
+			}
+		}
+		note = note / (this.tab_film.size() + this.tab_serie.size());
+		return note;
+	}
+	
+	
+	/**
 	 * Sauvegarde la Vidéothèque courante dans un fichier binaire
 	 * @param fichier : Nom du fichier
 	 */
