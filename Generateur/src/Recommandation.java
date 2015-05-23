@@ -6,12 +6,19 @@ public class Recommandation {
 	 * @param source : Liste de Ressources déjà visionnées
 	 * @return code retour
 	 */
-	ArrayList<Ressource> liste_des_similaires = new ArrayList<Ressource>();
+	ArrayList<Ressource> liste_des_similaires;
 	
+	/**
+	 * Constructeur
+	 */
 	public Recommandation() {
-		liste_des_similaires = null;
+		liste_des_similaires = new ArrayList<Ressource>();
 	}
 	
+	/**
+	 * Permet d'initialiser la liste des recommandations
+	 * @param v : Vidéothèque
+	 */
 	public void init(Videotheque v) {
 		ArrayList<Ressource> liste_films_vus = v.list_films_sup_moy();
 		
@@ -27,6 +34,9 @@ public class Recommandation {
     	}
 	}
 	
+	/**
+	 * Affiche la liste des films recommandés
+	 */
 	public void afficher() {
 		for(int i=0; i<liste_des_similaires.size(); i++) {
 			liste_des_similaires.get(i).toString();
