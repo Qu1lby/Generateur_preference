@@ -78,6 +78,15 @@ public class Videotheque implements Serializable{
 			Collections.sort(tab_serie.get(cle));
 		}
 	}
+	
+	/**
+	 * Supprime une Ressource
+	 * @param r : Ressource
+	 */
+	public void supprimer(Ressource r) {
+		int cle = Analyse.Hashage(r.getTitre().charAt(0));
+		tab_film.get(cle).remove(r);
+	}
 
 	/**
 	 * Recherche une ressource dans la Vidéothèque
