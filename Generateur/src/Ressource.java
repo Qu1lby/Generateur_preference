@@ -40,11 +40,11 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		this.vu = false;
 		this.date = null;
 		
-		if(synopsis == null || synopsis == ""){
-			this.synopsis = "Inconnu"; // Par défaut
+		if(synopsis == null || synopsis.compareTo("")==0){
+			this.synopsis = "Synopsis non renseigné"; // Par défaut
 		}else this.synopsis = synopsis;
 		
-		if(type == null || type == ""){
+		if(type == null || type.compareTo("")==0){
 			this.type = "Film"; // Par defaut
 		}else this.type = type;
 		
@@ -56,7 +56,7 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 			this.genres = new ArrayList<String>();
 		}else this.genres = genres;
 		
-		if(realisateur == null || realisateur == ""){
+		if(realisateur == null || realisateur.compareTo("")==0){
 			this.realisateur = "Inconnu";  // Par defaut
 		}else this.realisateur = realisateur;
 		
@@ -71,6 +71,10 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		id++;
 	}
 	
+	void reinit(){
+		this.vu = false;
+		this.note = -1;
+	}
 	
 	/* REVOIR LES TESTS PAR RAPPORT AU CONSTRUCTEUR ET INITIALISATION SI ATTRIBUT EST NULL*/
 	

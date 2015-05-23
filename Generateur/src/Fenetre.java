@@ -18,10 +18,6 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import javax.swing.*;
-<<<<<<< HEAD
-=======
-import javax.swing.border.BevelBorder;
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -360,7 +356,7 @@ public class Fenetre extends JFrame implements ActionListener{
 				retour = JOptionPane.showOptionDialog(null, msg,"", JOptionPane.YES_NO_OPTION, retour,
 						null, Texte, Texte[1]);
 				if(retour == 0){
-					//ma_videotheque.
+					ma_videotheque.reintialiser_pref();
 				}
 			}
 		});
@@ -494,14 +490,10 @@ public class Fenetre extends JFrame implements ActionListener{
 		note.setFocusPainted(false);
 		note.setContentAreaFilled(false);
 		
-<<<<<<< HEAD
 		if(!r_recherche.getVu()){
 			bas.add(note);
 		}
 		
-=======
-		bas.add(note);
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
 		bas.add(supprimer);
 		bas.add(retour);
 		
@@ -530,7 +522,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		note.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame = new JFrame("Noter ce film");
-				String s_note = JOptionPane.showInputDialog(frame, "Quelle note souhaitez-vous\nattribuer ? (0->10) ");
+				String s_note = JOptionPane.showInputDialog(frame, "Quelle note souhaitez-vous\nattribuer ? (0 à 10) ");
 				int note;
 				try{
 					note = Integer.parseInt(s_note);
@@ -552,12 +544,8 @@ public class Fenetre extends JFrame implements ActionListener{
 	public void Menu_ajouter(){
 		final JPanel Centre = new JPanel();
 		Centre.setLayout(new BorderLayout());
-<<<<<<< HEAD
-
-		Font font = new Font("Arial", Font.CENTER_BASELINE,20);
-=======
 		
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
+		Font font = new Font("Arial", Font.CENTER_BASELINE,20);
 		Font font2 = new Font("Arial", Font.CENTER_BASELINE,15);
 	
 		// Panneau middle du Centre
@@ -570,11 +558,8 @@ public class Fenetre extends JFrame implements ActionListener{
 		middle.add(middle_haut_bas, BorderLayout.NORTH);
 		middle.add(middle_b, BorderLayout.CENTER);
 		
-<<<<<<< HEAD
+
 		final JTextField titre = new JTextField(35);
-=======
-		JTextField titre = new JTextField(35);
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
 		titre.setFont(font2);
 		titre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		
@@ -584,20 +569,14 @@ public class Fenetre extends JFrame implements ActionListener{
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}	
-<<<<<<< HEAD
+
 		final JFormattedTextField  annee = new JFormattedTextField(mask);
-=======
-		JFormattedTextField  annee = new JFormattedTextField(mask);
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
 		annee.setFont(font2);
 		annee.setColumns(4);
 		annee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		
-<<<<<<< HEAD
+
 		final JTextArea synopsis = new JTextArea();
-=======
-		JTextArea synopsis = new JTextArea();
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
 		synopsis.setFont(font2);
 		synopsis.setLineWrap(true);
 		synopsis.setWrapStyleWord(true);
@@ -605,7 +584,6 @@ public class Fenetre extends JFrame implements ActionListener{
 		Border myBorder = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 		synopsis.setBorder(myBorder);
 
-<<<<<<< HEAD
 		final JTextField director = new JTextField(31);
 		director.setFont(font2);
 		director.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -615,17 +593,6 @@ public class Fenetre extends JFrame implements ActionListener{
 		casting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		
 		final JTextField genre = new JTextField(35);
-=======
-		JTextField director = new JTextField(31);
-		director.setFont(font2);
-		director.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		
-		JTextField casting = new JTextField(34);
-		casting.setFont(font2);
-		casting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		
-		JTextField genre = new JTextField(35);
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
 		genre.setFont(font2);
 		genre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		
@@ -635,11 +602,8 @@ public class Fenetre extends JFrame implements ActionListener{
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}	
-<<<<<<< HEAD
+
 		final JFormattedTextField duree = new JFormattedTextField(mask2);
-=======
-		JFormattedTextField duree = new JFormattedTextField(mask2);
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
 		duree.setFont(font2);
 		duree.setColumns(4);
 		duree.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -651,10 +615,9 @@ public class Fenetre extends JFrame implements ActionListener{
 		JPanel cinq = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel six = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel sept = new JPanel(new FlowLayout(FlowLayout.CENTER));
-<<<<<<< HEAD
 		JPanel huit = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		JLabel titre_aff = new JLabel("Ajouter un film");
+		JLabel titre_aff = new JLabel("Ajouter une Ressource");
 		titre_aff.setFont(font);
 		
 		JPanel haut_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -662,16 +625,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		JPanel haut = new JPanel(new BorderLayout());
 		haut.add(new JLabel(" "), BorderLayout.NORTH);
 		haut.add(haut_centre, BorderLayout.CENTER);
-		
-=======
-		
-		middle_c.add(new JLabel(" "));
-		
-		JLabel titre_aff = new JLabel("Ajouter un film");
-		titre_aff.setFont(font2);
-		
-		middle_c.add(titre_aff);
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
+
 		middle_c.add(new JLabel(" "));
 		
 		un.add(new JLabel("TITRE :   "));
@@ -702,17 +656,15 @@ public class Fenetre extends JFrame implements ActionListener{
 		sept.add(synopsis);
 		middle_c.add(sept);
 		
-<<<<<<< HEAD
 		String[] liste = { "Film", "Serie"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final
 		JComboBox List = new JComboBox(liste);
 		List.setSelectedIndex(0);
+		huit.add(new JLabel("TYPE :   "));
 		huit.add(List);
 		middle_c.add(huit);
-		
-=======
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
+
 		// Panneau bas du Centre
 		JPanel bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
@@ -727,17 +679,10 @@ public class Fenetre extends JFrame implements ActionListener{
 		bas.add(ajouter);
 		bas.add(retour);
 		
-<<<<<<< HEAD
 		Centre.add(haut, BorderLayout.NORTH);
 		Centre.add(middle, BorderLayout.CENTER);
 		Centre.add(bas, BorderLayout.SOUTH);
-=======
-		middle_c.add(new JLabel(" "));
-		middle_c.add(new JLabel(" "));
-		middle_c.add(bas);
-		
-		Centre.add(middle, BorderLayout.CENTER);
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
+
 		
 		// Listenners  AJOUTER/ RETOUR
 		retour.addActionListener(this);
@@ -751,15 +696,20 @@ public class Fenetre extends JFrame implements ActionListener{
 		ajouter.addActionListener(this);
 		ajouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
 				String r_title = titre.getText();
 				if(r_title.compareTo("")!=0){
 				
 					String r_date = annee.getText();
+					if(r_date.compareTo("    ")==0)
+						r_date="2015";
+					
 					String r_director = director.getText();
 					String r_casting = casting.getText();
 					String r_genre = genre.getText();
 					String r_duree = duree.getText();
+					if(r_duree.compareTo("   ")==0)
+						r_duree="-1";
+					
 					String r_synopsis = synopsis.getText();
 					String r_type = List.getSelectedItem().toString();
 					
@@ -777,12 +727,11 @@ public class Fenetre extends JFrame implements ActionListener{
 					
 					Ressource new_r = new Ressource(r_title, Integer.parseInt(r_date), r_synopsis, l_casting, l_genre, Integer.parseInt(r_duree), r_type, r_director);
 					ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
-				}
+					menu = "Principal";
 				
+				}else JOptionPane.showMessageDialog(null, "Impossible d'ajouter le film", "",
+						JOptionPane.ERROR_MESSAGE);
 				
-=======
->>>>>>> b4a926ad300ffcbbbccd31606b3fa9946ef8ff5c
-				menu = "Principal";
 			}
 		});
 		
