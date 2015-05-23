@@ -13,11 +13,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.MaskFormatter;
 
 @SuppressWarnings("serial")
 public class Fenetre extends JFrame implements ActionListener{
@@ -328,7 +333,21 @@ public class Fenetre extends JFrame implements ActionListener{
 				}else text_recherche = "";
 			}
 		});
-			
+		
+		ajouter.addActionListener(this);
+		ajouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu = "Ajouter";
+			}
+		});
+		
+		recommandation.addActionListener(this);
+		recommandation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu = "Recommandation";
+			}
+		});
+		
 		reinitialiser.addActionListener(this);
 		reinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -372,6 +391,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		final JPanel Centre = new JPanel();
 		Centre.setLayout(new BorderLayout());
 		
+		Font font = new Font("Arial", Font.CENTER_BASELINE,20);
 		Font font2 = new Font("Arial", Font.CENTER_BASELINE,15);
 		
 		final JTextField recherche = new JTextField(30);
@@ -398,6 +418,63 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		// Panneau middle du Centre
 		JPanel middle = new JPanel(new BorderLayout());
+		JPanel middle_haut_bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel middle_c = new JPanel(new GridLayout(10,1));
+		JPanel middle_b = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		middle_haut_bas.add(middle_c);
+		middle.add(middle_haut_bas, BorderLayout.NORTH);
+		middle.add(middle_b, BorderLayout.CENTER);
+		
+		JLabel titre = new JLabel(r_recherche.getTitre());
+		titre.setFont(font);
+		titre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JLabel annee = new JLabel("("+r_recherche.getAnnee()+")");
+		annee.setFont(font2);
+		annee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JTextArea synopsis = new JTextArea(r_recherche.getSynopsis());
+		synopsis.setFont(font2);
+		synopsis.setLineWrap(true);
+		synopsis.setWrapStyleWord(true);
+		synopsis.setEditable(false);
+		synopsis.setOpaque(false);
+		synopsis.setSize(500, 100);
+
+		JLabel director = new JLabel("Réalisateur : "+r_recherche.getRealisateur());
+		director.setFont(font2);
+		director.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JLabel casting = new JLabel(""+r_recherche.getActeur());
+		casting.setFont(font2);
+		casting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JLabel genre = new JLabel(""+r_recherche.getGenre());
+		genre.setFont(font2);
+		genre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JLabel duree = new JLabel("Durée : "+r_recherche.getDuree()+" min");
+		duree.setFont(font2);
+		duree.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		middle_c.add(new JLabel());
+		middle_c.add(titre);
+		middle_c.add(annee);
+		middle_c.add(new JLabel());
+		middle_c.add(director);
+		middle_c.add(casting);
+		middle_c.add(genre);
+		middle_c.add(duree);		
+		
+		if(r_recherche.getVu()){
+			JLabel note = new JLabel("Note : "+r_recherche.getNote());
+			note.setFont(font2);
+			note.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+			middle_c.add(note);
+		}
+		middle_c.add(new JLabel(""));
+		
+		middle_b.add(synopsis);
 		
 		// Panneau bas du Centre
 		JPanel bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -419,6 +496,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		bas.add(retour);
 		
 		Centre.add(haut, BorderLayout.NORTH);
+		Centre.add(middle, BorderLayout.CENTER);
 		Centre.add(bas, BorderLayout.SOUTH);
 		
 		// Listenners NOTER / SUPPRIMER / RETOUR
@@ -427,6 +505,14 @@ public class Fenetre extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				menu = "Principal";
 				r_recherche = null;
+			}
+		});
+		
+		supprimer.addActionListener(this);
+		supprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ma_videotheque.supprimer(r_recherche);
+				menu = "Principal";
 			}
 		});
 		
@@ -448,11 +534,154 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		this.setContentPane(Centre);
 	}
+
 	
 	/**
 	 * Menu ajouter
 	 */
 	public void Menu_ajouter(){
+		final JPanel Centre = new JPanel();
+		Centre.setLayout(new BorderLayout());
+		
+		Font font2 = new Font("Arial", Font.CENTER_BASELINE,15);
+	
+		// Panneau middle du Centre
+		JPanel middle = new JPanel(new BorderLayout());
+		JPanel middle_haut_bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel middle_c = new JPanel();
+		middle_c.setLayout(new BoxLayout(middle_c, BoxLayout.Y_AXIS));
+		JPanel middle_b = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		middle_haut_bas.add(middle_c);
+		middle.add(middle_haut_bas, BorderLayout.NORTH);
+		middle.add(middle_b, BorderLayout.CENTER);
+		
+		JTextField titre = new JTextField(35);
+		titre.setFont(font2);
+		titre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		MaskFormatter mask = null;
+		try {
+			mask = new MaskFormatter("####");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}	
+		JFormattedTextField  annee = new JFormattedTextField(mask);
+		annee.setFont(font2);
+		annee.setColumns(4);
+		annee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JTextArea synopsis = new JTextArea();
+		synopsis.setFont(font2);
+		synopsis.setLineWrap(true);
+		synopsis.setWrapStyleWord(true);
+		synopsis.setPreferredSize(new Dimension(400, 100));
+		Border myBorder = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+		synopsis.setBorder(myBorder);
+
+		JTextField director = new JTextField(31);
+		director.setFont(font2);
+		director.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JTextField casting = new JTextField(34);
+		casting.setFont(font2);
+		casting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JTextField genre = new JTextField(35);
+		genre.setFont(font2);
+		genre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		MaskFormatter mask2 = null;
+		try {
+			mask2 = new MaskFormatter("###");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}	
+		JFormattedTextField duree = new JFormattedTextField(mask2);
+		duree.setFont(font2);
+		duree.setColumns(4);
+		duree.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		JPanel un = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel deux = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel trois = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel quatre = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel cinq = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel six = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel sept = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		
+		middle_c.add(new JLabel(" "));
+		
+		JLabel titre_aff = new JLabel("Ajouter un film");
+		titre_aff.setFont(font2);
+		
+		middle_c.add(titre_aff);
+		middle_c.add(new JLabel(" "));
+		
+		un.add(new JLabel("TITRE :   "));
+		un.add(titre);
+		middle_c.add(un);
+		
+		trois.add(new JLabel("REALISATEUR :   "));
+		trois.add(director);
+		middle_c.add(trois);
+		
+		quatre.add(new JLabel("ACTEUR :   "));
+		quatre.add(casting);
+		middle_c.add(quatre);
+		
+		cinq.add(new JLabel("GENRE :   "));
+		cinq.add(genre);
+		middle_c.add(cinq);
+		
+		deux.add(new JLabel("ANNEE :   "));
+		deux.add(annee);
+		middle_c.add(deux);
+		
+		six.add(new JLabel("DUREE :   "));
+		six.add(duree);
+		middle_c.add(six);	
+		
+		sept.add(new JLabel("SYNOPSIS :   "));
+		sept.add(synopsis);
+		middle_c.add(sept);
+		
+		// Panneau bas du Centre
+		JPanel bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		
+		JButton retour = new JButton("Menu Principal");
+		retour.setFocusPainted(false);
+		retour.setContentAreaFilled(false);
+		
+		JButton ajouter = new JButton("Ajouter");
+		ajouter.setFocusPainted(false);
+		ajouter.setContentAreaFilled(false);
+		
+		bas.add(ajouter);
+		bas.add(retour);
+		
+		middle_c.add(new JLabel(" "));
+		middle_c.add(new JLabel(" "));
+		middle_c.add(bas);
+		
+		Centre.add(middle, BorderLayout.CENTER);
+		
+		// Listenners  AJOUTER/ RETOUR
+		retour.addActionListener(this);
+		retour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu = "Principal";
+				r_recherche = null;
+			}
+		});
+		
+		ajouter.addActionListener(this);
+		ajouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu = "Principal";
+			}
+		});
+		
+		this.setContentPane(Centre);
 		
 	}
 	

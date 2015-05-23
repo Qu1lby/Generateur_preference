@@ -108,7 +108,7 @@ public abstract class Analyse {
 						duree = Integer.parseInt(decoupage[decoupage.length-2]);
 					}else {
 						for(int i = 0; i< decoupage.length; i+=2) {
-							genres.add(decoupage[i].substring(1));
+							genres.add(decoupage[i]);
 						}
 					}
 					
