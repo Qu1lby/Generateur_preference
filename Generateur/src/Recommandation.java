@@ -7,6 +7,8 @@ public class Recommandation {
 	 * @return code retour
 	 */
 	ArrayList<Ressource> liste_des_similaires;
+	ArrayList<Ressource> liste_des_premiers_similaires;
+	
 	
 	/**
 	 * Constructeur
@@ -23,14 +25,16 @@ public class Recommandation {
 		ArrayList<Ressource> liste_films_vus = v.list_films_sup_moy();
 		Similarite.init(v, liste_films_vus);
 		
+		
 		for(int i=0; i<liste_films_vus.size(); i++) {
             ArrayList<Association> liste = liste_films_vus.get(i).getSimilaire();
+            liste_des_premiers_similaires.add(liste.get(0).getRessemblance());
             for( Association a : liste){
-                //if(!a.getRessemblance().getVu()) {
-                    //if(!liste_des_similaires.contains(a.getRessemblance())){
+                if(!a.getRessemblance().getVu()) {
+                    if(!liste_des_similaires.contains(a.getRessemblance())){
                         liste_des_similaires.add(a.getRessemblance());
-                    //}
-                //}
+                    }
+                }
             }
     	}
 	}
@@ -39,8 +43,8 @@ public class Recommandation {
 	 * Affiche la liste des films recommandés
 	 */
 	public void afficher() {
-		for(int i=0; i<liste_des_similaires.size(); i++) {
-			liste_des_similaires.get(i).toString();
+		for(int i=0; i<liste_des_premiers_similaires.size(); i++) {
+			System.out.println(liste_des_premiers_similaires.get(i).toString());
 		}
 	}
 
