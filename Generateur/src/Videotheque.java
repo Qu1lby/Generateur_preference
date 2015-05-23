@@ -190,10 +190,11 @@ public class Videotheque implements Serializable{
 	 */
 	public ArrayList<Ressource> list_films_sup_moy(){
 		ArrayList<Ressource> nouvelle_liste = new ArrayList<Ressource>();
+		ArrayList<Ressource> liste_vue = this.list_vu();
 		
-		for(int i=0; i<this.list_vu().size(); i++) {
-			if(this.list_vu().get(i).getNote() >= this.note_moyenne()) {
-				nouvelle_liste.add(this.list_vu().get(i));
+		for(int i=0; i<liste_vue.size(); i++) {
+			if(liste_vue.get(i).getNote() >= this.note_moyenne()) {
+				nouvelle_liste.add(liste_vue.get(i));
 			}
 		}
 		
