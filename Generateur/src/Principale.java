@@ -11,6 +11,7 @@ public class Principale {
 		/* ---------- Création de la vidéothèque ---------- */
 
 		Videotheque ma_videotheque = new Videotheque();
+		Recommandation mes_recommandations = new Recommandation();
 
 		/* --------------------- Menu --------------------- */
 
@@ -190,6 +191,10 @@ public class Principale {
 					break;
 					
 				case 4:
+					mes_recommandations.init(ma_videotheque);
+					if(!mes_recommandations.getListe_des_similaires().isEmpty()) {
+						mes_recommandations.afficher();
+					}
 					break;
 					
 				case 5:
