@@ -356,7 +356,7 @@ public class Fenetre extends JFrame implements ActionListener{
 				retour = JOptionPane.showOptionDialog(null, msg,"", JOptionPane.YES_NO_OPTION, retour,
 						null, Texte, Texte[1]);
 				if(retour == 0){
-					//ma_videotheque.
+					ma_videotheque.reintialiser_pref();
 				}
 			}
 		});
@@ -522,7 +522,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		note.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame = new JFrame("Noter ce film");
-				String s_note = JOptionPane.showInputDialog(frame, "Quelle note souhaitez-vous\nattribuer ? (0->10) ");
+				String s_note = JOptionPane.showInputDialog(frame, "Quelle note souhaitez-vous\nattribuer ? (0 à 10) ");
 				int note;
 				try{
 					note = Integer.parseInt(s_note);
@@ -617,7 +617,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		JPanel sept = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel huit = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		JLabel titre_aff = new JLabel("Ajouter un film");
+		JLabel titre_aff = new JLabel("Ajouter une Ressource");
 		titre_aff.setFont(font);
 		
 		JPanel haut_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));

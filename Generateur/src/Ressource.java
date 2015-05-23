@@ -71,6 +71,10 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		id++;
 	}
 	
+	void reinit(){
+		this.vu = false;
+		this.note = -1;
+	}
 	
 	/* REVOIR LES TESTS PAR RAPPORT AU CONSTRUCTEUR ET INITIALISATION SI ATTRIBUT EST NULL*/
 	

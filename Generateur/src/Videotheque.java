@@ -64,6 +64,27 @@ public class Videotheque implements Serializable{
 	}
 	
 	/**
+	 * Réinitialise les Préférences
+	 */
+	public void reintialiser_pref(){
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : this.tab_film.get(entry.getKey())) {
+					if(r.isVu()) r.reinit();
+				}
+			}
+		}
+		
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : this.tab_serie.get(entry.getKey())) {
+					if(r.isVu()) r.reinit();
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Ajoute une Ressource et trie alphabétiquement la liste
 	 * @param cle : clé de la Hashmap
 	 * @param r : Ressource
@@ -197,7 +218,6 @@ public class Videotheque implements Serializable{
 				nouvelle_liste.add(liste_vue.get(i));
 			}
 		}
-		
 		return nouvelle_liste;
 	}
 	
