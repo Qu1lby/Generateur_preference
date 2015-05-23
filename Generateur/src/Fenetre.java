@@ -501,7 +501,27 @@ public class Fenetre extends JFrame implements ActionListener{
 		Centre.add(middle, BorderLayout.CENTER);
 		Centre.add(bas, BorderLayout.SOUTH);
 		
-		// Listenners NOTER / SUPPRIMER / RETOUR
+		// Listenners NOTER / MODIFIER / SUPPRIMER / RETOUR
+		valider.addActionListener(this);
+		valider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(recherche.getText()!=null && recherche.getText().compareTo("")!=0){
+					Ressource tmp = r_recherche;
+					r_recherche = null;
+					r_recherche = ma_videotheque.recherche(recherche.getText());
+
+					if(r_recherche!=null){
+						menu = "Recherche";
+					}else{
+						JOptionPane.showMessageDialog(null, "Aucune ressource de ce nom\n          n'est disponible", "",
+								JOptionPane.INFORMATION_MESSAGE);
+						text_recherche = r_recherche.getTitre(); 
+						r_recherche = tmp;
+					}
+				}else text_recherche = "";
+			}
+		});
+		
 		retour.addActionListener(this);
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -739,12 +759,14 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 	}
 	
+	
 	/** 
 	 * Menu recommandation
 	 */
 	public void Menu_recommandation(){
 		
 	}
+	
 	
 	/**
 	 * Relance l'affichage après une action sur un bouton
