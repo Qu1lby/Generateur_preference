@@ -159,13 +159,15 @@ public class Videotheque implements Serializable{
 	 * Note moyenne de la vidéothèque
 	 * @return int : Note moyenne
 	 */
-	public int note_moyenne() {
-		int note = 0;
+	public double note_moyenne() {
+		double note = 0;
+		int compt = 0;
 		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()) {
 			if (!entry.getValue().isEmpty()) {
 				for (Ressource r : this.tab_film.get(entry.getKey())) {
 					if(r.getNote() <= 10 && r.getNote() >= 0) {
 						note += r.getNote();
+						compt++;
 					}
 				}
 			}
@@ -176,11 +178,12 @@ public class Videotheque implements Serializable{
 				for (Ressource r : this.tab_serie.get(entry.getKey())) {
 					if(r.getNote() <= 10 && r.getNote() >= 0) {
 						note += r.getNote();
+						compt++;
 					}
 				}
 			}
 		}
-		note = note / (this.tab_film.size() + this.tab_serie.size());
+		note = note / compt;
 		return note;
 	}
 	
@@ -191,9 +194,9 @@ public class Videotheque implements Serializable{
 	public ArrayList<Ressource> list_films_sup_moy(){
 		ArrayList<Ressource> nouvelle_liste = new ArrayList<Ressource>();
 		ArrayList<Ressource> liste_vue = this.list_vu();
-		
+		double note_moy = this.note_moyenne();
 		for(int i=0; i<liste_vue.size(); i++) {
-			if(liste_vue.get(i).getNote() >= this.note_moyenne()) {
+			if(liste_vue.get(i).getNote() >= note_moy) {
 				nouvelle_liste.add(liste_vue.get(i));
 			}
 		}
