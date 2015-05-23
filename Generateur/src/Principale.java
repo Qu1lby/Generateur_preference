@@ -194,6 +194,7 @@ public class Principale {
 					mes_recommandations.init(ma_videotheque);
 					if(!mes_recommandations.getListe_des_similaires().isEmpty()) {
 						mes_recommandations.afficher();
+						fin = true;
 					}
 					break;
 					
