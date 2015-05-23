@@ -25,12 +25,13 @@ public class Recommandation {
 		
 		for(int i=0; i<liste_films_vus.size(); i++) {
             ArrayList<Association> liste = liste_films_vus.get(i).getSimilaire();
+            
             for( Association a : liste){
-                //if(!a.getRessemblance().getVu()) {
-                    //if(!liste_des_similaires.contains(a.getRessemblance())){
+                if(!a.getRessemblance().getVu()) {
+                    if(!liste_des_similaires.contains(a.getRessemblance())){
                         liste_des_similaires.add(a.getRessemblance());
-                    //}
-                //}
+                    }
+                }
             }
     	}
 	}

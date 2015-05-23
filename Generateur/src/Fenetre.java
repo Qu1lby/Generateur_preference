@@ -463,7 +463,21 @@ public class Fenetre extends JFrame implements ActionListener{
 		middle_c.add(director);
 		middle_c.add(casting);
 		middle_c.add(genre);
-		middle_c.add(duree);		
+		middle_c.add(duree);	
+		
+	/*	ArrayList<Ressource> arr = new ArrayList<Ressource>();
+		arr.add(r_recherche);
+		Similarite.init(ma_videotheque, arr);
+		JPanel simi = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		simi.add(new JLabel(r_recherche.getType()+" similaires :"));
+		
+		String[] stockArr = new String[r_recherche.getSimilaire().size()];
+		stockArr = r_recherche.getSimilaire().toArray(stockArr);
+		JComboBox similaire = new JComboBox(stockArr);
+		similaire.setSelectedItem(0);
+
+		simi.add(similaire);
+		middle_c.add(simi);
 		
 		if(r_recherche.getVu()){
 			JLabel note = new JLabel("Note : "+r_recherche.getNote());
@@ -472,8 +486,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			middle_c.add(note);
 		}
 		middle_c.add(new JLabel(""));
-		
-		middle_b.add(synopsis);
+		middle_b.add(synopsis);*/
 		
 		// Panneau bas du Centre
 		JPanel bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
