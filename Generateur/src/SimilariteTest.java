@@ -12,8 +12,31 @@ import org.junit.Test;
 public class SimilariteTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testInit() {
+
+
+		
+	}
+	
+	@Test
+	public void testAddSimilarite() {
+
+
+		
+	}
+	
+	@Test
+	public void testNote() {
+
+
+		
+	}
+	
+	@Test
+	public void testGivePointArray() {
+
+
+		
 	}
 
 }

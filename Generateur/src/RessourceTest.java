@@ -74,30 +74,10 @@ public class RessourceTest {
 
 	@Test
 	public void testSetVu() {
-		assertEquals(false, r_test.getVu());
+		assertEquals(false, r_test.isVu());
 		r_test.setVu(true);
-		assertEquals(true, r_test.getVu());
+		assertEquals(true, r_test.isVu());
 		r_test.setVu(false);
-		assertEquals(false, r_test.getVu());
-	}
-	
-	/* A faire */
-	
-	@Test
-	// Avec un Film
-	public void testToString1() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	// Avec une Série
-	public void testToString2() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	// Avec un type indéfini
-	public void testToString3() {
-		fail("Not yet implemented");
+		assertEquals(false, r_test.isVu());
 	}
 }

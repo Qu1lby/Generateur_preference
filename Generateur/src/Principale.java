@@ -156,12 +156,11 @@ public class Principale {
 							else System.out.println("Aucune association possible");
 						}
 						if(ss_choix == 3) { //while à faire :(
-							if(ma_videotheque.recherche(nom).getVu()) {
+							if(ma_videotheque.recherche(nom).isVu()) {
 								System.out.print("Vous avez déjà vu ce film");								
 							}
 							else {
 								ma_videotheque.recherche(nom).setVu(true);
-								ma_videotheque.recherche(nom).setDate(new Date());
 								ma_videotheque.sauvegarder("myBibli.bi");
 								System.out.print("Ajouter une note [0-10]: ");
 								int note = scan.nextInt();
