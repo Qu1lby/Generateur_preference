@@ -74,10 +74,10 @@ public class RessourceTest {
 
 	@Test
 	public void testSetVu() {
-		assertEquals(false, r_test.getVu());
+		assertEquals(false, r_test.isVu());
 		r_test.setVu(true);
-		assertEquals(true, r_test.getVu());
+		assertEquals(true, r_test.isVu());
 		r_test.setVu(false);
-		assertEquals(false, r_test.getVu());
+		assertEquals(false, r_test.isVu());
 	}
 }

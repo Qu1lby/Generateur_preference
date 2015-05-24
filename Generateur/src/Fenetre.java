@@ -250,7 +250,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			//Si la valeur de l'entrée n'est pas nulle (si des films existent pour la lettre actuelle)
 			if (!entry.getValue().isEmpty()) {
 				for (Ressource R : ma_videotheque.tab_film.get(entry.getKey())) {
-					if(R.getVu()){
+					if(R.isVu()){
 						listModel_film.addElement("- "+R.getTitre()+" -");
 					}else listModel_film.addElement(R.getTitre());
 				}
@@ -261,7 +261,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			//Si la valeur de l'entrée n'est pas nulle (si des films existent pour la lettre actuelle)
 			if (!entry.getValue().isEmpty()) {
 				for (Ressource R : ma_videotheque.tab_serie.get(entry.getKey())) {
-					if(R.getVu()){
+					if(R.isVu()){
 						listModel_serie.addElement("- "+R.getTitre()+" -");
 					}else listModel_serie.addElement(R.getTitre());
 				}
@@ -418,6 +418,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		
 		// Panneau middle du Centre
+		JPanel midd = new JPanel(new FlowLayout());
 		JPanel middle = new JPanel(new BorderLayout());
 		JPanel middle_haut_bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel middle_c = new JPanel(new GridLayout(10,1));
@@ -467,22 +468,39 @@ public class Fenetre extends JFrame implements ActionListener{
 		middle_c.add(genre);
 		middle_c.add(duree);	
 		
-	/*	ArrayList<Ressource> arr = new ArrayList<Ressource>();
+		JPanel bord = new JPanel();
+		bord.setLayout(new BoxLayout(bord, BoxLayout.Y_AXIS));
+		
+		ArrayList<Ressource> arr = new ArrayList<Ressource>();
 		arr.add(r_recherche);
 		Similarite.init(ma_videotheque, arr);
-		JPanel simi = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		simi.add(new JLabel(r_recherche.getType()+" similaires :"));
+		bord.add(new JLabel("Ressources similaires :"));
+		bord.add(new JLabel(" "));
 		
-		String[] stockArr = new String[r_recherche.getSimilaire().size()];
-		stockArr = r_recherche.getSimilaire().toArray(stockArr);
-		JComboBox similaire = new JComboBox(stockArr);
-		similaire.setSelectedItem(0);
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for(Association a : r_recherche.getSimilaire()){
+			listModel.addElement(a.getRessemblance().getTitre());
+		}
+		
+		JList<String> list_film = new JList<String>(listModel);
 
-		simi.add(similaire);
-		middle_c.add(simi);
-		*/
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(list_film);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setPreferredSize(new Dimension(150,130));
+		scrollPane.getViewport().setOpaque(false);
 		
-		if(r_recherche.getVu()){
+		
+
+		list_film.setVisibleRowCount(5);
+		
+		bord.add(scrollPane);
+		midd.add(middle);
+		midd.add(new JLabel("  "));
+		midd.add(bord);
+		
+		
+		if(r_recherche.isVu()){
 			JLabel note = new JLabel("Note : "+r_recherche.getNote());
 			note.setFont(font2);
 			note.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -507,15 +525,20 @@ public class Fenetre extends JFrame implements ActionListener{
 		note.setFocusPainted(false);
 		note.setContentAreaFilled(false);
 		
-		if(!r_recherche.getVu()){
-			bas.add(note);
-		}
+		JButton modifier= new JButton("Modifier");
+		modifier.setFocusPainted(false);
+		modifier.setContentAreaFilled(false);
+		modifier.setEnabled(false);
 		
+		if(!r_recherche.isVu())
+			bas.add(note);
+		
+		bas.add(modifier);
 		bas.add(supprimer);
 		bas.add(retour);
 		
 		Centre.add(haut, BorderLayout.NORTH);
-		Centre.add(middle, BorderLayout.CENTER);
+		Centre.add(midd, BorderLayout.CENTER);
 		Centre.add(bas, BorderLayout.SOUTH);
 		
 		// Listenners NOTER / MODIFIER / SUPPRIMER / RETOUR
@@ -538,6 +561,22 @@ public class Fenetre extends JFrame implements ActionListener{
 				}else text_recherche = "";
 			}
 		});
+		
+		MouseAdapter ma = new MouseAdapter() {
+		    @SuppressWarnings("rawtypes")
+			public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		        	int index = list.locationToIndex(evt.getPoint());
+		            ListModel dlm = list.getModel();
+		            String item = (String) dlm.getElementAt(index);;
+		            list.ensureIndexIsVisible(index);
+		        	recherche.setText(item);
+		        }
+		    }
+		};
+		
+		list_film.addMouseListener(ma);
 		
 		retour.addActionListener(this);
 		retour.addActionListener(new ActionListener() {

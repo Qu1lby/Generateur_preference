@@ -30,7 +30,7 @@ public class Recommandation {
 			ArrayList<Association> liste = liste_films_vus.get(i).getSimilaire();
 			liste_des_premiers_similaires.add(liste.get(0).getRessemblance());
 			for (Association a : liste){
-				if (!a.getRessemblance().getVu()){
+				if (!a.getRessemblance().isVu()){
 					if (!liste_des_similaires.contains(a.getRessemblance()))
 						liste_des_similaires.add(a.getRessemblance());
 				}

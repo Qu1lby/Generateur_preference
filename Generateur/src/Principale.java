@@ -156,7 +156,7 @@ public class Principale {
 							else System.out.println("Aucune association possible");
 						}
 						if(ss_choix == 3) { //while à faire :(
-							if(ma_videotheque.recherche(nom).getVu()) {
+							if(ma_videotheque.recherche(nom).isVu()) {
 								System.out.print("Vous avez déjà vu ce film");								
 							}
 							else {
