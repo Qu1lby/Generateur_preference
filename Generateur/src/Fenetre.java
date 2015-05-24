@@ -30,7 +30,8 @@ public class Fenetre extends JFrame implements ActionListener{
 	public String menu;
 	public String text_recherche;
 	public Ressource r_recherche;
-
+	public boolean r_modifier;
+	
 	/**
 	 * Constructeur -> Handle fermeture et configuration par défaut
 	 */
@@ -38,6 +39,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		 ma_videotheque = new Videotheque();
 		 menu = "Chargement";
 		 text_recherche = "";
+		 r_modifier = false;
 		 
 		// Fermeture de la Fenêtre avec la croix
 		addWindowListener(new WindowAdapter() {
@@ -528,7 +530,6 @@ public class Fenetre extends JFrame implements ActionListener{
 		JButton modifier= new JButton("Modifier");
 		modifier.setFocusPainted(false);
 		modifier.setContentAreaFilled(false);
-		modifier.setEnabled(false);
 		
 		if(!r_recherche.isVu())
 			bas.add(note);
@@ -591,6 +592,14 @@ public class Fenetre extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				ma_videotheque.supprimer(r_recherche);
 				menu = "Principal";
+			}
+		});
+		
+		modifier.addActionListener(this);
+		modifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu = "Ajouter";
+				r_modifier = true;
 			}
 		});
 		
@@ -674,7 +683,8 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		MaskFormatter mask2 = null;
 		try {
-			mask2 = new MaskFormatter("###");
+			mask2 = new MaskFormatter("***");
+			mask2.setValidCharacters("0123456789 ");
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}	
@@ -740,6 +750,23 @@ public class Fenetre extends JFrame implements ActionListener{
 		huit.add(new JLabel("TYPE :   "));
 		huit.add(List);
 		middle_c.add(huit);
+		
+		if(r_modifier){
+			titre.setText(r_recherche.getTitre());
+			annee.setText(""+r_recherche.getAnnee());
+			director.setText(r_recherche.getRealisateur());
+			casting.setText(r_recherche.getActeur().toString().substring(1,
+					r_recherche.getActeur().toString().length()-1));
+			genre.setText(r_recherche.getGenre().toString().substring(1,
+					r_recherche.getGenre().toString().length()-1));
+			if(r_recherche.getDuree()==0)
+				duree.setText("0");
+			else duree.setText(""+r_recherche.getDuree());
+			synopsis.setText(r_recherche.getSynopsis());
+			if(r_recherche.getTitre().compareTo("Serie")==0){
+				List.setSelectedIndex(1);
+			}
+		}
 
 		// Panneau bas du Centre
 		JPanel bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -748,7 +775,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		retour.setFocusPainted(false);
 		retour.setContentAreaFilled(false);
 		
-		JButton ajouter = new JButton("Ajouter");
+		JButton ajouter = new JButton("Ajouter/Modifier");
 		ajouter.setFocusPainted(false);
 		ajouter.setContentAreaFilled(false);
 		
@@ -760,7 +787,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		Centre.add(bas, BorderLayout.SOUTH);
 
 		
-		// Listenners  AJOUTER/ RETOUR
+		// Listenners  AJOUTER / RETOUR
 		retour.addActionListener(this);
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -782,7 +809,7 @@ public class Fenetre extends JFrame implements ActionListener{
 					String r_director = director.getText();
 					String r_casting = casting.getText();
 					String r_genre = genre.getText();
-					String r_duree = duree.getText();
+					String r_duree = duree.getText().trim();
 					if(r_duree.compareTo("   ")==0)
 						r_duree="-1";
 					
@@ -802,10 +829,23 @@ public class Fenetre extends JFrame implements ActionListener{
 					}
 					
 					Ressource new_r = new Ressource(r_title, Integer.parseInt(r_date), r_synopsis, l_casting, l_genre, Integer.parseInt(r_duree), r_type, r_director);
-					ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
-					menu = "Principal";
+					
+					if(!r_modifier){
+						ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
+						menu = "Principal";
+					}else{
+						int note = r_recherche.getNote();
+						boolean vu = r_recherche.isVu();
+						new_r.setNote(note);
+						new_r.setVu(vu);
+						
+						ma_videotheque.supprimer(r_recherche);
+						ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
+						menu = "Recherche";
+						r_recherche = new_r;
+					}
 				
-				}else JOptionPane.showMessageDialog(null, "Impossible d'ajouter le film", "",
+				}else JOptionPane.showMessageDialog(null, "Ajouter un titre", "",
 						JOptionPane.ERROR_MESSAGE);
 				
 			}
@@ -814,6 +854,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		this.setContentPane(Centre);
 		
 	}
+	
 	
 	
 	/** 
