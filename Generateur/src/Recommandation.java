@@ -15,6 +15,7 @@ public class Recommandation {
 	 */
 	public Recommandation() {
 		liste_des_similaires = new ArrayList<Ressource>();
+		liste_des_premiers_similaires = new ArrayList<Ressource>();
 	}
 	
 	/**
