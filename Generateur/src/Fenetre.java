@@ -251,7 +251,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			if (!entry.getValue().isEmpty()) {
 				for (Ressource R : ma_videotheque.tab_film.get(entry.getKey())) {
 					if(R.getVu()){
-						listModel_film.addElement("- "+R.getTitre()+" -  ("+R.getNote()+")");
+						listModel_film.addElement("- "+R.getTitre()+" -");
 					}else listModel_film.addElement(R.getTitre());
 				}
 			}
@@ -262,7 +262,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			if (!entry.getValue().isEmpty()) {
 				for (Ressource R : ma_videotheque.tab_serie.get(entry.getKey())) {
 					if(R.getVu()){
-						listModel_serie.addElement("- "+R.getTitre()+" -  ("+R.getNote()+")");
+						listModel_serie.addElement("- "+R.getTitre()+" -");
 					}else listModel_serie.addElement(R.getTitre());
 				}
 			}
@@ -370,6 +370,9 @@ public class Fenetre extends JFrame implements ActionListener{
 		            ListModel dlm = list.getModel();
 		            String item = (String) dlm.getElementAt(index);;
 		            list.ensureIndexIsVisible(index);
+		            if(item.contains("-")){
+		            	item = item.substring(2, item.length()-2);
+		            }
 		        	recherche.setText(item);
 		        }
 		    }
@@ -380,8 +383,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		this.setContentPane(Centre);
 	}
-	
-	
+
 	
 	/**
 	 * Menu Recherche
@@ -478,6 +480,7 @@ public class Fenetre extends JFrame implements ActionListener{
 
 		simi.add(similaire);
 		middle_c.add(simi);
+		*/
 		
 		if(r_recherche.getVu()){
 			JLabel note = new JLabel("Note : "+r_recherche.getNote());
@@ -485,8 +488,9 @@ public class Fenetre extends JFrame implements ActionListener{
 			note.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 			middle_c.add(note);
 		}
+		
 		middle_c.add(new JLabel(""));
-		middle_b.add(synopsis);*/
+		middle_b.add(synopsis);
 		
 		// Panneau bas du Centre
 		JPanel bas = new JPanel(new FlowLayout(FlowLayout.CENTER));

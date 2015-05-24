@@ -1,6 +1,5 @@
 /**
  * Cette classe Junit teste la classe Analyse 
- * 
  * @author Guillaume Haben
  * @author Kilian Cuny
  * @version 1.0
@@ -26,6 +25,6 @@ public class AnalyseTest {
 		assertEquals(26, Analyse.Hashage(','));
 	}
 
-	// Test pour charger -> Dur à faire
-	
+	// Test pour charger -> Pas vraiment réalisable
+
 }
