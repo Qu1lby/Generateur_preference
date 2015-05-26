@@ -753,12 +753,14 @@ public class Fenetre extends JFrame implements ActionListener{
 		huit.add(new JLabel("TYPE :   "));
 		huit.add(List);
 		
-		if(r_recherche.isVu()){
-		neuf.add(new JLabel("NOTE :"));
-		String[] liste2 = {"0","1","2","3","4","5","6","7","8","9"};
+		String[] liste2 = {"0","1","2","3","4","5","6","7","8","9","10"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox List2 = new JComboBox(liste2);
-		List.setSelectedIndex(r_recherche.getNote());
+		
+		if(r_modifier && r_recherche.isVu()){
+			neuf.add(new JLabel("NOTE :"));
+			List2.setSelectedIndex(r_recherche.getNote());
+			neuf.add(List2);
 		}
 		
 		JPanel ligne = new JPanel(new FlowLayout());
@@ -849,7 +851,10 @@ public class Fenetre extends JFrame implements ActionListener{
 						ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
 						menu = "Principal";
 					}else{
-						int note = r_recherche.getNote();
+						int note;
+						if(r_recherche.isVu()){
+							note = Integer.parseInt(List2.getSelectedItem().toString());
+						}else note = r_recherche.getNote();
 						boolean vu = r_recherche.isVu();
 						new_r.setNote(note);
 						new_r.setVu(vu);
