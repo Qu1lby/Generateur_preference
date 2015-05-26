@@ -964,7 +964,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			Recommandation r = new Recommandation();
 			r.init(ma_videotheque);
 			if(!r.getListe_des_similaires().isEmpty()) {
-				ArrayList<Ressource> arr = r.getListe_des_similaires_reduite();	
+				ArrayList<Ressource> arr = r.getListe_des_similaires();	
 				for(Ressource ress : arr){
 					listModel_film.addElement(ress.getTitre());
 				}
