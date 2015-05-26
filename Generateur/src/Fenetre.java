@@ -704,8 +704,11 @@ public class Fenetre extends JFrame implements ActionListener{
 		JPanel huit = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel neuf = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+		
 		JLabel titre_aff = new JLabel("Ajouter une Ressource");
 		titre_aff.setFont(font);
+		
+		if(r_modifier) titre_aff.setText("Modifier une Ressource");
 		
 		JPanel haut_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		haut_centre.add(titre_aff);
