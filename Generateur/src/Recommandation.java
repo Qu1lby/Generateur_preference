@@ -12,11 +12,9 @@ import java.util.ArrayList;
 public class Recommandation {
 
 	ArrayList<Ressource> liste_des_similaires;
-	ArrayList<Ressource> liste_des_premiers_similaires;
 
 	public Recommandation() {
 		liste_des_similaires = new ArrayList<Ressource>();
-		liste_des_premiers_similaires = new ArrayList<Ressource>();
 	}
 
 	/**
@@ -27,28 +25,57 @@ public class Recommandation {
 		ArrayList<Ressource> liste_films_vus = v.list_films_sup_moy();
 		Similarite.init(v, liste_films_vus);
 
-		for (int i = 0; i < liste_films_vus.size(); i++){
-			ArrayList<Association> liste = liste_films_vus.get(i).getSimilaire();
-			liste_des_premiers_similaires.add(liste.get(0).getRessemblance());
-			for (Association a : liste){
-				if (!a.getRessemblance().isVu()){
-					if (!liste_des_similaires.contains(a.getRessemblance()))
-						liste_des_similaires.add(a.getRessemblance());
+		// Cas où l'utilisateur a plus de 5 films vu et sup à moy
+		if (liste_films_vus.size() > 5) {
+			// Tant qu'elle est pas remplie :
+			while (liste_des_similaires.size() <= 5) {
+				//On prend une ressource au hasard
+				ArrayList<Association> ressource_random = getRandomList(liste_films_vus).getSimilaire();
+				// Si elle est pas dans la liste
+				if (!liste_des_similaires.contains(ressource_random.get(0).getRessemblance())) {
+					//On l'ajoute
+					liste_des_similaires.add(ressource_random.get(0).getRessemblance());
 				}
 			}
 		}
+		// Cas où l'utilisateur a moins de 5 films vu
+		else if (liste_films_vus.size() < 5) {
+			// Tant qu'elle est pas remplie :
+			while (liste_des_similaires.size() <= 5) {
+				for (int k = 0; k < 5; k++) {
+					for (int j = 0; j < liste_films_vus.size(); j++) {
+						liste_des_similaires.add(liste_films_vus.get(j).getSimilaire().get(k).getRessemblance());
+					}
+				}
+			}
+		}
+		// Sinon liste_films_vus = 5
+		else {
+			// Tant qu'elle est pas remplie :
+			while (liste_des_similaires.size() <= 5) {
+				for (int j = 0; j < liste_films_vus.size(); j++) {
+					liste_des_similaires.add(liste_films_vus.get(j).getSimilaire().get(0).getRessemblance());
+				}
+			}
+		}
+			
+	}
+	
+	private Ressource getRandomList(ArrayList<Ressource> liste) {
+		int index = (int)(Math.random()*liste.size());	
+	    return liste.get(index);
 	}
 
 	/**
 	 * Affiche la liste des Ressources recommandées
 	 */
 	public void afficher() {
-		for (int i = 0; i < liste_des_premiers_similaires.size(); i++)
-			System.out.println(liste_des_premiers_similaires.get(i).toString());
+		for (int i = 0; i < liste_des_similaires.size(); i++)
+			System.out.println(liste_des_similaires.get(i).toString());
 	}
 
 	/**
-	 * Retourne la liste des Ressources recommandées
+	 * Retourne la liste des Ressources recommandées en entier
 	 * @return the liste_des_similaires
 	 */
 	public ArrayList<Ressource> getListe_des_similaires() {
