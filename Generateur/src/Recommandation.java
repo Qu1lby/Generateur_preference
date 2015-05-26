@@ -8,13 +8,16 @@
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Recommandation {
 
 	ArrayList<Ressource> liste_des_similaires;
+	public HashMap<Integer, ArrayList<String>> recommandation_par_date;
 
 	public Recommandation() {
 		liste_des_similaires = new ArrayList<Ressource>();
+		recommandation_par_date = new HashMap<Integer, ArrayList<String>>();
 	}
 
 	/**
@@ -65,6 +68,36 @@ public class Recommandation {
 			
 	}
 	
+	public HashMap<Integer, ArrayList<String>> recommandation_date(Videotheque v) {
+		ArrayList<Ressource> liste_films_vus = v.list_films_sup_moy();
+		for(int i=0; i<liste_films_vus.size(); i++) {
+            ArrayList<Association> liste = liste_films_vus.get(i).getSimilaire();
+            
+            for( Association a : liste){
+                if(!a.getRessemblance().isVu()) {
+                    if(!liste_des_similaires.contains(a.getRessemblance())){
+                		int annee = a.getRessemblance().getAnnee();
+                		String titre = a.getRessemblance().getTitre();
+                    	//Si l'année existe déjà dans le hashmap
+                    	if (recommandation_par_date.containsKey(annee)) {
+                    		recommandation_par_date.get(annee).add(titre);                   	
+                    	}
+                    	else { //On créé la clé correspondant à l'année
+                    		ArrayList<String> nouvelle_liste = new ArrayList<String>();
+                    		nouvelle_liste.add(titre);
+                    		recommandation_par_date.put(annee, nouvelle_liste);//nouvelle liste
+                    	}
+                    }
+                }
+            }
+    	}
+		return recommandation_par_date;
+	}
+	
+	/**
+	 * Récupère une ressource aléatoire dans une liste de ressource
+	 * @return Ressource
+	 */
 	private Ressource getRandomList(ArrayList<Ressource> liste) {
 		int index = (int)(Math.random()*liste.size());	
 	    return liste.get(index);
