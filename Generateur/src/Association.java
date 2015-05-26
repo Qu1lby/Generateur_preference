@@ -2,7 +2,7 @@
  * Classe Association, associe une note à deux ressources
  * @author Kilian Cuny
  * @author Guillaume Haben
- * @version 1.0
+ * @version 2.0
  */
 
 import java.io.Serializable;
@@ -22,6 +22,7 @@ public class Association implements Serializable, Comparable<Association> {
 	/**
 	 * Permet de comparer deux Associations
 	 * @param arg: Association
+	 * @return Résultat d'un compareTo classique
 	 */
 	public int compareTo(Association arg) {
 		if (note == arg.getNote()) return 0;
