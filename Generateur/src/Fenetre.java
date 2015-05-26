@@ -250,10 +250,10 @@ public class Fenetre extends JFrame implements ActionListener{
 		DefaultListModel<String> listModel_film = new DefaultListModel<String>();
 		DefaultListModel<String> listModel_serie = new DefaultListModel<String>();
 		
-		for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.tab_film.entrySet()) {
+		for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.getTab_film().entrySet()) {
 			//Si la valeur de l'entrée n'est pas nulle (si des films existent pour la lettre actuelle)
 			if (!entry.getValue().isEmpty()) {
-				for (Ressource R : ma_videotheque.tab_film.get(entry.getKey())) {
+				for (Ressource R : ma_videotheque.getTab_film().get(entry.getKey())) {
 					if(R.isVu()){
 						listModel_film.addElement("- "+R.getTitre()+" -");
 					}else listModel_film.addElement(R.getTitre());
@@ -261,10 +261,10 @@ public class Fenetre extends JFrame implements ActionListener{
 			}
 		}
 		
-		for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.tab_serie.entrySet()) {
+		for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.getTab_serie().entrySet()) {
 			//Si la valeur de l'entrée n'est pas nulle (si des films existent pour la lettre actuelle)
 			if (!entry.getValue().isEmpty()) {
-				for (Ressource R : ma_videotheque.tab_serie.get(entry.getKey())) {
+				for (Ressource R : ma_videotheque.getTab_serie().get(entry.getKey())) {
 					if(R.isVu()){
 						listModel_serie.addElement("- "+R.getTitre()+" -");
 					}else listModel_serie.addElement(R.getTitre());

@@ -32,7 +32,7 @@ public class Recommandation {
 				//On prend une ressource au hasard
 				ArrayList<Association> ressource_random = getRandomList(liste_films_vus).getSimilaire();
 				// Si elle est pas dans la liste
-				if (!liste_des_similaires.contains(ressource_random.get(0).getRessemblance())) {
+				if (ressource_random.get(0).getRessemblance().isVu() && !liste_des_similaires.contains(ressource_random.get(0).getRessemblance())) {
 					//On l'ajoute
 					liste_des_similaires.add(ressource_random.get(0).getRessemblance());
 				}
@@ -41,19 +41,23 @@ public class Recommandation {
 		// Cas où l'utilisateur a moins de 5 films vu
 		else if (liste_films_vus.size() < 5) {
 			// Tant qu'elle est pas remplie :
-			while (liste_des_similaires.size() <= 5) {
-				for (int k = 0; k < 5; k++) {
-					for (int j = 0; j < liste_films_vus.size(); j++) {
+			for (int k = 0; k < 5; k++) {
+				for (int j = 0; j < liste_films_vus.size(); j++) {
+					if (!liste_films_vus.get(j).getSimilaire().get(k).getRessemblance().isVu() && !liste_des_similaires.contains(liste_films_vus.get(j).getSimilaire().get(k).getRessemblance())) {
 						liste_des_similaires.add(liste_films_vus.get(j).getSimilaire().get(k).getRessemblance());
 					}
+					if (liste_des_similaires.size() == 5) break;
 				}
+				if (liste_des_similaires.size() == 5) break;
 			}
+			
 		}
 		// Sinon liste_films_vus = 5
 		else {
 			// Tant qu'elle est pas remplie :
-			while (liste_des_similaires.size() <= 5) {
-				for (int j = 0; j < liste_films_vus.size(); j++) {
+			for (int j = 0; j < liste_films_vus.size(); j++) {
+				// Si elle est pas dans la liste
+				if (!liste_films_vus.get(j).getSimilaire().get(0).getRessemblance().isVu() && !liste_des_similaires.contains(liste_films_vus.get(j).getSimilaire().get(0).getRessemblance())) {
 					liste_des_similaires.add(liste_films_vus.get(j).getSimilaire().get(0).getRessemblance());
 				}
 			}

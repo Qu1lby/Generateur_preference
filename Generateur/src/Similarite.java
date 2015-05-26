@@ -22,18 +22,18 @@ public abstract class Similarite {
 		if (sources != null && sources.size() != 0 && v != null){
 			for (Ressource source : sources){
 				
-				for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_film.entrySet()){
+				for (Entry<Integer, ArrayList<Ressource>> entry : v.getTab_film().entrySet()){
 					if (!entry.getValue().isEmpty()){
-						for (Ressource r : v.tab_film.get(entry.getKey())){
+						for (Ressource r : v.getTab_film().get(entry.getKey())){
 							Association a = new Association(source, r, Similarite.note(source, r));
 							Similarite.addSimilarite(source.getSimilaire(), a);
 						}
 					}
 				}
 
-				for (Entry<Integer, ArrayList<Ressource>> entry : v.tab_serie.entrySet()){
+				for (Entry<Integer, ArrayList<Ressource>> entry : v.getTab_serie().entrySet()){
 					if (!entry.getValue().isEmpty()){
-						for (Ressource r : v.tab_serie.get(entry.getKey())){
+						for (Ressource r : v.getTab_serie().get(entry.getKey())){
 							Association a = new Association(source, r, Similarite.note(source, r));
 							Similarite.addSimilarite(source.getSimilaire(), a);
 						}

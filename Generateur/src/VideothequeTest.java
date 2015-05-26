@@ -24,8 +24,8 @@ public class VideothequeTest {
 	@Test
 	public void testVideotheque() {
 		v_test = new Videotheque();
-		assertEquals(27, v_test.tab_film.size());
-		assertEquals(27, v_test.tab_serie.size());
+		assertEquals(27, v_test.getTab_film().size());
+		assertEquals(27, v_test.getTab_serie().size());
 	}
 
 	@Test
@@ -39,10 +39,10 @@ public class VideothequeTest {
 		table = new HashMap<Integer, ArrayList<Ressource>>();
 
 		v_test.setTab_film(table);
-		assertEquals(table, v_test.tab_film);
+		assertEquals(table, v_test.getTab_film());
 
 		v_test.setTab_film(null);
-		assertEquals(null, v_test.tab_film);
+		assertEquals(null, v_test.getTab_film());
 	}
 
 	@Test
@@ -51,10 +51,10 @@ public class VideothequeTest {
 		table = new HashMap<Integer, ArrayList<Ressource>>();
 
 		v_test.setTab_serie(table);
-		assertEquals(table, v_test.tab_serie);
+		assertEquals(table, v_test.getTab_serie());
 
 		v_test.setTab_serie(null);
-		assertEquals(null, v_test.tab_serie);
+		assertEquals(null, v_test.getTab_serie());
 	}
 
 	@Test
