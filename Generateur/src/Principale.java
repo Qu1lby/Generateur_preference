@@ -100,13 +100,13 @@ public class Principale {
 				switch (choix) {
 				case 1:
 					//Pour chaque entrée du HashMap
-					for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.tab_film.entrySet()) {
+					for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.getTab_film().entrySet()) {
 						//Si la valeur de l'entrée n'est pas nulle (si des films existent pour la lettre actuelle)
 						if (!entry.getValue().isEmpty()) {
 							//On affiche la lettre correspondante au HashMap
 							System.out.println("\n--------- " + String.valueOf((char)(entry.getKey() + 65)) + " ---------");
 							//On affiche les entrées (films) correspondant à la lettre
-							for (Ressource R : ma_videotheque.tab_film.get(entry.getKey())) {
+							for (Ressource R : ma_videotheque.getTab_film().get(entry.getKey())) {
 								System.out.println(R.getTitre());
 							}
 						}
@@ -115,13 +115,13 @@ public class Principale {
 					break;
 				case 2:
 					//Pour chaque entrée du HashMap
-					for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.tab_serie.entrySet()) {
+					for (Entry<Integer, ArrayList<Ressource>> entry : ma_videotheque.getTab_serie().entrySet()) {
 						//Si la valeur de l'entrée n'est pas nulle (si des séries existent pour la lettre actuelle)
 						if (!entry.getValue().isEmpty()) {
 							//On affiche la lettre correspondante au HashMap
 							System.out.println("\n--------- " + String.valueOf((char)(entry.getKey() + 65)) + " ---------");
 							//On affiche les entrées (séries) correspondant à la lettre
-							for (Ressource R : ma_videotheque.tab_serie.get(entry.getKey())) {
+							for (Ressource R : ma_videotheque.getTab_serie().get(entry.getKey())) {
 								System.out.println(R.getTitre());
 							}
 						}

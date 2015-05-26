@@ -14,10 +14,24 @@ import java.util.Map.Entry;
 public class Videotheque implements Serializable {
 
 	// Table des films
-	public HashMap<Integer, ArrayList<Ressource>> tab_film;
+	private HashMap<Integer, ArrayList<Ressource>> tab_film;
+
+	/**
+	 * @return the tab_film
+	 */
+	public HashMap<Integer, ArrayList<Ressource>> getTab_film() {
+		return tab_film;
+	}
+
+	/**
+	 * @return the tab_serie
+	 */
+	public HashMap<Integer, ArrayList<Ressource>> getTab_serie() {
+		return tab_serie;
+	}
 
 	// Table des séries
-	public HashMap<Integer, ArrayList<Ressource>> tab_serie;
+	private HashMap<Integer, ArrayList<Ressource>> tab_serie;
 
 	public Videotheque() {
 		this.reintialiser();
