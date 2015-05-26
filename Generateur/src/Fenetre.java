@@ -31,6 +31,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	public String text_recherche;
 	public Ressource r_recherche;
 	public boolean r_modifier;
+	public boolean recomm_globale;
 	
 	/**
 	 * Constructeur -> Handle fermeture et configuration par défaut
@@ -40,6 +41,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		 menu = "Chargement";
 		 text_recherche = "";
 		 r_modifier = false;
+		 recomm_globale = true;
 		 
 		// Fermeture de la Fenêtre avec la croix
 		addWindowListener(new WindowAdapter() {
@@ -702,6 +704,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		JPanel six = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel sept = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel huit = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel neuf = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
 		
 		JLabel titre_aff = new JLabel("Ajouter une Ressource");
@@ -747,12 +750,25 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		String[] liste = { "Film", "Serie"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		final
-		JComboBox List = new JComboBox(liste);
+		final JComboBox List = new JComboBox(liste);
 		List.setSelectedIndex(0);
 		huit.add(new JLabel("TYPE :   "));
 		huit.add(List);
-		middle_c.add(huit);
+		
+		String[] liste2 = {"0","1","2","3","4","5","6","7","8","9","10"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final JComboBox List2 = new JComboBox(liste2);
+		
+		if(r_modifier && r_recherche.isVu()){
+			neuf.add(new JLabel("NOTE :"));
+			List2.setSelectedIndex(r_recherche.getNote());
+			neuf.add(List2);
+		}
+		
+		JPanel ligne = new JPanel(new FlowLayout());
+		ligne.add(huit);
+		ligne.add(neuf);
+		middle_c.add(ligne);
 		
 		if(r_modifier){
 			titre.setText(r_recherche.getTitre());
@@ -837,7 +853,10 @@ public class Fenetre extends JFrame implements ActionListener{
 						ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
 						menu = "Principal";
 					}else{
-						int note = r_recherche.getNote();
+						int note;
+						if(r_recherche.isVu()){
+							note = Integer.parseInt(List2.getSelectedItem().toString());
+						}else note = r_recherche.getNote();
 						boolean vu = r_recherche.isVu();
 						new_r.setNote(note);
 						new_r.setVu(vu);
@@ -857,14 +876,179 @@ public class Fenetre extends JFrame implements ActionListener{
 		this.setContentPane(Centre);
 		
 	}
-	
+		
 	
 	
 	/** 
 	 * Menu recommandation
 	 */
 	public void Menu_recommandation(){
+		final JPanel Centre = new JPanel();
+		Centre.setLayout(new BorderLayout());
 		
+		Font font = new Font("Arial", Font.CENTER_BASELINE,15);
+		Font font2 = new Font("Arial", Font.CENTER_BASELINE,20);
+		
+		final JTextField recherche = new JTextField(30);
+		recherche.setFont(font);
+		recherche.setText(text_recherche);
+		
+		JLabel lab_recherche = new JLabel("Recherche : ");
+		lab_recherche.setFont(font);
+		
+		JButton valider = new JButton("Lancer");
+		valider.setFocusPainted(false);
+		valider.setContentAreaFilled(false);
+		
+		// Panneau haut du Centre
+		JPanel haut = new JPanel(new BorderLayout());
+		JPanel haut_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		haut_centre.add(lab_recherche);
+		haut_centre.add(recherche);
+		haut_centre.add(valider);
+		
+		haut.add(new JLabel(" "), BorderLayout.NORTH);
+		haut.add(haut_centre,BorderLayout.CENTER);
+		
+		// Panneaux middle du Centre
+		JPanel middle = new JPanel(new BorderLayout());
+		JPanel middle_haut = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel middle_center = new JPanel(new BorderLayout());
+		JPanel middle_center_top = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel middle_center_center = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel middle_bas = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		
+		JButton recommandation = new JButton("Recommandation globale");
+		recommandation.setFocusPainted(false);
+		recommandation.setBackground(Color.white);
+		
+		JButton recom_date = new JButton("Recommandation par année");
+		recom_date.setFocusPainted(false);
+		if(!recomm_globale){
+			recom_date.setFocusPainted(true);
+		}		
+		recom_date.setBackground(Color.white);
+		
+		recommandation.addActionListener(this);
+		recommandation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				recomm_globale = true;
+				menu = "Recommandation";
+			}
+		});
+		
+		recom_date.addActionListener(this);
+		recom_date.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				recomm_globale = false;
+				menu = "Recommandation";
+			}
+		});
+		
+		JButton reinitialiser = new JButton("Menu Principal");
+		reinitialiser.setFocusPainted(false);
+		reinitialiser.setContentAreaFilled(false);
+		
+		reinitialiser.addActionListener(this);
+		reinitialiser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu = "Principal";
+			}
+		});
+		
+		DefaultListModel<String> listModel_film = new DefaultListModel<String>();
+		String[] liste = {};
+		final JComboBox choix = new JComboBox(liste);
+		
+		if(recomm_globale){
+			Recommandation r = new Recommandation();
+			r.init(ma_videotheque);
+			if(!r.getListe_des_similaires().isEmpty()) {
+				ArrayList<Ressource> arr = r.getListe_des_similaires_reduite();	
+				for(Ressource ress : arr){
+					listModel_film.addElement(ress.getTitre());
+				}
+			}
+		}else{
+			
+			
+		}
+		
+		JList<String> list_film = new JList<String>(listModel_film);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(list_film);
+		list_film.setVisibleRowCount(5);
+		list_film.setBackground(Color.white);
+		
+		middle.add(middle_bas,BorderLayout.SOUTH);
+		middle.add(middle_haut, BorderLayout.NORTH);
+		middle.add(middle_center, BorderLayout.CENTER);
+		middle_center.add(middle_center_top, BorderLayout.NORTH);
+		middle_center.add(middle_center_center, BorderLayout.CENTER);
+		
+		JPanel liste_film_panel = new JPanel();
+        liste_film_panel.setLayout(new BoxLayout(liste_film_panel, BoxLayout.Y_AXIS));
+        liste_film_panel.add(new JLabel(" "));
+        liste_film_panel.add(new JLabel(" "));
+        liste_film_panel.add(scrollPane);
+		
+		middle_center_top.add(recommandation);
+		middle_center_top.add(recom_date);
+		middle_center_center.add(new JLabel(" "));
+		if(!recomm_globale){
+			middle_center_center.add(choix);
+        }
+		middle_center_center.add(liste_film_panel);
+		
+		middle_center.add(new JLabel(" "), BorderLayout.SOUTH);
+		middle_haut.add(new JLabel(" "), BorderLayout.NORTH);
+		middle_bas.add(reinitialiser);
+		
+		Centre.add(haut, BorderLayout.NORTH);
+		Centre.add(middle, BorderLayout.CENTER);
+		
+		// Listenners 
+		valider.addActionListener(this);
+		valider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(recherche.getText()!=null && recherche.getText().compareTo("")!=0){
+					Ressource tmp = r_recherche;
+					r_recherche = null;
+					r_recherche = ma_videotheque.recherche(recherche.getText());
+
+					if(r_recherche!=null){
+						menu = "Recherche";
+					}else{
+						JOptionPane.showMessageDialog(null, "Aucune ressource de ce nom\n          n'est disponible", "",
+								JOptionPane.INFORMATION_MESSAGE);
+						text_recherche = r_recherche.getTitre(); 
+						r_recherche = tmp;
+					}
+				}else text_recherche = "";
+			}
+		});
+			
+	
+		MouseAdapter ma = new MouseAdapter() {
+		    @SuppressWarnings("rawtypes")
+			public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		        	int index = list.locationToIndex(evt.getPoint());
+		            ListModel dlm = list.getModel();
+		            String item = (String) dlm.getElementAt(index);;
+		            list.ensureIndexIsVisible(index);
+		            if(item.contains("-")){
+		            	item = item.substring(2, item.length()-2);
+		            }
+		            recherche.setText(item);
+		        }
+		    }
+		};
+		
+		list_film.addMouseListener(ma);
+		
+		this.setContentPane(Centre);
 	}
 	
 	
