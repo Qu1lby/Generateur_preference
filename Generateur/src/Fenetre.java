@@ -702,6 +702,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		JPanel six = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel sept = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel huit = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel neuf = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
 		JLabel titre_aff = new JLabel("Ajouter une Ressource");
 		titre_aff.setFont(font);
@@ -744,12 +745,23 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		String[] liste = { "Film", "Serie"};
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		final
-		JComboBox List = new JComboBox(liste);
+		final JComboBox List = new JComboBox(liste);
 		List.setSelectedIndex(0);
 		huit.add(new JLabel("TYPE :   "));
 		huit.add(List);
-		middle_c.add(huit);
+		
+		if(r_recherche.isVu()){
+		neuf.add(new JLabel("NOTE :"));
+		String[] liste2 = {"0","1","2","3","4","5","6","7","8","9"};
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final JComboBox List2 = new JComboBox(liste2);
+		List.setSelectedIndex(r_recherche.getNote());
+		}
+		
+		JPanel ligne = new JPanel(new FlowLayout());
+		ligne.add(huit);
+		ligne.add(neuf);
+		middle_c.add(ligne);
 		
 		if(r_modifier){
 			titre.setText(r_recherche.getTitre());
