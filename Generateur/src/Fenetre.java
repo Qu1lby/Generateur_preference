@@ -884,13 +884,12 @@ public class Fenetre extends JFrame implements ActionListener{
 	/** 
 	 * Menu recommandation
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void Menu_recommandation(){
 		final JPanel Centre = new JPanel();
 		Centre.setLayout(new BorderLayout());
 		
 		Font font = new Font("Arial", Font.CENTER_BASELINE,15);
-		Font font2 = new Font("Arial", Font.CENTER_BASELINE,20);
-		
 		final JTextField recherche = new JTextField(30);
 		recherche.setFont(font);
 		recherche.setText(text_recherche);
@@ -1032,8 +1031,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			
 	
 		MouseAdapter ma = new MouseAdapter() {
-		    @SuppressWarnings("rawtypes")
-			public void mouseClicked(MouseEvent evt) {
+		    public void mouseClicked(MouseEvent evt) {
 		        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
 		        	int index = list.locationToIndex(evt.getPoint());

@@ -4,7 +4,7 @@
  * 
  * @author Kilian Cuny
  * @author Guillaume Haben
- * @version 1.0
+ * @version 2.0
  */
 
 import java.io.*;
@@ -16,7 +16,6 @@ public abstract class Analyse {
 	/**
 	 * Charge le fichier le décompose et instancie les ressources
 	 * correspondantes
-	 * 
 	 * @param v : Vidéothèque pour laquelle on attachera les ressources
 	 * @param fichier : Doit être au format standard de lecture
 	 * @return int : code_retour
@@ -149,7 +148,6 @@ public abstract class Analyse {
 
 	/**
 	 * Fonction static de Hashage
-	 * 
 	 * @param c : Caractère à analyser
 	 * @return Place dans l'alphabet du caractère
 	 */

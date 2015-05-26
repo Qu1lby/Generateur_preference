@@ -3,7 +3,7 @@
  * 
  * @author Kilian Cuny
  * @author Guillaume Haben
- * @version 1.0
+ * @version 2.0
  */
 
 import java.util.ArrayList;
