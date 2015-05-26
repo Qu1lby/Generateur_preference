@@ -477,7 +477,9 @@ public class Fenetre extends JFrame implements ActionListener{
 		
 		ArrayList<Ressource> arr = new ArrayList<Ressource>();
 		arr.add(r_recherche);
-		Similarite.init(ma_videotheque, arr);
+		if(r_recherche.getSimilaire().size()==0)
+			Similarite.init(ma_videotheque, arr);
+		
 		bord.add(new JLabel("Ressources similaires :"));
 		bord.add(new JLabel(" "));
 		
@@ -964,7 +966,7 @@ public class Fenetre extends JFrame implements ActionListener{
 			Recommandation r = new Recommandation();
 			r.init(ma_videotheque);
 			if(!r.getListe_des_similaires().isEmpty()) {
-				ArrayList<Ressource> arr = r.getListe_des_similaires_reduite();	
+				ArrayList<Ressource> arr = r.getListe_des_similaires();	
 				for(Ressource ress : arr){
 					listModel_film.addElement(ress.getTitre());
 				}

@@ -21,5 +21,4 @@ public class AssociationTest {
 		assertEquals(-1, a.compareTo(c));
 		assertEquals(0, a.compareTo(a));
 	}
-
 }

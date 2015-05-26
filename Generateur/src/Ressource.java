@@ -3,7 +3,7 @@
  * 
  * @author Guillaume Haben
  * @author Kilian Cuny
- * @version 1.0
+ * @version 2.0
  */
 
 import java.io.Serializable;
@@ -11,10 +11,9 @@ import java.util.*;
 
 @SuppressWarnings("serial")
 public class Ressource implements Serializable, Comparable<Ressource> {
-	private static int id = 1;
-
 	@SuppressWarnings("unused")
-	private int id_ressource = id;
+	private static int id = 1;
+	
 	private int annee, duree, note;
 	private String titre, synopsis, type, realisateur;
 	private ArrayList<String> acteurs, genres;
@@ -22,8 +21,8 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	private boolean vu;
 
 	/**
-	 * Constructeur de Ressource Effectue les vérifications et changements
-	 * adéquats Il est necessaire que le titre du film ne soit pas null
+	 * Constructeur de Ressource, effectue les vérifications et changements
+	 * adéquats. Il est necessaire que le titre du film ne soit pas null
 	 * @param : Toutes les données nécessaires
 	 */
 	public Ressource(String titre, int annee, String synopsis, ArrayList<String> acteurs,
@@ -73,9 +72,9 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 		this.note = -1;
 	}
 
-
 	/**
 	 * Affiche une Ressource
+	 * @return Chaîne formatée
 	 */
 	public String toString() {
 		if (this.type.compareTo("Serie") == 0){ 
@@ -145,8 +144,9 @@ public class Ressource implements Serializable, Comparable<Ressource> {
 	}
 
 	/**
-	 * Permet de comparer des ressources
+	 * Permet de comparer deux Ressources
 	 * @param arg: Ressource
+	 * @return Résultat d'un compareTo classique
 	 */
 	public int compareTo(Ressource arg) {
 		return this.titre.compareTo(arg.getTitre());

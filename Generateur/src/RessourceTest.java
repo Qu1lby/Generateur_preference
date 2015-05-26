@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Test;
 
-
 public class RessourceTest {
 
 	public Ressource r_test;
@@ -26,7 +25,7 @@ public class RessourceTest {
 		r_test = new Ressource("titre", 1000, "synopsis", arr_test, arr_test, 1000, "Film", "realisateur");
 
 		assertEquals("titre", r_test.getTitre());
-		assertEquals(0, r_test.getAnnee());
+		assertEquals(1000, r_test.getAnnee());
 		assertEquals("synopsis", r_test.getSynopsis());
 		assertEquals(arr_test, r_test.getActeur());
 		assertEquals(arr_test, r_test.getGenre());
@@ -43,7 +42,7 @@ public class RessourceTest {
 		
 		assertEquals("titre", r_test.getTitre());
 		assertEquals(2015, r_test.getAnnee());
-		assertEquals("", r_test.getSynopsis());
+		assertEquals("Synopsis non renseigné", r_test.getSynopsis());
 		assertEquals(arr_test, r_test.getActeur());
 		assertEquals(arr_test, r_test.getGenre());
 		assertEquals(125, r_test.getDuree());
@@ -79,5 +78,16 @@ public class RessourceTest {
 		assertEquals(true, r_test.isVu());
 		r_test.setVu(false);
 		assertEquals(false, r_test.isVu());
+	}
+	
+	@Test
+	public void testCompareTo() {
+		Ressource r = new Ressource("titre", 1000, "synopsis", null, null, 1000, "Film", "realisateur");
+		Ressource r1 = new Ressource("prec_titre", 1000, "synopsis", null, null, 1000, "Film", "realisateur");
+		Ressource r2 = new Ressource("zuivant_titre", 1000, "synopsis", null, null, 1000, "Film", "realisateur");
+		
+		assertEquals(0, r_test.compareTo(r));
+		assertTrue(0<r_test.compareTo(r1));
+		assertTrue(0>r_test.compareTo(r2));
 	}
 }
