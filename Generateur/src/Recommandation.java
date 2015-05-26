@@ -85,7 +85,7 @@ public class Recommandation {
                     	else { //On créé la clé correspondant à l'année
                     		ArrayList<String> nouvelle_liste = new ArrayList<String>();
                     		nouvelle_liste.add(titre);
-                    		recommandation_par_date.put(annee, nouvelle_liste);//nouvelle liste
+                    		recommandation_par_date.put(annee, nouvelle_liste);
                     	}
                     }
                 }
