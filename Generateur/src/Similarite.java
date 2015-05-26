@@ -21,7 +21,7 @@ public abstract class Similarite {
 	public static int init(Videotheque v, ArrayList<Ressource> sources) {
 		if (sources != null && sources.size() != 0 && v != null){
 			for (Ressource source : sources){
-				
+				source.getSimilaire().clear();
 				for (Entry<Integer, ArrayList<Ressource>> entry : v.getTab_film().entrySet()){
 					if (!entry.getValue().isEmpty()){
 						for (Ressource r : v.getTab_film().get(entry.getKey())){
@@ -57,7 +57,8 @@ public abstract class Similarite {
 		if (liste.size() < 5) liste.add(a);
 		else{
 			for (Association r_tmp : liste){
-				if (r_tmp.getNote() < a.getNote()){
+				if (r_tmp.getNote() < a.getNote() && 
+						(r_tmp.getRessemblance().getTitre().compareTo(a.getRessemblance().getTitre())!=0)){
 					liste.remove(r_tmp);
 					liste.add(a);
 					break;

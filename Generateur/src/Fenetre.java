@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	public Ressource r_recherche;
 	public boolean r_modifier;
 	public boolean recomm_globale;
+	String[] listing;
 	
 	/**
 	 * Constructeur -> Handle fermeture et configuration par défaut
@@ -42,6 +44,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		 text_recherche = "";
 		 r_modifier = false;
 		 recomm_globale = true;
+		 listing = null;
 		 
 		// Fermeture de la Fenêtre avec la croix
 		addWindowListener(new WindowAdapter() {
@@ -494,9 +497,7 @@ public class Fenetre extends JFrame implements ActionListener{
 		scrollPane.setViewportView(list_film);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setPreferredSize(new Dimension(150,130));
-		scrollPane.getViewport().setOpaque(false);
-		
-		
+		scrollPane.getViewport().setOpaque(false);		
 
 		list_film.setVisibleRowCount(5);
 		
@@ -878,7 +879,6 @@ public class Fenetre extends JFrame implements ActionListener{
 		this.setContentPane(Centre);
 		
 	}
-		
 	
 	
 	/** 
@@ -954,12 +954,12 @@ public class Fenetre extends JFrame implements ActionListener{
 		reinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu = "Principal";
+				recomm_globale = true;
 			}
 		});
 		
-		DefaultListModel<String> listModel_film = new DefaultListModel<String>();
-		String[] liste = {};
-		final JComboBox choix = new JComboBox(liste);
+		final DefaultListModel<String> listModel_film = new DefaultListModel<String>();
+		HashMap<Integer, ArrayList<String>>hm = null;
 		
 		if(recomm_globale){
 			Recommandation r = new Recommandation();
@@ -971,15 +971,49 @@ public class Fenetre extends JFrame implements ActionListener{
 				}
 			}
 		}else{
+			Recommandation r = new Recommandation();
+			hm = r.recommandation_date(ma_videotheque);
+			ArrayList<String> date = new ArrayList<String>();
 			
+			for (Entry<Integer, ArrayList<String>> entry : hm.entrySet()){
+				date.add(entry.getKey().toString());
+			}
+			listing = date.toArray(new String[date.size()]);
 			
+			if(hm.size()!=0){
+				ArrayList<String> titre_annee = hm.get(Integer.parseInt(listing[0]));
+	            listModel_film.clear();
+	            for(String s : titre_annee){
+	           	 	listModel_film.addElement(s);
+	            }
+            }
 		}
+		
+		JComboBox choix = new JComboBox();
+		if(listing != null) choix.setModel(new DefaultComboBoxModel(listing));
+
 		
 		JList<String> list_film = new JList<String>(listModel_film);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(list_film);
+		scrollPane.setPreferredSize(new Dimension(200,170));
 		list_film.setVisibleRowCount(5);
 		list_film.setBackground(Color.white);
+		
+
+		choix.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent event) {
+	             JComboBox comboBox = (JComboBox) event.getSource();
+	             String selected = comboBox.getSelectedItem().toString();
+	             Recommandation r = new Recommandation();
+	     		 HashMap<Integer, ArrayList<String>>hm2 = r.recommandation_date(ma_videotheque);
+	             ArrayList<String> titre_annee = hm2.get(Integer.parseInt(selected));
+	             listModel_film.clear();
+	             for(String s : titre_annee){
+	            	 listModel_film.addElement(s);
+	             }
+			 }
+	         });
 		
 		middle.add(middle_bas,BorderLayout.SOUTH);
 		middle.add(middle_haut, BorderLayout.NORTH);
