@@ -80,12 +80,14 @@ public class Recommandation {
                 		String titre = a.getRessemblance().getTitre();
                     	//Si l'année existe déjà dans le hashmap
                     	if (recommandation_par_date.containsKey(annee)) {
-                    		recommandation_par_date.get(annee).add(titre);                   	
+                    		if(!recommandation_par_date.containsValue(titre))
+                    			recommandation_par_date.get(annee).add(titre);                   	
                     	}
                     	else { //On créé la clé correspondant à l'année
                     		ArrayList<String> nouvelle_liste = new ArrayList<String>();
                     		nouvelle_liste.add(titre);
-                    		recommandation_par_date.put(annee, nouvelle_liste);
+                    		if(!recommandation_par_date.containsValue(titre))
+                    			recommandation_par_date.put(annee, nouvelle_liste);
                     	}
                     }
                 }
