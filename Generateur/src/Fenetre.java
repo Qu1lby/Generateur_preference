@@ -853,7 +853,7 @@ public class Fenetre extends JFrame implements ActionListener{
 					Ressource new_r = new Ressource(r_title, Integer.parseInt(r_date), r_synopsis, l_casting, l_genre, Integer.parseInt(r_duree), r_type, r_director);
 					
 					if(!r_modifier){
-						ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
+						ma_videotheque.ajouter(Analyse.hashage(new_r.getTitre().charAt(0)), new_r, r_type);
 						menu = "Principal";
 					}else{
 						int note;
@@ -865,7 +865,7 @@ public class Fenetre extends JFrame implements ActionListener{
 						new_r.setVu(vu);
 						
 						ma_videotheque.supprimer(r_recherche);
-						ma_videotheque.ajouter(Analyse.Hashage(new_r.getTitre().charAt(0)), new_r, r_type);
+						ma_videotheque.ajouter(Analyse.hashage(new_r.getTitre().charAt(0)), new_r, r_type);
 						menu = "Recherche";
 						r_recherche = new_r;
 					}
@@ -964,15 +964,15 @@ public class Fenetre extends JFrame implements ActionListener{
 		if(recomm_globale){
 			Recommandation r = new Recommandation();
 			r.init(ma_videotheque);
-			if(!r.getListe_des_similaires().isEmpty()) {
-				ArrayList<Ressource> arr = r.getListe_des_similaires();	
+			if(!r.getListeDesSimilaires().isEmpty()) {
+				ArrayList<Ressource> arr = r.getListeDesSimilaires();	
 				for(Ressource ress : arr){
 					listModel_film.addElement(ress.getTitre());
 				}
 			}
 		}else{
 			Recommandation r = new Recommandation();
-			hm = r.recommandation_date(ma_videotheque);
+			hm = r.recommandationDate(ma_videotheque);
 			ArrayList<String> date = new ArrayList<String>();
 			
 			for (Entry<Integer, ArrayList<String>> entry : hm.entrySet()){
@@ -1006,7 +1006,7 @@ public class Fenetre extends JFrame implements ActionListener{
 	             JComboBox comboBox = (JComboBox) event.getSource();
 	             String selected = comboBox.getSelectedItem().toString();
 	             Recommandation r = new Recommandation();
-	     		 HashMap<Integer, ArrayList<String>>hm2 = r.recommandation_date(ma_videotheque);
+	     		 HashMap<Integer, ArrayList<String>>hm2 = r.recommandationDate(ma_videotheque);
 	             ArrayList<String> titre_annee = hm2.get(Integer.parseInt(selected));
 	             listModel_film.clear();
 	             for(String s : titre_annee){

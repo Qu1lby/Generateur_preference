@@ -1,3 +1,10 @@
+/**
+ * Classe Principale, application console
+ * @author Guillaume Haben
+ * @author Kilian Cuny
+ * @version 1.0
+ */
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map.Entry;
@@ -190,7 +197,7 @@ public class Principale {
 					
 				case 4:
 					mes_recommandations.init(ma_videotheque);
-					if(!mes_recommandations.getListe_des_similaires().isEmpty()) {
+					if(!mes_recommandations.getListeDesSimilaires().isEmpty()) {
 						mes_recommandations.afficher();
 						fin = true;
 					}

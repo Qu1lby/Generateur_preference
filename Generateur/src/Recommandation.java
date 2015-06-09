@@ -1,6 +1,6 @@
 /**
- * Cette classe permet de créer une liste de recommandation de Ressource
- *  à partir de celles vues de la vidéothèque 
+ * Cette classe permet de créer une liste de recommandation de Ressources
+ * à partir de celles déjà vues de la vidéothèque 
  * 
  * @author Guillaume Haben
  * @author Kilian Cuny
@@ -12,12 +12,19 @@ import java.util.HashMap;
 
 public class Recommandation {
 
-	ArrayList<Ressource> liste_des_similaires;
-	public HashMap<Integer, ArrayList<String>> recommandation_par_date;
+	/** Liste des ressources recommandées globalement */
+	private ArrayList<Ressource> listeRecom;
+	
+	/** Table des ressources triées par année */
+	private HashMap<Integer, ArrayList<String>> recomParDate;
+	
+	/** Nombre de films dans la recommandation */
+	private static final int nbRecom = 5;
 
+	/** Constructeur par défaut */
 	public Recommandation() {
-		liste_des_similaires = new ArrayList<Ressource>();
-		recommandation_par_date = new HashMap<Integer, ArrayList<String>>();
+		listeRecom = new ArrayList<Ressource>();
+		recomParDate = new HashMap<Integer, ArrayList<String>>();
 	}
 
 	/**
@@ -25,75 +32,76 @@ public class Recommandation {
 	 * @param v : Vidéothèque
 	 */
 	public void init(Videotheque v) {
-		ArrayList<Ressource> liste_films_vus = v.list_films_sup_moy();
-		Similarite.init(v, liste_films_vus);
+		ArrayList<Ressource> listeFilmsVus = v.list_films_sup_moy();
+		Similarite.init(v, listeFilmsVus);
 
-		// Cas où l'utilisateur a plus de 5 films vu et sup à moy
-		if (liste_films_vus.size() > 5) {
-			// Tant qu'elle est pas remplie :
-			while (liste_des_similaires.size() <= 5) {
+		// L'utilisateur a plus de 'nbRecom' films vus > moyenne
+		if (listeFilmsVus.size() > nbRecom) {
+			while (listeRecom.size() <= nbRecom) {
+				
 				//On prend une ressource au hasard
-				ArrayList<Association> ressource_random = getRandomList(liste_films_vus).getSimilaire();
-				// Si elle est pas dans la liste
-				if (ressource_random.get(0).getRessemblance().isVu() && !liste_des_similaires.contains(ressource_random.get(0).getRessemblance())) {
-					//On l'ajoute
-					liste_des_similaires.add(ressource_random.get(0).getRessemblance());
+				ArrayList<Association> srcRandom = getRandomList(listeFilmsVus).getSimilaire();
+				if (srcRandom.get(0).getRessemblance().isVu() &&
+						!listeRecom.contains(srcRandom.get(0).getRessemblance())) {
+					listeRecom.add(srcRandom.get(0).getRessemblance());
 				}
 			}
 		}
-		// Cas où l'utilisateur a moins de 5 films vu
-		else if (liste_films_vus.size() < 5) {
-			// Tant qu'elle est pas remplie :
-			for (int k = 0; k < 5; k++) {
-				for (int j = 0; j < liste_films_vus.size(); j++) {
-					if (!liste_films_vus.get(j).getSimilaire().get(k).getRessemblance().isVu() && !liste_des_similaires.contains(liste_films_vus.get(j).getSimilaire().get(k).getRessemblance())) {
-						liste_des_similaires.add(liste_films_vus.get(j).getSimilaire().get(k).getRessemblance());
+		else if (listeFilmsVus.size() < nbRecom) {
+			for (int i = 0; i < nbRecom; i++) {
+				for (int j = 0; j < listeFilmsVus.size(); j++) {
+					if (!listeFilmsVus.get(j).getSimilaire().get(i).getRessemblance().isVu() &&
+							!listeRecom.contains(listeFilmsVus.get(j).getSimilaire().get(i).getRessemblance())) {
+						listeRecom.add(listeFilmsVus.get(j).getSimilaire().get(i).getRessemblance());
 					}
-					if (liste_des_similaires.size() == 5) break;
+					if (listeRecom.size() == nbRecom) break;
 				}
-				if (liste_des_similaires.size() == 5) break;
+				if (listeRecom.size() == nbRecom) break;
 			}
 			
 		}
-		// Sinon liste_films_vus = 5
+		// Liste_films_vus.size() = nbRecom
 		else {
-			// Tant qu'elle est pas remplie :
-			for (int j = 0; j < liste_films_vus.size(); j++) {
-				// Si elle est pas dans la liste
-				if (!liste_films_vus.get(j).getSimilaire().get(0).getRessemblance().isVu() && !liste_des_similaires.contains(liste_films_vus.get(j).getSimilaire().get(0).getRessemblance())) {
-					liste_des_similaires.add(liste_films_vus.get(j).getSimilaire().get(0).getRessemblance());
+			for (int j = 0; j < listeFilmsVus.size(); j++) {
+				if (!listeFilmsVus.get(j).getSimilaire().get(0).getRessemblance().isVu() &&
+						!listeRecom.contains(listeFilmsVus.get(j).getSimilaire().get(0).getRessemblance())) {
+					listeRecom.add(listeFilmsVus.get(j).getSimilaire().get(0).getRessemblance());
 				}
 			}
-		}
-			
+		}	
 	}
 	
-	public HashMap<Integer, ArrayList<String>> recommandation_date(Videotheque v) {
+	/**
+	 * Génére une HashMap des ressources avec pour clé leur date
+	 * @param v : Vidéothèque
+	 * @return Hashmap de Ressources
+	 */
+	public HashMap<Integer, ArrayList<String>> recommandationDate(final Videotheque v) {
 		ArrayList<Ressource> liste_films_vus = v.list_films_sup_moy();
+		ArrayList<String> newListe = new ArrayList<String>();
+		
 		for(int i=0; i<liste_films_vus.size(); i++) {
             ArrayList<Association> liste = liste_films_vus.get(i).getSimilaire();
             
-            for( Association a : liste){
-                if(!a.getRessemblance().isVu()) {
-                    if(!liste_des_similaires.contains(a.getRessemblance())){
-                		int annee = a.getRessemblance().getAnnee();
-                		String titre = a.getRessemblance().getTitre();
-                    	//Si l'année existe déjà dans le hashmap
-                    	if (recommandation_par_date.containsKey(annee)) {
-                    		if(!recommandation_par_date.containsValue(titre))
-                    			recommandation_par_date.get(annee).add(titre);                   	
-                    	}
-                    	else { //On créé la clé correspondant à l'année
-                    		ArrayList<String> nouvelle_liste = new ArrayList<String>();
-                    		nouvelle_liste.add(titre);
-                    		if(!recommandation_par_date.containsValue(titre))
-                    			recommandation_par_date.put(annee, nouvelle_liste);
-                    	}
-                    }
+            for(Association a : liste) {
+                if(!a.getRessemblance().isVu() && !listeRecom.contains(a.getRessemblance())) {
+            		final int annee = a.getRessemblance().getAnnee();
+            		final String titre = a.getRessemblance().getTitre();
+            		
+                	//Si l'année existe déjà dans le hashmap
+                	if (recomParDate.containsKey(annee)) {
+                		if(!recomParDate.containsValue(titre))
+                			recomParDate.get(annee).add(titre);                   	
+                	}else { //On créé la clé correspondant à l'année
+                		newListe.clear();
+                		newListe.add(titre);
+                		if(!recomParDate.containsValue(titre))
+                			recomParDate.put(annee, newListe);
+                	}
                 }
             }
     	}
-		return recommandation_par_date;
+		return recomParDate;
 	}
 	
 	/**
@@ -101,7 +109,7 @@ public class Recommandation {
 	 * @return Ressource
 	 */
 	private Ressource getRandomList(ArrayList<Ressource> liste) {
-		int index = (int)(Math.random()*liste.size());	
+		final int index = (int)(Math.random()*liste.size());	
 	    return liste.get(index);
 	}
 
@@ -109,16 +117,15 @@ public class Recommandation {
 	 * Affiche la liste des Ressources recommandées
 	 */
 	public void afficher() {
-		for (int i = 0; i < liste_des_similaires.size(); i++)
-			System.out.println(liste_des_similaires.get(i).toString());
+		for (int i = 0; i < listeRecom.size(); i++)
+			System.out.println(listeRecom.get(i).toString());
 	}
 
 	/**
 	 * Retourne la liste des Ressources recommandées en entier
-	 * @return the liste_des_similaires
+	 * @return the listeRecom
 	 */
-	public ArrayList<Ressource> getListe_des_similaires() {
-		return liste_des_similaires;
+	public ArrayList<Ressource> getListeDesSimilaires() {
+		return listeRecom;
 	}
-
 }

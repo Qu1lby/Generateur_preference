@@ -10,10 +10,19 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Association implements Serializable, Comparable<Association> {
 
-	private Ressource source, ressemblance;
-	private double note;
+	/** Les deux ressources associées */
+	final private Ressource source, ressemblance;
+	
+	/** Note de similarité */
+	final private double note;
 
-	public Association(Ressource source, Ressource ressemblance, double note) {
+	/**
+	 * Constructeur d'Association
+	 * @param source
+	 * @param ressemblance
+	 * @param note
+	 */
+	public Association(final Ressource source, final Ressource ressemblance, final double note) {
 		this.source = source;
 		this.ressemblance = ressemblance;
 		this.note = note;

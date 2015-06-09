@@ -13,16 +13,16 @@ public class AnalyseTest {
 	@Test
 	public void testHashage() {
 		// Alphabet majuscule
-		assertEquals(0, Analyse.Hashage('A'));
-		assertEquals(9, Analyse.Hashage('J'));
-		assertEquals(25, Analyse.Hashage('Z'));
+		assertEquals(0, Analyse.hashage('A'));
+		assertEquals(9, Analyse.hashage('J'));
+		assertEquals(25, Analyse.hashage('Z'));
 		// Alphabet minuscule
-		assertEquals(0, Analyse.Hashage('a'));
-		assertEquals(9, Analyse.Hashage('j'));
-		assertEquals(25, Analyse.Hashage('z'));
+		assertEquals(0, Analyse.hashage('a'));
+		assertEquals(9, Analyse.hashage('j'));
+		assertEquals(25, Analyse.hashage('z'));
 		// Caractère spéciaux
-		assertEquals(26, Analyse.Hashage('é'));
-		assertEquals(26, Analyse.Hashage(','));
+		assertEquals(26, Analyse.hashage('é'));
+		assertEquals(26, Analyse.hashage(','));
 	}
 
 	// Test pour charger -> Pas vraiment réalisable

@@ -70,7 +70,7 @@ public class VideothequeTest {
 	public void testAjouter() {
 		v_test = new Videotheque();
 		Ressource r_test = new Ressource("Ressource", 1000, "synopsis", null, null, 1000, "Film", "realisateur");
-		v_test.ajouter(Analyse.Hashage(r_test.getTitre().charAt(0)), r_test, r_test.getType());
+		v_test.ajouter(Analyse.hashage(r_test.getTitre().charAt(0)), r_test, r_test.getType());
 		//assertTrue(v_test.getTab_film().containsKey(r_test.getTitre()));
 	}
 

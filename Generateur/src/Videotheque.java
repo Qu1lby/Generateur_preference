@@ -13,26 +13,13 @@ import java.util.Map.Entry;
 @SuppressWarnings("serial")
 public class Videotheque implements Serializable {
 
-	// Table des films
+	/** Table des films */
 	private HashMap<Integer, ArrayList<Ressource>> tab_film;
 
-	/**
-	 * @return the tab_film
-	 */
-	public HashMap<Integer, ArrayList<Ressource>> getTab_film() {
-		return tab_film;
-	}
-
-	/**
-	 * @return the tab_serie
-	 */
-	public HashMap<Integer, ArrayList<Ressource>> getTab_serie() {
-		return tab_serie;
-	}
-
-	// Table des séries
+	/** Table des séries */
 	private HashMap<Integer, ArrayList<Ressource>> tab_serie;
 
+	/** Constructeur par défaut */
 	public Videotheque() {
 		this.reintialiser();
 	}
@@ -63,16 +50,16 @@ public class Videotheque implements Serializable {
 	 * Réinitialise les Préférences
 	 */
 	public void reintialiser_pref() {
-		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()){
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()) {
 			if (!entry.getValue().isEmpty()){
-				for (Ressource r : this.tab_film.get(entry.getKey())){
+				for (Ressource r : this.tab_film.get(entry.getKey())) {
 					if (r.isVu()) r.reinit();
 				}
 			}
 		}
 
-		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()){
-			if (!entry.getValue().isEmpty()){
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
 				for (Ressource r : this.tab_serie.get(entry.getKey())){
 					if (r.isVu()) r.reinit();
 				}
@@ -87,10 +74,10 @@ public class Videotheque implements Serializable {
 	 * @param type : type de la Ressource
 	 */
 	public void ajouter(int cle, Ressource r, String type) {
-		if (type.compareTo("Film") == 0){
+		if (type.compareTo("Film") == 0) {
 			tab_film.get(cle).add(r);
 			Collections.sort(tab_film.get(cle));
-		}else{
+		}else {
 			tab_serie.get(cle).add(r);
 			Collections.sort(tab_serie.get(cle));
 		}
@@ -101,8 +88,10 @@ public class Videotheque implements Serializable {
 	 * @param r : Ressource
 	 */
 	public void supprimer(Ressource r) {
-		int cle = Analyse.Hashage(r.getTitre().charAt(0));
-		tab_film.get(cle).remove(r);
+		int cle = Analyse.hashage(r.getTitre().charAt(0));
+		if(tab_film.containsKey(cle) && tab_film.get(cle).contains(r))
+			tab_film.get(cle).remove(r);
+		else tab_serie.get(cle).remove(r);
 	}
 
 	/**
@@ -111,15 +100,15 @@ public class Videotheque implements Serializable {
 	 * @return Ressource ou null
 	 */
 	public Ressource recherche(String titre) {
-		int cle = Analyse.Hashage(titre.charAt(0));
+		int cle = Analyse.hashage(titre.charAt(0));
 		ArrayList<Ressource> liste_film = tab_film.get(cle);
 		ArrayList<Ressource> liste_serie = tab_serie.get(cle);
 
-		for (Ressource f : liste_film){
+		for (Ressource f : liste_film) {
 			if (f.getTitre().toUpperCase().compareTo(titre.toUpperCase()) == 0) return f; 
 		}
 
-		for (Ressource s : liste_serie){
+		for (Ressource s : liste_serie) {
 			if (s.getTitre().toUpperCase().compareTo(titre.toUpperCase()) == 0) return s;
 		}
 		return null;
@@ -132,7 +121,7 @@ public class Videotheque implements Serializable {
 	 */
 	public ArrayList<Association> getSimilarite(String titre) {
 		Ressource r = this.recherche(titre);
-		if (r != null && r.getSimilaire().size() == 0){
+		if (r != null && r.getSimilaire().size() == 0) {
 			ArrayList<Ressource> list = new ArrayList<Ressource>();
 			list.add(r);
 			Similarite.init(this, list);
@@ -148,21 +137,22 @@ public class Videotheque implements Serializable {
 	public ArrayList<Ressource> list_vu() {
 		ArrayList<Ressource> list = new ArrayList<Ressource>();
 
-		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()){
-			if (!entry.getValue().isEmpty()){
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
 				for (Ressource r : this.tab_film.get(entry.getKey())){
 					if (r.isVu()) list.add(r);
 				}
 			}
 		}
 
-		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()){
-			if (!entry.getValue().isEmpty()){
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
 				for (Ressource r : this.tab_serie.get(entry.getKey())){
 					if (r.isVu()) list.add(r);
 				}
 			}
-		} return list;
+		}
+		return list;
 	}
 
 	/**
@@ -172,9 +162,9 @@ public class Videotheque implements Serializable {
 	public double note_moyenne() {
 		double note = 0;
 		int compt = 0;
-		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()){
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_film.entrySet()) {
 			if (!entry.getValue().isEmpty()){
-				for (Ressource r : this.tab_film.get(entry.getKey())){
+				for (Ressource r : this.tab_film.get(entry.getKey())) {
 					if (r.getNote() <= 10 && r.getNote() >= 0){
 						note += r.getNote();
 						compt++;
@@ -183,16 +173,17 @@ public class Videotheque implements Serializable {
 			}
 		}
 
-		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()){
-			if (!entry.getValue().isEmpty()){
-				for (Ressource r : this.tab_serie.get(entry.getKey())){
+		for (Entry<Integer, ArrayList<Ressource>> entry : this.tab_serie.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				for (Ressource r : this.tab_serie.get(entry.getKey())) {
 					if (r.getNote() <= 10 && r.getNote() >= 0){
 						note += r.getNote();
 						compt++;
 					}
 				}
 			}
-		} return note / compt;
+		}
+		return note / compt;
 	}
 
 	/**
@@ -237,7 +228,7 @@ public class Videotheque implements Serializable {
 			oos.close();
 			return 0;
 
-		}catch (IOException e){
+		}catch (IOException e) {
 			e.printStackTrace();
 			return -1;
 		}
@@ -249,7 +240,7 @@ public class Videotheque implements Serializable {
 	 * @return code de retour
 	 */
 	public int charger(String fichier) {
-		try{
+		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
 			Videotheque v;
 			v = (Videotheque) ois.readObject();
@@ -260,14 +251,23 @@ public class Videotheque implements Serializable {
 
 			return 0;
 
-		}catch (IOException e){
+		}catch (IOException e) {
 			System.out.println("Chargement corrompu : ");
 			e.printStackTrace();
 			return -1;
-		}catch (ClassNotFoundException e){
+		}catch (ClassNotFoundException e) {
 			System.out.println("Chargement corrompu : ");
 			e.printStackTrace();
 			return -1;
 		}
+	}
+	
+
+	public HashMap<Integer, ArrayList<Ressource>> getTab_film() {
+		return tab_film;
+	}
+
+	public HashMap<Integer, ArrayList<Ressource>> getTab_serie() {
+		return tab_serie;
 	}
 }
